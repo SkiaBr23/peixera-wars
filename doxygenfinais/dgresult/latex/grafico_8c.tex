@@ -1,0 +1,551 @@
+\hypertarget{grafico_8c}{\section{\-Referência ao ficheiro grafico.\-c}
+\label{grafico_8c}\index{grafico.\-c@{grafico.\-c}}
+}
+
+
+\-Módulo de implementação do módulo \hyperlink{grafico_8h}{grafico.\-h}.  
+
+
+{\ttfamily \#include $<$ncurses.\-h$>$}\*
+{\ttfamily \#include $<$menu.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$time.\-h$>$}\*
+{\ttfamily \#include $<$unistd.\-h$>$}\*
+{\ttfamily \#include \char`\"{}grafico.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}estruturas.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}engine.\-h\char`\"{}}\*
+\subsection*{\-Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{grafico_8c_ae41cf1d2edcdcde84810342e123970e3}{\-H\-U\-D\-H}~7
+\item 
+\#define \hyperlink{grafico_8c_a3a1e68cb1b2bf30db58ed0a688ce447c}{\-C\-A\-S\-T\-L\-E\-W}~40
+\item 
+\#define \hyperlink{grafico_8c_a25f003de16c08a4888b69f619d70f427}{\-A\-R\-R\-A\-Y\-\_\-\-S\-I\-Z\-E}(a)~(sizeof(a) / sizeof(a\mbox{[}0\mbox{]}))
+\item 
+\#define \hyperlink{grafico_8c_a66c7984dbe4ba8f39e6f94fbd0a58a00}{\-C\-T\-R\-L\-D}~4
+\end{DoxyCompactItemize}
+\subsection*{\-Funções}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{grafico_8c_a7a0d6a95bdaa10db7c050b21fe084b49}{inicia\-\_\-ncurses} ()
+\begin{DoxyCompactList}\small\item\em \-Função responsável por iniciar o modo ncurses. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_a2f1d963decc31d951961b439eae2fd82}{finaliza\-\_\-ncurses} ()
+\begin{DoxyCompactList}\small\item\em \-Função responsável por finalizar o modo ncurses. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_ada66364dd2a35d4c59586818d91dfcf8}{destroy\-\_\-win} (\-W\-I\-N\-D\-O\-W $\ast$local\-\_\-win)
+\begin{DoxyCompactList}\small\item\em \-Função responsável por apagar as informações de uma janela e deletar sua estrutura. \end{DoxyCompactList}\item 
+int \hyperlink{grafico_8c_ae41ff83d1436eae547973220b8b01f4d}{menu\-\_\-edificio} ()
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela criação do menu de evolução dos edifícios. \end{DoxyCompactList}\item 
+int \hyperlink{grafico_8c_a26358a3d267b436a3be769bbfe61ef5d}{menu\-\_\-unidade} (\hyperlink{estruturas_8h_ab5ee034a420e0a105cf07abdd6c06177}{\-Castelo} $\ast$\hyperlink{structcastelo}{castelo})
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela criação do menu de evolução dos edifícios. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_acd1cee52d27e57acd84d6d25dfd96bfb}{mensagem} (int y, int x, char frase\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela impressão de uma mensagem na tela. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{grafico_8c_a6dee66272c6ef14c938f4b5263110211}{mensagem\-\_\-entrada} (int y, int x, char frase\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em \-Função responsável por imprimir uma mensagem na tela e guardar a informação digitada pelo usuário. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_a2a194251baa5812baac5606d21cd97e5}{tela\-\_\-inicial} ()
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela impressão da tela inicial, com desenhos e opções do menu. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_a71610923bdf8b770790c386b6cd18b63}{tela\-\_\-final} ()
+\begin{DoxyCompactList}\small\item\em \-Função responsável por imprimir a mensagem de despedida e encerrar o programa. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_a783f9e9e4570e2857eaf5a9df635e5d2}{\-Tela\-Game\-Over} ()
+\begin{DoxyCompactList}\small\item\em \-Função responsável por imprimir a mensagem de fim de jogo e encerrar o programa. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_a76fde41fe71bc3720e0b47fcb2523fd5}{creditos} (int y, int x)
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela impressão dos créditos. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_a9e32679286ee0e57cc522aabfa88021a}{print\-\_\-hud} (\-W\-I\-N\-D\-O\-W $\ast$hud, int gold, int wave)
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela impressão do \-H\-U\-D superior, contendo título e informações sobre o jogo(ouro disponível e numero da horda). \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_ac6bc8bf589678dd44151bc8a4685ecab}{print\-\_\-field} (\-W\-I\-N\-D\-O\-W $\ast$field, \hyperlink{estruturas_8h_ae7404ad1121a2b107c66d58cb1ba39bf}{\-Cabeca\-P\-Filas} $\ast$filas)
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela impressão do campo de batalha. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_abe7d84eae09e4309b6ba2c9b86ea8685}{print\-\_\-castle} (\-W\-I\-N\-D\-O\-W $\ast$castle, \hyperlink{estruturas_8h_ab5ee034a420e0a105cf07abdd6c06177}{\-Castelo} $\ast$\hyperlink{structcastelo}{castelo})
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela impressão da área de edifícios. \end{DoxyCompactList}\item 
+int \hyperlink{grafico_8c_a891d476534652b9bf3b3435839a19192}{menu} (\-W\-I\-N\-D\-O\-W $\ast$menuwin)
+\begin{DoxyCompactList}\small\item\em \-Função que cria o menu de opções disponíveis para o usuário na tela inicial. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_a63d0622f4a9e780a6561575886264cf0}{desenhaunidade} (\-W\-I\-N\-D\-O\-W $\ast$win, int \hyperlink{structunidade}{unidade}, int y, int x)
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela impressão do desenho da unidade escolhida nas coordenadas indicadas. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_a3c991aba85d2ce017c5fbd8b69f50a26}{desenhainimigo} (\-W\-I\-N\-D\-O\-W $\ast$win, int inimigo, int y, int x)
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela impressão de unidades inimigas nas coordenadas escolhidas. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_ab410936373e2dd4a2812e6ce1c6aa57e}{desenhaedificio} (\-W\-I\-N\-D\-O\-W $\ast$win, int nivel, int \hyperlink{structedificio}{edificio}, int y, int x)
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela impressão do desenho dos edifícios. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_ac721cf711a36f6455044b3c1d1c5b42a}{seta} (\-W\-I\-N\-D\-O\-W $\ast$win, int tipo, int y, int x)
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela impressão das setas. \end{DoxyCompactList}\item 
+void \hyperlink{grafico_8c_abbe40fd399048d4a423cb4b8fe0b5170}{seta\-\_\-batalha} (\-W\-I\-N\-D\-O\-W $\ast$winfield, int j, int i)
+\begin{DoxyCompactList}\small\item\em \-Função responsável pela atualização do desenho de seta durante uma batalha. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Descrição detalhada}
+\-Módulo de implementação do módulo \hyperlink{grafico_8h}{grafico.\-h}. 
+
+\subsection{\-Documentação das macros}
+\hypertarget{grafico_8c_a25f003de16c08a4888b69f619d70f427}{\index{grafico.\-c@{grafico.\-c}!\-A\-R\-R\-A\-Y\-\_\-\-S\-I\-Z\-E@{\-A\-R\-R\-A\-Y\-\_\-\-S\-I\-Z\-E}}
+\index{\-A\-R\-R\-A\-Y\-\_\-\-S\-I\-Z\-E@{\-A\-R\-R\-A\-Y\-\_\-\-S\-I\-Z\-E}!grafico.c@{grafico.\-c}}
+\subsubsection[{\-A\-R\-R\-A\-Y\-\_\-\-S\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-A\-R\-R\-A\-Y\-\_\-\-S\-I\-Z\-E}(
+\begin{DoxyParamCaption}
+\item[{}]{a}
+\end{DoxyParamCaption}
+)~(sizeof(a) / sizeof(a\mbox{[}0\mbox{]}))}}\label{grafico_8c_a25f003de16c08a4888b69f619d70f427}
+\hypertarget{grafico_8c_a3a1e68cb1b2bf30db58ed0a688ce447c}{\index{grafico.\-c@{grafico.\-c}!\-C\-A\-S\-T\-L\-E\-W@{\-C\-A\-S\-T\-L\-E\-W}}
+\index{\-C\-A\-S\-T\-L\-E\-W@{\-C\-A\-S\-T\-L\-E\-W}!grafico.c@{grafico.\-c}}
+\subsubsection[{\-C\-A\-S\-T\-L\-E\-W}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-A\-S\-T\-L\-E\-W}~40}}\label{grafico_8c_a3a1e68cb1b2bf30db58ed0a688ce447c}
+\hypertarget{grafico_8c_a66c7984dbe4ba8f39e6f94fbd0a58a00}{\index{grafico.\-c@{grafico.\-c}!\-C\-T\-R\-L\-D@{\-C\-T\-R\-L\-D}}
+\index{\-C\-T\-R\-L\-D@{\-C\-T\-R\-L\-D}!grafico.c@{grafico.\-c}}
+\subsubsection[{\-C\-T\-R\-L\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-T\-R\-L\-D}~4}}\label{grafico_8c_a66c7984dbe4ba8f39e6f94fbd0a58a00}
+\hypertarget{grafico_8c_ae41cf1d2edcdcde84810342e123970e3}{\index{grafico.\-c@{grafico.\-c}!\-H\-U\-D\-H@{\-H\-U\-D\-H}}
+\index{\-H\-U\-D\-H@{\-H\-U\-D\-H}!grafico.c@{grafico.\-c}}
+\subsubsection[{\-H\-U\-D\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-H\-U\-D\-H}~7}}\label{grafico_8c_ae41cf1d2edcdcde84810342e123970e3}
+
+
+\subsection{\-Documentação das funções}
+\hypertarget{grafico_8c_a76fde41fe71bc3720e0b47fcb2523fd5}{\index{grafico.\-c@{grafico.\-c}!creditos@{creditos}}
+\index{creditos@{creditos}!grafico.c@{grafico.\-c}}
+\subsubsection[{creditos}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf creditos} (
+\begin{DoxyParamCaption}
+\item[{int}]{y, }
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a76fde41fe71bc3720e0b47fcb2523fd5}
+
+
+\-Função responsável pela impressão dos créditos. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar as coordenadas da impressão. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir na tela os créditos dos criadores do jogo. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: os inteiros devem estar entre 0 e \-L\-I\-N\-E\-S e \-C\-O\-L\-S respectivamente. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void, com parâmetros int y, int x. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em y} & \-Coordenada x desejada \\
+\hline
+{\em x} & \-Coordenada y desejada\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_ab410936373e2dd4a2812e6ce1c6aa57e}{\index{grafico.\-c@{grafico.\-c}!desenhaedificio@{desenhaedificio}}
+\index{desenhaedificio@{desenhaedificio}!grafico.c@{grafico.\-c}}
+\subsubsection[{desenhaedificio}]{\setlength{\rightskip}{0pt plus 5cm}{\bf desenhaedificio} (
+\begin{DoxyParamCaption}
+\item[{\-W\-I\-N\-D\-O\-W $\ast$}]{win, }
+\item[{int}]{nivel, }
+\item[{int}]{edificio, }
+\item[{int}]{y, }
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_ab410936373e2dd4a2812e6ce1c6aa57e}
+
+
+\-Função responsável pela impressão do desenho dos edifícios. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar o ponteiro para a janela, o nível do edifício, o tipo do edifício e as coordenadas. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir os desenhos na área de edifícios. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: win não pode ser nulo, nivel deve estar entre 1 e 3, edificio deve estar entre 0 e 3, y e x devem estar entre 0 e \-L\-I\-N\-E\-S e \-C\-O\-L\-S respectivamente. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void, com parâmetros \-W\-I\-N\-D\-O\-W $\ast$win, int nivel, int edificio, int y, int x. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em win} & \-Ponteiro para a janela em que será desenhada o edificio. \\
+\hline
+{\em nivel} & \-Nível atual do edifício que será desenhado. \\
+\hline
+{\em edificio} & \-Indentificador de edificio. \-Dependendo do número, desenha um edificio diferente. \\
+\hline
+{\em y} & \-Coordenada y desejada. \\
+\hline
+{\em x} & \-Coordenada x desejada.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_a3c991aba85d2ce017c5fbd8b69f50a26}{\index{grafico.\-c@{grafico.\-c}!desenhainimigo@{desenhainimigo}}
+\index{desenhainimigo@{desenhainimigo}!grafico.c@{grafico.\-c}}
+\subsubsection[{desenhainimigo}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf desenhainimigo} (
+\begin{DoxyParamCaption}
+\item[{\-W\-I\-N\-D\-O\-W $\ast$}]{win, }
+\item[{int}]{inimigo, }
+\item[{int}]{y, }
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a3c991aba85d2ce017c5fbd8b69f50a26}
+
+
+\-Função responsável pela impressão de unidades inimigas nas coordenadas escolhidas. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar o ponteiro para a janela, o tipo de unidade e as coordenadas. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir no campo de batalha as unidades geradas pelo inimigo. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: win não pode ser nulo, inimigo deve estar entre 1 e 4, y e x devem estar entre 0 e \-L\-I\-N\-E\-S e \-C\-O\-L\-S respectivamente. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void, com parâmetros \-W\-I\-N\-D\-O\-W $\ast$win, int inimigo, int y, int x. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em win} & \-Ponteiro para a janela em que será desenhada a unidade \\
+\hline
+{\em inimigo} & \-Indentificador de unidade. \-Dependendo do número, desenha uma unidade diferente \\
+\hline
+{\em y} & \-Coordenada y desejada \\
+\hline
+{\em x} & \-Coordenada x desejada\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_a63d0622f4a9e780a6561575886264cf0}{\index{grafico.\-c@{grafico.\-c}!desenhaunidade@{desenhaunidade}}
+\index{desenhaunidade@{desenhaunidade}!grafico.c@{grafico.\-c}}
+\subsubsection[{desenhaunidade}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf desenhaunidade} (
+\begin{DoxyParamCaption}
+\item[{\-W\-I\-N\-D\-O\-W $\ast$}]{win, }
+\item[{int}]{unidade, }
+\item[{int}]{y, }
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a63d0622f4a9e780a6561575886264cf0}
+
+
+\-Função responsável pela impressão do desenho da unidade escolhida nas coordenadas indicadas. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar o ponteiro para a janela, o tipo de unidade e as coordenadas. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir no campo de batalha as unidades adiquiridas pelo jogador. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: win não pode ser nulo, unidade deve estar entre 1 e 4, y e x devem estar entre 0 e \-L\-I\-N\-E\-S e \-C\-O\-L\-S respectivamente. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void, com parâmetros \-W\-I\-N\-D\-O\-W $\ast$win, int unidade, int y, int x. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em win} & \-Ponteiro para a janela em que será desenhada a unidade \\
+\hline
+{\em unidade} & \-Indentificador de unidade. \-Dependendo do número, desenha uma unidade diferente \\
+\hline
+{\em y} & \-Coordenada y desejada \\
+\hline
+{\em x} & \-Coordenada x desejada\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_ada66364dd2a35d4c59586818d91dfcf8}{\index{grafico.\-c@{grafico.\-c}!destroy\-\_\-win@{destroy\-\_\-win}}
+\index{destroy\-\_\-win@{destroy\-\_\-win}!grafico.c@{grafico.\-c}}
+\subsubsection[{destroy\-\_\-win}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf destroy\-\_\-win} (
+\begin{DoxyParamCaption}
+\item[{\-W\-I\-N\-D\-O\-W $\ast$}]{local\-\_\-win}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_ada66364dd2a35d4c59586818d91dfcf8}
+
+
+\-Função responsável por apagar as informações de uma janela e deletar sua estrutura. 
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em local\-\_\-win} & \-Uma estrutura do tipo \-W\-I\-N\-D\-O\-W previamente inicializada.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_a2f1d963decc31d951961b439eae2fd82}{\index{grafico.\-c@{grafico.\-c}!finaliza\-\_\-ncurses@{finaliza\-\_\-ncurses}}
+\index{finaliza\-\_\-ncurses@{finaliza\-\_\-ncurses}!grafico.c@{grafico.\-c}}
+\subsubsection[{finaliza\-\_\-ncurses}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf finaliza\-\_\-ncurses} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a2f1d963decc31d951961b439eae2fd82}
+
+
+\-Função responsável por finalizar o modo ncurses. 
+
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_a7a0d6a95bdaa10db7c050b21fe084b49}{\index{grafico.\-c@{grafico.\-c}!inicia\-\_\-ncurses@{inicia\-\_\-ncurses}}
+\index{inicia\-\_\-ncurses@{inicia\-\_\-ncurses}!grafico.c@{grafico.\-c}}
+\subsubsection[{inicia\-\_\-ncurses}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf inicia\-\_\-ncurses} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a7a0d6a95bdaa10db7c050b21fe084b49}
+
+
+\-Função responsável por iniciar o modo ncurses. 
+
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_acd1cee52d27e57acd84d6d25dfd96bfb}{\index{grafico.\-c@{grafico.\-c}!mensagem@{mensagem}}
+\index{mensagem@{mensagem}!grafico.c@{grafico.\-c}}
+\subsubsection[{mensagem}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf mensagem} (
+\begin{DoxyParamCaption}
+\item[{int}]{y, }
+\item[{int}]{x, }
+\item[{char}]{frase\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_acd1cee52d27e57acd84d6d25dfd96bfb}
+
+
+\-Função responsável pela impressão de uma mensagem na tela. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar as coordenadas da impressão e a mensagem. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir na tela a mensagem passada como parâmetro. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: os inteiros devem estar entre 0 e \-L\-I\-N\-E\-S e \-C\-O\-L\-S respectivamente, e a frase seve ser uma string não nula. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void, com parâmetros int y, int x, char frase\mbox{[}\mbox{]}. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em y} & \-Coordenada y desejada \\
+\hline
+{\em x} & \-Coordenada x desejada \\
+\hline
+{\em frase\mbox{[}$\,$\mbox{]}} & \-String a ser mostrada ao jogador\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_a6dee66272c6ef14c938f4b5263110211}{\index{grafico.\-c@{grafico.\-c}!mensagem\-\_\-entrada@{mensagem\-\_\-entrada}}
+\index{mensagem\-\_\-entrada@{mensagem\-\_\-entrada}!grafico.c@{grafico.\-c}}
+\subsubsection[{mensagem\-\_\-entrada}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf mensagem\-\_\-entrada} (
+\begin{DoxyParamCaption}
+\item[{int}]{y, }
+\item[{int}]{x, }
+\item[{char}]{frase\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a6dee66272c6ef14c938f4b5263110211}
+
+
+\-Função responsável por imprimir uma mensagem na tela e guardar a informação digitada pelo usuário. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar as coordenadas da impressão e a mensagem. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir na tela a mensagem passada como parâmetro e irá retornar a string digitada. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: os inteiros devem estar entre 0 e \-L\-I\-N\-E\-S e \-C\-O\-L\-S respectivamente, e a frase seve ser uma string não nula. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A saída deve ser um ponteiro para char. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno char$\ast$, com parâmetros int y, int x, char frase\mbox{[}\mbox{]}. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em y} & \-Coordenada y desejada \\
+\hline
+{\em x} & \-Coordenada x desejada \\
+\hline
+{\em frase\mbox{[}$\,$\mbox{]}} & \-String a ser mostrada ao jogador\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+string \-Texto inserido pelo usuario 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_a891d476534652b9bf3b3435839a19192}{\index{grafico.\-c@{grafico.\-c}!menu@{menu}}
+\index{menu@{menu}!grafico.c@{grafico.\-c}}
+\subsubsection[{menu}]{\setlength{\rightskip}{0pt plus 5cm}{\bf menu} (
+\begin{DoxyParamCaption}
+\item[{\-W\-I\-N\-D\-O\-W $\ast$}]{menuwin}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a891d476534652b9bf3b3435839a19192}
+
+
+\-Função que cria o menu de opções disponíveis para o usuário na tela inicial. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar o ponteiro para a janela. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir na tela o menu. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: menuwin não pode ser nulo. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A saída deve estar entre -\/1 e 3. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno int, com parâmetro \-W\-I\-N\-D\-O\-W $\ast$menuwin. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em menuwin} & \-Ponteiro da janela de menu\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+\-Opção selecionada pelo jogador 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_ae41ff83d1436eae547973220b8b01f4d}{\index{grafico.\-c@{grafico.\-c}!menu\-\_\-edificio@{menu\-\_\-edificio}}
+\index{menu\-\_\-edificio@{menu\-\_\-edificio}!grafico.c@{grafico.\-c}}
+\subsubsection[{menu\-\_\-edificio}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf menu\-\_\-edificio} (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_ae41ff83d1436eae547973220b8b01f4d}
+
+
+\-Função responsável pela criação do menu de evolução dos edifícios. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-A função deve ser chamada no final de uma rodada. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá retornar um valor correspondente à uma das opções do menu. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: \-A função não possui parâmetros. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-O retorno deve ser um número entre 1 e 4. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno int. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+\begin{DoxyReturn}{\-Retorna}
+\-Opção selecionada do menu 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_a26358a3d267b436a3be769bbfe61ef5d}{\index{grafico.\-c@{grafico.\-c}!menu\-\_\-unidade@{menu\-\_\-unidade}}
+\index{menu\-\_\-unidade@{menu\-\_\-unidade}!grafico.c@{grafico.\-c}}
+\subsubsection[{menu\-\_\-unidade}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf menu\-\_\-unidade} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Castelo} $\ast$}]{castelo}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a26358a3d267b436a3be769bbfe61ef5d}
+
+
+\-Função responsável pela criação do menu de evolução dos edifícios. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-A função deve ser chamada no início de uma rodada. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá retornar um valor correspondente à uma das opções do menu. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: castelo != \-N\-U\-L\-L. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-O retorno deve ser um número entre 1 e 3. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno int. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em castelo} & \-Estrutura de \-Castelo previamente inicializada.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+\-Opção selecionada do menu 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_abe7d84eae09e4309b6ba2c9b86ea8685}{\index{grafico.\-c@{grafico.\-c}!print\-\_\-castle@{print\-\_\-castle}}
+\index{print\-\_\-castle@{print\-\_\-castle}!grafico.c@{grafico.\-c}}
+\subsubsection[{print\-\_\-castle}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf print\-\_\-castle} (
+\begin{DoxyParamCaption}
+\item[{\-W\-I\-N\-D\-O\-W $\ast$}]{castle, }
+\item[{{\bf \-Castelo} $\ast$}]{castelo}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_abe7d84eae09e4309b6ba2c9b86ea8685}
+
+
+\-Função responsável pela impressão da área de edifícios. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar o ponteiro para a janela e o ponteiro para os edifícios. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir na tela a área de edifícios. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: castle e castelo não podem ser nulos. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void, com parâmetros \-W\-I\-N\-D\-O\-W $\ast$castle, \-Castelo $\ast$castelo. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em castle} & \-Ponteiro para a janela do castelo, onde ficam os edifícios. \\
+\hline
+{\em castelo} & \-Ponteiro para a estrutura \-Castelo\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_ac6bc8bf589678dd44151bc8a4685ecab}{\index{grafico.\-c@{grafico.\-c}!print\-\_\-field@{print\-\_\-field}}
+\index{print\-\_\-field@{print\-\_\-field}!grafico.c@{grafico.\-c}}
+\subsubsection[{print\-\_\-field}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf print\-\_\-field} (
+\begin{DoxyParamCaption}
+\item[{\-W\-I\-N\-D\-O\-W $\ast$}]{field, }
+\item[{{\bf \-Cabeca\-P\-Filas} $\ast$}]{filas}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_ac6bc8bf589678dd44151bc8a4685ecab}
+
+
+\-Função responsável pela impressão do campo de batalha. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar o ponteiro para a janela e o ponteiro para as filas de personagens. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir na tela o campo de batalha. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: field e filas não podem ser nulos. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void, com parâmetros \-W\-I\-N\-D\-O\-W $\ast$field, \-Cabeca\-P\-Filas $\ast$filas. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em field} & \-Ponteiro para a janela do campo de batalha do jogo \\
+\hline
+{\em filas} & \-Ponteiro para a estrutura de filas de unidades e inimigos.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_a9e32679286ee0e57cc522aabfa88021a}{\index{grafico.\-c@{grafico.\-c}!print\-\_\-hud@{print\-\_\-hud}}
+\index{print\-\_\-hud@{print\-\_\-hud}!grafico.c@{grafico.\-c}}
+\subsubsection[{print\-\_\-hud}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf print\-\_\-hud} (
+\begin{DoxyParamCaption}
+\item[{\-W\-I\-N\-D\-O\-W $\ast$}]{hud, }
+\item[{int}]{gold, }
+\item[{int}]{wave}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a9e32679286ee0e57cc522aabfa88021a}
+
+
+\-Função responsável pela impressão do \-H\-U\-D superior, contendo título e informações sobre o jogo(ouro disponível e numero da horda). 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar o ponteiro para a janela, a quantidade de ouro e o número da horda. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir na tela o \-H\-U\-D. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: hud não pode ser nulo, gold não pode ser negativo e wave deve estar entre 1 e 10. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void, com parâmetros \-W\-I\-N\-D\-O\-W $\ast$hud,int gold, int wave. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em hud} & \-Ponteiro para a janela do \-H\-U\-D do jogo (\-Head's \-Up \-Display) \\
+\hline
+{\em wave} & \-Inteiro que determina em qual wave o jogador se encontra \\
+\hline
+{\em gold} & \-Inteiro que determina o gold atual do usuário\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_ac721cf711a36f6455044b3c1d1c5b42a}{\index{grafico.\-c@{grafico.\-c}!seta@{seta}}
+\index{seta@{seta}!grafico.c@{grafico.\-c}}
+\subsubsection[{seta}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf seta} (
+\begin{DoxyParamCaption}
+\item[{\-W\-I\-N\-D\-O\-W $\ast$}]{win, }
+\item[{int}]{tipo, }
+\item[{int}]{y, }
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_ac721cf711a36f6455044b3c1d1c5b42a}
+
+
+\-Função responsável pela impressão das setas. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar o ponteiro para a janela, o tipo da seta e as coordenadas. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir a seta escolhida nas coordenadas. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: win não pode ser nulo, y e x devem estar entre 0 e \-L\-I\-N\-E\-S e \-C\-O\-L\-S respectivamente. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void, com parâmetros \-W\-I\-N\-D\-O\-W $\ast$win, int tipo, int y, int x. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em win} & \-Ponteiro para a janela. \\
+\hline
+{\em tipo} & \-Direção da seta. \\
+\hline
+{\em y} & \-Coordenada y da impressão. \\
+\hline
+{\em x} & \-Coordenada x da impressão.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_abbe40fd399048d4a423cb4b8fe0b5170}{\index{grafico.\-c@{grafico.\-c}!seta\-\_\-batalha@{seta\-\_\-batalha}}
+\index{seta\-\_\-batalha@{seta\-\_\-batalha}!grafico.c@{grafico.\-c}}
+\subsubsection[{seta\-\_\-batalha}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf seta\-\_\-batalha} (
+\begin{DoxyParamCaption}
+\item[{\-W\-I\-N\-D\-O\-W $\ast$}]{winfield, }
+\item[{int}]{j, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_abbe40fd399048d4a423cb4b8fe0b5170}
+
+
+\-Função responsável pela atualização do desenho de seta durante uma batalha. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-O usuário deve passar o ponteiro para a janela, a direção e o tipo da seta. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir a seta escolhida. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: winfield não pode ser nulo, i deve estar entre 1 e 4. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void, com parâmetros \-W\-I\-N\-D\-O\-W $\ast$winfield, int j, int i. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+
+\begin{DoxyParams}{\-Parâmetros}
+{\em winfield} & \-Ponteiro para a janela. \\
+\hline
+{\em j} & \-Direção da seta. \\
+\hline
+{\em i} & \-Posição da seta.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_a71610923bdf8b770790c386b6cd18b63}{\index{grafico.\-c@{grafico.\-c}!tela\-\_\-final@{tela\-\_\-final}}
+\index{tela\-\_\-final@{tela\-\_\-final}!grafico.c@{grafico.\-c}}
+\subsubsection[{tela\-\_\-final}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf tela\-\_\-final} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a71610923bdf8b770790c386b6cd18b63}
+
+
+\-Função responsável por imprimir a mensagem de despedida e encerrar o programa. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-Não há requisitos. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir na tela o design da tela final e irá encerrar o programa. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: \-A função não possui entrada. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_a2a194251baa5812baac5606d21cd97e5}{\index{grafico.\-c@{grafico.\-c}!tela\-\_\-inicial@{tela\-\_\-inicial}}
+\index{tela\-\_\-inicial@{tela\-\_\-inicial}!grafico.c@{grafico.\-c}}
+\subsubsection[{tela\-\_\-inicial}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf tela\-\_\-inicial} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a2a194251baa5812baac5606d21cd97e5}
+
+
+\-Função responsável pela impressão da tela inicial, com desenhos e opções do menu. 
+
+\-R\-E\-Q\-U\-I\-S\-I\-T\-O\-: \-Não há requisitos. \-H\-I\-PÓ\-T\-E\-S\-E\-: \-A função irá imprimir na tela o design da tela inicial. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-E\-N\-T\-R\-A\-D\-A\-: \-A função não possui entrada. \-A\-S\-S\-E\-R\-T\-I\-V\-A\-S \-D\-E \-S\-AÍ\-D\-A\-: \-A função não possui saída. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-E\-X\-P\-LÍ\-C\-I\-T\-A\-: \-Tipo de retorno void. \-I\-N\-T\-E\-R\-F\-A\-C\-E \-I\-M\-P\-LÍ\-C\-I\-T\-A\-: variáveis e funções auxiliares.
+
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}
+\hypertarget{grafico_8c_a783f9e9e4570e2857eaf5a9df635e5d2}{\index{grafico.\-c@{grafico.\-c}!\-Tela\-Game\-Over@{\-Tela\-Game\-Over}}
+\index{\-Tela\-Game\-Over@{\-Tela\-Game\-Over}!grafico.c@{grafico.\-c}}
+\subsubsection[{\-Tela\-Game\-Over}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Tela\-Game\-Over} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{grafico_8c_a783f9e9e4570e2857eaf5a9df635e5d2}
+
+
+\-Função responsável por imprimir a mensagem de fim de jogo e encerrar o programa. 
+
+\begin{DoxyReturn}{\-Retorna}
+void 
+\end{DoxyReturn}

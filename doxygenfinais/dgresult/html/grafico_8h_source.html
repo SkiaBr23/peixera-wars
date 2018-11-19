@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>PeixeraWars: Código-Fonte de grafico.h</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">PeixeraWars
+   &#160;<span id="projectnumber">1.0.0</span>
+   </div>
+   <div id="projectbrief">Jogo de estratégia baseado em turnos</div>
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- Gerado por Doxygen 1.7.6.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Ficheiros</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">grafico.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="grafico_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00004"></a>00004 <span class="comment">/*</span>
+<a name="l00005"></a>00005 <span class="comment">PROJETO</span>
+<a name="l00006"></a>00006 <span class="comment">Nome: MAXIMILLIAN FAN XAVIER, OTÁVIO ALVES DIAS, RAFAEL DIAS DA COSTA, TÚLIO ABNER DE LIMA</span>
+<a name="l00007"></a>00007 <span class="comment">Matrícula: 12/0153271, 12/0131480, 12/0133253, 12/0137194</span>
+<a name="l00008"></a>00008 <span class="comment">Curso: Engenharia de Computação</span>
+<a name="l00009"></a>00009 <span class="comment">Disciplina: Métodos de Programação</span>
+<a name="l00010"></a>00010 <span class="comment">Turma: A</span>
+<a name="l00011"></a>00011 <span class="comment">Prof: Jan Mendonça</span>
+<a name="l00012"></a>00012 <span class="comment">*/</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="comment">/* Arquivo Header */</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &lt;ncurses.h&gt;</span>
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018 <span class="comment">/*FUNÇÕES DE GERENCIAMENTO DA NCURSES*/</span>
+<a name="l00019"></a>00019 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#a7a0d6a95bdaa10db7c050b21fe084b49" title="Função responsável por iniciar o modo ncurses.">inicia_ncurses</a>();
+<a name="l00020"></a>00020 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#a2f1d963decc31d951961b439eae2fd82" title="Função responsável por finalizar o modo ncurses.">finaliza_ncurses</a>();
+<a name="l00021"></a>00021 <span class="comment">/*FUNÇÕES DE ATUALIZAÇÃO DA TELA*/</span>
+<a name="l00022"></a>00022 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#ada66364dd2a35d4c59586818d91dfcf8" title="Função responsável por apagar as informações de uma janela e deletar sua estrutura.">destroy_win</a>(WINDOW *local_win);
+<a name="l00023"></a>00023 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#a9e32679286ee0e57cc522aabfa88021a" title="Função responsável pela impressão do HUD superior, contendo título e informações sobre o jogo(ouro di...">print_hud</a>(WINDOW *hub,<span class="keywordtype">int</span> gold, <span class="keywordtype">int</span> wave );
+<a name="l00024"></a>00024 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#ac6bc8bf589678dd44151bc8a4685ecab" title="Função responsável pela impressão do campo de batalha.">print_field</a>();
+<a name="l00025"></a>00025 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#abe7d84eae09e4309b6ba2c9b86ea8685" title="Função responsável pela impressão da área de edifícios.">print_castle</a>();
+<a name="l00026"></a>00026 <span class="comment">/*FUNÇÕES DE TELAS PRONTAS*/</span>
+<a name="l00027"></a>00027 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#a2a194251baa5812baac5606d21cd97e5" title="Função responsável pela impressão da tela inicial, com desenhos e opções do menu.">tela_inicial</a>();
+<a name="l00028"></a>00028 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#a71610923bdf8b770790c386b6cd18b63" title="Função responsável por imprimir a mensagem de despedida e encerrar o programa.">tela_final</a>();
+<a name="l00029"></a>00029 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#a783f9e9e4570e2857eaf5a9df635e5d2" title="Função responsável por imprimir a mensagem de fim de jogo e encerrar o programa.">TelaGameOver</a>();
+<a name="l00030"></a>00030 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#a76fde41fe71bc3720e0b47fcb2523fd5" title="Função responsável pela impressão dos créditos.">creditos</a>(<span class="keywordtype">int</span> y, <span class="keywordtype">int</span> x);
+<a name="l00031"></a>00031 <span class="comment">/*MENUS INTERATIVOS*/</span>
+<a name="l00032"></a>00032 <span class="keywordtype">int</span> <a class="code" href="grafico_8c.html#a891d476534652b9bf3b3435839a19192" title="Função que cria o menu de opções disponíveis para o usuário na tela inicial.">menu</a> ();
+<a name="l00033"></a>00033 <span class="keywordtype">int</span> <a class="code" href="grafico_8c.html#ae41ff83d1436eae547973220b8b01f4d" title="Função responsável pela criação do menu de evolução dos edifícios.">menu_edificio</a>();
+<a name="l00034"></a>00034 <span class="keywordtype">int</span> <a class="code" href="grafico_8c.html#a26358a3d267b436a3be769bbfe61ef5d" title="Função responsável pela criação do menu de evolução dos edifícios.">menu_unidade</a>();
+<a name="l00035"></a>00035 <span class="comment">/*FUNÇÕES DE DESENHO DE UNIDADE*/</span>
+<a name="l00036"></a>00036 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#a63d0622f4a9e780a6561575886264cf0" title="Função responsável pela impressão do desenho da unidade escolhida nas coordenadas indicadas...">desenhaunidade</a> (WINDOW *win, <span class="keywordtype">int</span> <a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">unidade</a>, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> x);
+<a name="l00037"></a>00037 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#ab410936373e2dd4a2812e6ce1c6aa57e" title="Função responsável pela impressão do desenho dos edifícios.">desenhaedificio</a> (WINDOW *win, <span class="keywordtype">int</span> nivel, <span class="keywordtype">int</span> <a class="code" href="structedificio.html" title="Estrutura genérica do tipo edificio. Responsável por representar a maioria das construções do jogo...">edificio</a>, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> x);
+<a name="l00038"></a>00038 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#a3c991aba85d2ce017c5fbd8b69f50a26" title="Função responsável pela impressão de unidades inimigas nas coordenadas escolhidas.">desenhainimigo</a>(WINDOW *win, <span class="keywordtype">int</span> inimigo, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> x);
+<a name="l00039"></a>00039 <span class="comment">/*FUNÇÕES DE MENSAGEM AO JOGADOR*/</span>
+<a name="l00040"></a>00040 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#acd1cee52d27e57acd84d6d25dfd96bfb" title="Função responsável pela impressão de uma mensagem na tela.">mensagem</a>(<span class="keywordtype">int</span> y, <span class="keywordtype">int</span> x, <span class="keywordtype">char</span> frase[]);
+<a name="l00041"></a>00041 <span class="keywordtype">char</span>* <a class="code" href="grafico_8c.html#a6dee66272c6ef14c938f4b5263110211" title="Função responsável por imprimir uma mensagem na tela e guardar a informação digitada pelo usuário...">mensagem_entrada</a>(<span class="keywordtype">int</span> y, <span class="keywordtype">int</span> x, <span class="keywordtype">char</span> frase[]);
+<a name="l00042"></a>00042 <span class="comment">/*FUNÇÕES DA SETA AUXILIAR*/</span>
+<a name="l00043"></a>00043 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#ac721cf711a36f6455044b3c1d1c5b42a" title="Função responsável pela impressão das setas.">seta</a>(WINDOW *win, <span class="keywordtype">int</span> tipo, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> x);
+<a name="l00044"></a>00044 <span class="keywordtype">void</span> <a class="code" href="grafico_8c.html#abbe40fd399048d4a423cb4b8fe0b5170" title="Função responsável pela atualização do desenho de seta durante uma batalha.">seta_batalha</a>(WINDOW *winfield, <span class="keywordtype">int</span> j, <span class="keywordtype">int</span> i);
+</pre></div></div><!-- contents -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tudo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Ficheiros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Definições de tipos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+
+<hr class="footer"/><address class="footer"><small>
+Gerado em Segunda, 30 de Junho de 2014 20:57:54 para PeixeraWars por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.7.6.1
+</small></address>
+
+</body>
+</html>

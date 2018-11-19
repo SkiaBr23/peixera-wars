@@ -1,0 +1,707 @@
+        -:    0:Source:grafico.c
+        -:    0:Programs:4
+        -:    1:/*
+        -:    2:PROJETO
+        -:    3:Nome: MAXIMILLIAN FAN XAVIER, OTÁVIO ALVES DIAS, RAFAEL DIAS DA COSTA, TÚLIO ABNER DE LIMA
+        -:    4:Matrícula: 12/0153271, 12/0131480, 12/0133253, 12/0137194
+        -:    5:Curso: Engenharia de Computação
+        -:    6:Disciplina: Métodos de Programação
+        -:    7:Turma: A
+        -:    8:Prof: Jan Mendonça
+        -:    9:*/
+        -:   10:
+        -:   11:#include <ncurses.h>
+        -:   12:#include <menu.h>
+        -:   13:#include <stdio.h>
+        -:   14:#include <stdlib.h>
+        -:   15:#include <string.h>
+        -:   16:#include <time.h>
+        -:   17:#include <unistd.h>
+        -:   18:#include "grafico.h"
+        -:   19:#include "estruturas.h"
+        -:   20:#include "engine.h"
+        -:   21:
+        -:   22:#define HUBH 7
+        -:   23:#define CASTLEW 40
+        -:   24:#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+        -:   25:#define CTRLD 	4
+        -:   26:
+        -:   27:/* Apaga as informações de uma janela e deleta a estrutura */
+       49:   28:void destroy_win(WINDOW *local_win)
+        -:   29:{	
+       49:   30:	wborder(local_win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+       49:   31:	wrefresh(local_win);
+       49:   32:	delwin(local_win);
+       49:   33:}
+        -:   34:
+       10:   35:int menu_edificio()
+        -:   36:{
+       10:   37:	WINDOW *menu = newwin(10, 45, 10, 60);
+       10:   38:	box(menu, 0, 0);
+        -:   39:
+        -:   40:	int c;
+        -:   41:
+       10:   42:	mvwprintw(menu, 2, 3, "Escolha um edificio para evoluir:");
+       10:   43:	mvwprintw(menu, 4, 4, "1 - Comercio");
+       10:   44:	mvwprintw(menu, 5, 4, "2 - Quartel");
+       10:   45:	mvwprintw(menu, 6, 4, "3 - Campo de tiro");
+       10:   46:	mvwprintw(menu, 7, 4, "4 - Casa das lanças");
+        -:   47:
+       10:   48:	wrefresh(menu);
+        -:   49:
+        -:   50:	do
+        -:   51:	{
+       10:   52:		c = getchar();
+       10:   53:	} while ((c != '1') && (c != '2') && (c != '3') && (c != '4'));
+        -:   54:
+       10:   55:	switch(c)
+        -:   56:	{
+        -:   57:		case '1':
+        4:   58:			return 4;
+        -:   59:			break;
+        -:   60:		case '2':
+        2:   61:			return 1;
+        -:   62:			break;
+        -:   63:		case '3':
+        2:   64:			return 2;
+        -:   65:			break;
+        -:   66:		case '4':
+        2:   67:			return 3;
+        -:   68:			break;
+        -:   69:	}
+    #####:   70:	return 1;
+        -:   71:}
+        -:   72:
+       49:   73:int menu_unidade(Castelo *castelo)
+        -:   74:{
+       49:   75:	WINDOW *menu = newwin(12, 53, 10, 60);
+       49:   76:	box(menu, 0, 0);
+        -:   77:
+        -:   78:	int c;
+        -:   79:
+       49:   80:	mvwprintw(menu, 2, 3, "Escolha uma unidade para treinar:");
+        -:   81:
+       49:   82:	switch(castelo->quartel->nivel)
+        -:   83:	{
+        -:   84:		case 1:
+       26:   85:			mvwprintw(menu, 4, 3, "Guerreiro Nv 1");
+       26:   86:			mvwprintw(menu, 5, 3, "Vida: 300");
+       26:   87:			mvwprintw(menu, 6, 3, "Ataque: 60");
+       26:   88:			mvwprintw(menu, 7, 3, "Esquiva: 15%%");
+       26:   89:			mvwprintw(menu, 8, 3, "Preco: $25");
+       26:   90:			mvwprintw(menu, 10, 3, "Pressione 1");
+       26:   91:			break;
+        -:   92:		case 2:
+       12:   93:			mvwprintw(menu, 4, 3, "Guerreiro Nv 2");
+       12:   94:			mvwprintw(menu, 5, 3, "Vida: 400");
+       12:   95:			mvwprintw(menu, 6, 3, "Ataque: 60");
+       12:   96:			mvwprintw(menu, 7, 3, "Esquiva: 15%%");
+       12:   97:			mvwprintw(menu, 8, 3, "Preco: $60");
+       12:   98:			mvwprintw(menu, 10, 3, "Pressione 1");
+       12:   99:			break;
+        -:  100:		case 3:
+       11:  101:			mvwprintw(menu, 4, 3, "Guerreiro Nv 3");
+       11:  102:			mvwprintw(menu, 5, 3, "Vida: 500");
+       11:  103:			mvwprintw(menu, 6, 3, "Ataque: 60");
+       11:  104:			mvwprintw(menu, 7, 3, "Esquiva: 15%%");
+       11:  105:			mvwprintw(menu, 8, 3, "Preco: $95");
+       11:  106:			mvwprintw(menu, 10, 3, "Pressione 1");
+       11:  107:			break;		
+        -:  108:	}
+        -:  109:
+       49:  110:	switch(castelo->campodetiro->nivel)
+        -:  111:	{
+        -:  112:		case 1:
+       30:  113:			mvwprintw(menu, 4, 20, "Arqueiro Nv 1");
+       30:  114:			mvwprintw(menu, 5, 20, "Vida: 280");
+       30:  115:			mvwprintw(menu, 6, 20, "Ataque: 60");
+       30:  116:			mvwprintw(menu, 7, 20, "Esquiva: 20%%");
+       30:  117:			mvwprintw(menu, 8, 20, "Preco: $25");
+       30:  118:			mvwprintw(menu, 10, 20, "Pressione 2");
+       30:  119:			break;
+        -:  120:		case 2:
+       12:  121:			mvwprintw(menu, 4, 20, "Arqueiro Nv 2");
+       12:  122:			mvwprintw(menu, 5, 20, "Vida: 280");
+       12:  123:			mvwprintw(menu, 6, 20, "Ataque: 60");
+       12:  124:			mvwprintw(menu, 7, 20, "Esquiva: 30%%");
+       12:  125:			mvwprintw(menu, 8, 20, "Preco: $60");
+       12:  126:			mvwprintw(menu, 10, 20, "Pressione 2");
+       12:  127:			break;
+        -:  128:		case 3:
+        7:  129:			mvwprintw(menu, 4, 20, "Arqueiro Nv 3");
+        7:  130:			mvwprintw(menu, 5, 20, "Vida: 280");
+        7:  131:			mvwprintw(menu, 6, 20, "Ataque: 60");
+        7:  132:			mvwprintw(menu, 7, 20, "Esquiva: 40%%");
+        7:  133:			mvwprintw(menu, 8, 20, "Preco: $95");
+        7:  134:			mvwprintw(menu, 10, 20, "Pressione 2");
+        7:  135:			break;		
+        -:  136:	}
+        -:  137:
+       49:  138:	switch(castelo->casadaslancas->nivel)
+        -:  139:	{
+        -:  140:		case 1:
+        8:  141:			mvwprintw(menu, 4, 36, "Lanceiro Nv 1");
+        8:  142:			mvwprintw(menu, 5, 36, "Vida: 280");
+        8:  143:			mvwprintw(menu, 6, 36, "Ataque: 70");
+        8:  144:			mvwprintw(menu, 7, 36, "Esquiva: 15%%");
+        8:  145:			mvwprintw(menu, 8, 36, "Preco: $25");
+        8:  146:			mvwprintw(menu, 10, 36, "Pressione 3");
+        8:  147:			break;
+        -:  148:		case 2:
+       26:  149:			mvwprintw(menu, 4, 36, "Lanceiro Nv 2");
+       26:  150:			mvwprintw(menu, 5, 36, "Vida: 280");
+       26:  151:			mvwprintw(menu, 6, 36, "Ataque: 90");
+       26:  152:			mvwprintw(menu, 7, 36, "Esquiva: 15%%");
+       26:  153:			mvwprintw(menu, 8, 36, "Preco: $60");
+       26:  154:			mvwprintw(menu, 10, 36, "Pressione 3");
+       26:  155:			break;
+        -:  156:		case 3:
+       15:  157:			mvwprintw(menu, 4, 36, "Lanceiro Nv 3");
+       15:  158:			mvwprintw(menu, 5, 36, "Vida: 280");
+       15:  159:			mvwprintw(menu, 6, 36, "Ataque: 120");
+       15:  160:			mvwprintw(menu, 7, 36, "Esquiva: 15%%");
+       15:  161:			mvwprintw(menu, 8, 36, "Preco: $95");
+       15:  162:			mvwprintw(menu, 10, 36, "Pressione 3");
+       15:  163:			break;		
+        -:  164:	}
+        -:  165:
+       49:  166:	wrefresh(menu);
+        -:  167:
+        -:  168:	do
+        -:  169:	{
+       49:  170:		c = getchar();
+       49:  171:	} while ((c != '1') && (c != '2') && (c != '3'));
+        -:  172:
+       49:  173:	mvwprintw(menu, 2, 3, "                                                  ");
+       49:  174:	mvwprintw(menu, 4, 3, "                                                  ");
+       49:  175:	mvwprintw(menu, 5, 3, "                                                  ");
+       49:  176:	mvwprintw(menu, 6, 3, "                                                  ");
+       49:  177:	mvwprintw(menu, 7, 3, "                                                  ");
+       49:  178:	mvwprintw(menu, 8, 3, "                                                  ");
+        -:  179:
+       49:  180:	destroy_win(menu);
+        -:  181:
+       49:  182:	switch(c)
+        -:  183:	{
+        -:  184:		case '1':
+       13:  185:			return 1;
+        -:  186:			break;
+        -:  187:		case '2':
+        2:  188:			return 2;
+        -:  189:			break;
+        -:  190:		case '3':
+       34:  191:			return 3;
+        -:  192:			break;
+        -:  193:	}
+    #####:  194:	return 1;
+        -:  195:}
+        -:  196:
+        -:  197:
+      690:  198:void mensagem(int y, int x, char frase[])
+        -:  199:{
+        -:  200:	int tam;
+      690:  201:	tam = strlen(frase);
+      690:  202:	WINDOW *mensagem = newwin(5, tam+4, y, x);
+      690:  203:	box(mensagem, 0, 0);
+        -:  204:
+      690:  205:	mvwprintw(mensagem, 2, 2, frase);
+        -:  206:
+      690:  207:	wrefresh(mensagem);
+      690:  208:}
+        -:  209:
+    #####:  210:char* mensagem_entrada(int y, int x, char frase[])
+        -:  211:{
+    #####:  212:	char *string = (char *) malloc(31 * sizeof(char));
+        -:  213:	int tam;
+        -:  214:	int i;
+    #####:  215:	tam = strlen(frase);
+    #####:  216:	WINDOW *mensagem = newwin(7, tam+4, y, x);
+    #####:  217:	box(mensagem, 0, 0);
+        -:  218:
+    #####:  219:	mvwprintw(mensagem, 2, 2, frase);
+    #####:  220:	wrefresh(mensagem);
+    #####:  221:	move(y+4, x+2);
+    #####:  222:	echo();
+    #####:  223:	getstr(string);
+    #####:  224:	noecho();
+    #####:  225:	string[30] = '\0';
+        -:  226:
+    #####:  227:	for (i = 0; i < tam; ++i)
+        -:  228:	{
+    #####:  229:		mvwprintw(mensagem, 2, i+2, " ");
+        -:  230:	}
+        -:  231:
+    #####:  232:	destroy_win(mensagem);
+        -:  233:
+    #####:  234:	return string;
+        -:  235:}
+        -:  236:
+        -:  237:
+        -:  238:
+        -:  239:/* Imprime a tela de Menu, com desenhos e opções */
+        4:  240:void tela_inicial()
+        -:  241:{
+        4:  242:	WINDOW *build = newwin(35, 63, 5, 60);
+        4:  243:	WINDOW *menuwin = newwin(5, 15, 11, 40);
+        4:  244:	WINDOW *tela = newwin(LINES, COLS, 0, 0);
+        -:  245:	
+        4:  246:	keypad(menuwin, TRUE);
+        -:  247:
+        4:  248:	refresh();
+        -:  249:
+        4:  250:	mvwprintw(tela, 1, 30, " ____  ____  __  _  _  ____  ____   __     _  _   __   ____  ____");
+        4:  251:	mvwprintw(tela, 2, 30, "(  _ \\(  __)(  )( \\/ )(  __)(  _ \\ / _\\   / )( \\ / _\\ (  _ \\/ ___)");
+        4:  252:	mvwprintw(tela, 3, 30, " ) __/ ) _)  )(  )  (  ) _)  )   //    \\  \\ /\\ //    \\ )   /\\___ \\");
+        4:  253:	mvwprintw(tela, 4, 30, "(__)  (____)(__)(_/\\_)(____)(__\\_)\\_/\\_/  (_/\\_)\\_/\\_/(__\\_)(____/");
+        4:  254:	wrefresh(tela);
+        -:  255:
+        4:  256:	mvwprintw(build, 0, 0, "                                                    !_\n                                                    |*~=-.,\n                                                    |_,-'`\n                                                    |\n                                                    |\n                                                   /^\\\n                     !_                           /   \\\n                     |*`~-.,                     /,    \\\n                     |.-~^`                     /#\"     \\\n                     |                        _/##_   _  \\_\n                _   _|  _   _   _            [ ]_[ ]_[ ]_[ ]\n               [ ]_[ ]_[ ]_[ ]_[ ]            |_=_-=_ - =_|\n             !_ |_=_ =-_-_  = =_|           !_ |=_= -    |\n             |*`--,_- _        |            |*`~-.,= []  |\n             |.-'|=     []     |   !_       |_.-\"`_-     |\n             |   |_=- -        |   |*`~-.,  |  |=_-      |\n            /^\\  |=_= -        |   |_,-~`  /^\\ |_ - =[]  |\n        _  /   \\_|_=- _   _   _|  _|  _   /   \\|=_-      |\n       [ ]/,    \\[ ]_[ ]_[ ]_[ ]_[ ]_[ ]_/,    \\[ ]=-    |\n        |/#\"     \\_=-___=__=__- =-_ -=_ /#\"     \\| _ []  |\n       _/##_   _  \\_-_ =  _____       _/##_   _  \\_ -    |\\\n      [ ]_[ ]_[ ]_[ ]=_0~{_ _ _}~0   [ ]_[ ]_[ ]_[ ]=-   | \\\n      |_=__-_=-_  =_|-=_ |~~~~~|     |_=-___-_ =-__|_    |  \\\n       | _- =-     |-_   | E C |      |= _=       | -    |___\\\n       |= -_=      |=  _ |~~~~~|      |_-=_       |=_    |/+\\|\n       | =_  -     |_ = _ `-.-`       | =_ = =    |=_-   ||+||\n       |-_=- _     |=_   =            |=_= -_     |  =   ||+||\n       |=_- /+\\    | -=               |_=- /+\\    |=_    |^^^|\n       |=_ |+|+|   |= -  -_,--,_      |_= |+|+|   |  -_  |=  |\n       |  -|+|+|   |-_=  / |  | \\     |=_ |+|+|   |-=_   |_-/\n       |=_=|+|+|   | =_= | |  | |     |_- |+|+|   |_ =   |=/\n       | _ ^^^^^   |= -  | |  <&>     |=_=^^^^^   |_=-   |/\n       |=_ =       | =_-_| |  | |     |   =_      | -_   |\n       |_=-_       |=_=  | |  | |     |=_=        |=-    |\n `^^^^^^^^^^`^`^^`^`^`^^^\"\"\"\"\"\"\"\"^`^^``^^`^^`^^`^`^``^`^``^``^^");
+        -:  257:	
+        4:  258:	wrefresh(build);
+        -:  259:
+        4:  260:	Inicia();
+        -:  261:	
+    #####:  262:}
+        -:  263:
+        -:  264:
+        -:  265:/* Imprime a mensagem de despedida e encerra o programa */
+        1:  266:void tela_final()
+        -:  267:{
+        1:  268:	clear();
+        1:  269:	mvprintw(LINES/2 - 2, COLS/2 - 10, "OBRIGADO POR JOGAR!");
+        1:  270:	refresh();
+        1:  271:	sleep(2);
+        1:  272:	endwin();
+        1:  273:	exit(1);
+        -:  274:}
+        -:  275:
+        1:  276:void TelaGameOver()
+        -:  277:{
+        1:  278:	int x = COLS/4,y=15;
+        1:  279:	clear();
+        -:  280:
+        1:  281:	mvprintw(y,x,"      _____          __  __ ______    ______      ________ _____  _       ");
+        1:  282:	mvprintw(y+1,x,"     / ____|   /\\   |  \\/  |  ____|  / __ \\ \\    / /  ____|  __ \\| |      ");
+        1:  283:	mvprintw(y+2,x,"    | |  __   /  \\  | \\  / | |__    | |  | \\ \\  / /| |__  | |__) | |      ");
+        1:  284:	mvprintw(y+3,x,"    | | |_ | / /\\ \\ | |\\/| |  __|   | |  | |\\ \\/ / |  __| |  _  /| |      ");
+        1:  285:	mvprintw(y+4,x,"    | |__| |/ ____ \\| |  | | |____  | |__| | \\  /  | |____| | \\ \\|_|      ");
+        1:  286:	mvprintw(y+5,x,"     \\_____/_/    \\_\\_|  |_|______|  \\____/   \\/   |______|_|  \\_(_)      ");
+        1:  287:	mvprintw(y+6,x," ________________________________________________________________________ ");
+        1:  288:	mvprintw(y+7,x,"|________________________________________________________________________|");
+        1:  289:	refresh();
+        1:  290:	sleep(5);
+        1:  291:	getch();
+        1:  292:	endwin();
+        1:  293:	exit(1);
+        -:  294:}
+        -:  295:
+        -:  296:
+        -:  297:
+        -:  298:
+        -:  299:
+        -:  300:
+    #####:  301:void creditos(int y, int x)
+        -:  302:{
+    #####:  303:	WINDOW *creditos = newwin(16, 64, y, x);
+        -:  304:	int i, j;
+        -:  305:
+        -:  306:	
+    #####:  307:	mvwprintw(creditos, 2, 2, "			    								   ,  ,");
+    #####:  308:	mvwprintw(creditos, 3, 2, "                                               / \\/ \\");
+    #####:  309:	mvwprintw(creditos, 4, 2, "                                              (/ //_ \\_");
+    #####:  310:	mvwprintw(creditos, 5, 2, "     .-._                                      \\||  .  \\");
+    #####:  311:	mvwprintw(creditos, 6, 2, "      \\  '-._                            _,:__.-'/---\\_ \\");
+    #####:  312:	mvwprintw(creditos, 7, 2, " ______/___  '.    .--------------------'~-'--.)__( , )\\ \\");
+    #####:  313:	mvwprintw(creditos, 8, 2, "`'--.___  _\\  /    |   Maximillian Fan Xavier ,'    \\)|\\ `\\|");
+    #####:  314:	mvwprintw(creditos, 9, 2, "     /_.-' _\\ \\ _:,_    Otavio Alves Dias           ' |   (");
+    #####:  315:	mvwprintw(creditos, 10, 2, "   .'__ _.' \\'-/,`-~`    Rafael Dias da Costa        |/");
+    #####:  316:	mvwprintw(creditos, 11, 2, "       '. ___.> /=,|       Tulio Abner de Lima       |");
+    #####:  317:	mvwprintw(creditos, 12, 2, "        / .-'/_ )  '---------------------------------'");
+    #####:  318:	mvwprintw(creditos, 13, 2, "        )'  ( /(/");
+    #####:  319:	mvwprintw(creditos, 14, 2, "             \\\\ '");
+    #####:  320:	mvwprintw(creditos, 15, 2, "              '==''");
+        -:  321:
+    #####:  322:	wrefresh(creditos);
+        -:  323:
+    #####:  324:	getch();
+        -:  325:
+    #####:  326:	for (j = 2; j < 16; j++)
+        -:  327:	{
+    #####:  328:		for (i = 0; i < 64; i++)
+        -:  329:		{
+    #####:  330:			mvwprintw(creditos, j, i+2, " ");
+        -:  331:		}
+        -:  332:	}
+        -:  333:
+    #####:  334:	destroy_win(creditos);
+    #####:  335:}
+        -:  336:
+        -:  337:
+        -:  338:
+        -:  339:
+        -:  340:
+        -:  341:
+        -:  342:/* Imprime o HUB superior, com o título e informações sobre o jogo */
+       17:  343:void print_hub(WINDOW *hub,int gold, int wave)
+        -:  344:{
+        -:  345:
+       17:  346:	box(hub, 0 , 0);
+        -:  347:
+       17:  348:	mvwprintw(hub, 1, 1, " ____  ____  __  _  _  ____  ____   __     _  _   __   ____  ____");
+       17:  349:	mvwprintw(hub, 2, 1, "(  _ \\(  __)(  )( \\/ )(  __)(  _ \\ / _\\   / )( \\ / _\\ (  _ \\/ ___)");
+       17:  350:	mvwprintw(hub, 3, 1, " ) __/ ) _)  )(  )  (  ) _)  )   //    \\  \\ /\\ //    \\ )   /\\___ \\");
+       17:  351:	mvwprintw(hub, 4, 1, "(__)  (____)(__)(_/\\_)(____)(__\\_)\\_/\\_/  (_/\\_)\\_/\\_/(__\\_)(____/");
+        -:  352:
+       17:  353:	if(wave==20)
+    #####:  354:		mvwprintw(hub, 2, 80, "Gold$ %d", gold);
+       17:  355:	mvwprintw(hub, 4, 80, "Wave %d", wave);
+       17:  356:	mvwprintw(hub, 2, 100, "M - Menu");
+        -:  357:
+        -:  358:
+        -:  359:	/*
+        -:  360: ____  ____  __  _  _  ____  ____   __     _  _   __   ____  ____ 
+        -:  361:(  _ \(  __)(  )( \/ )(  __)(  _ \ / _\   / )( \ / _\ (  _ \/ ___)
+        -:  362: ) __/ ) _)  )(  )  (  ) _)  )   //    \  \ /\ //    \ )   /\___ \
+        -:  363:(__)  (____)(__)(_/\_)(____)(__\_)\_/\_/  (_/\_)\_/\_/(__\_)(____/
+        -:  364:*/
+        -:  365:
+       17:  366:}
+        -:  367:
+        -:  368:
+        -:  369:
+        -:  370:
+        -:  371:/* Imprime o campo de batalha */
+      888:  372:void print_field(WINDOW *field, CabecaPFilas *filas)
+        -:  373:{
+        -:  374:
+      888:  375:	box(field, 0 , 0);
+        -:  376:	Unidade *lis;
+        -:  377:	int i, j;
+        -:  378:
+    28416:  379:	for (i = 1; i < LINES-HUBH-2; ++i)
+        -:  380:	{
+  2862912:  381:		for (j = 1; j < COLS-CASTLEW; ++j)
+        -:  382:		{
+  2835384:  383:			mvwprintw(field, i, j, " ");
+        -:  384:		}
+        -:  385:	}
+        -:  386:
+     3497:  387:	for (lis = filas->player, i = 3; lis!=NULL; lis = lis->prox, i+=7)
+        -:  388:	{
+     2609:  389:		desenhaunidade(field, lis->classe, i, 10);
+     2609:  390:		mvwprintw(field, i, 5, "HP %d", lis->vida);
+        -:  391:	}
+        -:  392:
+     2875:  393:	for (lis = filas->cpu, i = 3; lis!=NULL; lis = lis->prox, i+=7)
+        -:  394:	{
+     1987:  395:		desenhainimigo(field, lis->classe, i, 80);
+     1987:  396:		mvwprintw(field, i, 90, "HP %d", lis->vida);
+        -:  397:	}
+      888:  398:}
+        -:  399:
+        -:  400:/* Imprime a área dos edifícios */
+       17:  401:void print_castle(WINDOW *castle, Castelo *castelo)
+        -:  402:{
+        -:  403:
+       17:  404:	box(castle, 0 , 0);
+        -:  405:
+       17:  406:		desenhaedificio(castle, castelo->comercio->nivel, 0, 2, 4);
+       17:  407:		desenhaedificio(castle, castelo->quartel->nivel,1, 10, 6);
+       17:  408:		desenhaedificio(castle, castelo->campodetiro->nivel,2,18,4);
+       17:  409:		desenhaedificio(castle, castelo->casadaslancas->nivel,3,26,3);
+        -:  410:
+       17:  411:}
+        -:  412:
+        -:  413:
+        -:  414:
+        -:  415:
+        -:  416:/* Estrutura de opções disponíveis para o usuário na tela inicial */
+        4:  417:int menu (WINDOW *menuwin)
+        -:  418:{
+        -:  419:
+        4:  420:	char *choices[] = {
+        -:  421:                        "Novo Jogo",
+        -:  422:                        "Carregar Jogo",
+        -:  423:                        "Creditos",
+        -:  424:                        "Sair",
+        -:  425:                  	};
+        -:  426:
+        -:  427:	ITEM **my_items;		
+        -:  428:	ITEM *cur_item;
+        -:  429:	MENU *my_menu;
+        -:  430:    int n_choices, i, c;
+        -:  431:	
+        4:  432:    n_choices = ARRAY_SIZE(choices);
+        4:  433:    my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
+        -:  434:
+        4:  435:    for(i = 0; i < n_choices; ++i) my_items[i] = new_item(choices[i], choices[i]);
+        -:  436:
+        4:  437:	my_items[n_choices] = (ITEM *)NULL;
+        -:  438:
+        4:  439:	my_menu = new_menu((ITEM **)my_items);
+        4:  440:	set_menu_win(my_menu, menuwin);
+        4:  441:	post_menu(my_menu);
+        4:  442:	wrefresh(menuwin);
+        -:  443:	
+        -:  444:	while(1)
+        -:  445:	{       
+        7:  446:		c = getch();
+        7:  447:		switch(c)
+        -:  448:        {	
+        -:  449:        	case 's':
+        2:  450:				menu_driver(my_menu, REQ_DOWN_ITEM);
+        2:  451:				wrefresh(menuwin);
+        2:  452:				break;
+        -:  453:			case 'w':
+    #####:  454:				menu_driver(my_menu, REQ_UP_ITEM);
+    #####:  455:				wrefresh(menuwin);
+    #####:  456:				break;
+        -:  457:			case 10:	/* Enter */
+        4:  458:				cur_item = current_item(my_menu);
+        4:  459:				return (item_index(cur_item));
+        -:  460:		}
+        3:  461:	}
+        -:  462:	return -1;
+        -:  463:}
+        -:  464:
+        -:  465:
+        -:  466:
+        -:  467:/* Imprime nas coordenadas indicadas o desenho escolhido */
+     2609:  468:void desenhaunidade (WINDOW *win, int unidade, int y, int x)
+        -:  469:{
+     2609:  470:	switch(unidade)
+        -:  471:	{
+        -:  472:		case 1:
+      806:  473:			mvwprintw(win, y, x, "    O");
+      806:  474:            mvwprintw(win, y+1, x, "\\  /M\\");
+      806:  475:            mvwprintw(win, y+2, x, " X/ W \\");
+      806:  476:            mvwprintw(win, y+3, x, "    |\\");
+      806:  477:            mvwprintw(win, y+4, x, "   /_ |_");
+      806:  478:            break;
+        -:  479:        case 2:
+       91:  480:        	mvwprintw(win, y, x, "    O  \\");
+       91:  481:            mvwprintw(win, y+1, x, "   /M\\_(");
+       91:  482:            mvwprintw(win, y+2, x, "  / W  /");
+       91:  483:            mvwprintw(win, y+3, x, "    |\\");
+       91:  484:            mvwprintw(win, y+4, x, "   /_ |_");
+       91:  485:            break;
+        -:  486:        case 3:
+     1712:  487:        	  mvwprintw(win, y, x, "    O");
+     1712:  488:            mvwprintw(win, y+1, x, "   /M\\");
+     1712:  489:            mvwprintw(win, y+2, x, "  W===M===[>");
+     1712:  490:            mvwprintw(win, y+3, x, "    |\\");
+     1712:  491:            mvwprintw(win, y+4, x, "   /_ |_");
+     1712:  492:			break;
+        -:  493:		case 4:
+    #####:  494:			  mvwprintw(win, y, x, "    O  #");
+    #####:  495:            mvwprintw(win, y+1, x, "   /M\\_|");
+    #####:  496:            mvwprintw(win, y+2, x, "  / W  |");
+    #####:  497:            mvwprintw(win, y+3, x, "    |\\ |");
+    #####:  498:            mvwprintw(win, y+4, x, "   /_ |_");
+    #####:  499:			break;
+        -:  500:	}
+     2609:  501:}
+        -:  502:
+     1987:  503:void desenhainimigo (WINDOW *win, int inimigo, int y, int x)
+        -:  504:{
+     1987:  505:	switch(inimigo)
+        -:  506:	{
+        -:  507:		case 1:
+      697:  508:			mvwprintw(win, y, x, "(___)");
+      697:  509:            mvwprintw(win, y+1, x, "(o o)_____/");
+      697:  510:            mvwprintw(win, y+2, x, " @@ `     \\");
+      697:  511:            mvwprintw(win, y+3, x, "  \\ ____, /");
+      697:  512:            mvwprintw(win, y+4, x, "  //    //");
+      697:  513:            mvwprintw(win, y+5, x, " ^^    ^^");
+      697:  514:            break;
+        -:  515:        case 2:
+      428:  516:        	mvwprintw(win, y, x, "   _//|.-~~~~-,");
+      428:  517:            mvwprintw(win, y+1, x, " _/66  \\       \\_@");
+      428:  518:            mvwprintw(win, y+2, x, "(\")_   /   /   |");
+      428:  519:            mvwprintw(win, y+3, x, "  '--'|| |-\\  /");
+      428:  520:            mvwprintw(win, y+4, x, "      //_/ /_/");
+        -:  521:        	
+      428:  522:            break;
+        -:  523:        case 3:
+      817:  524:        	  mvwprintw(win, y, x, "     |_|   ");
+      817:  525:            mvwprintw(win, y+1, x, "    ('.')  ///");
+      817:  526:            mvwprintw(win, y+2, x, "     (W)   /");
+      817:  527:            mvwprintw(win, y+3, x, "    <(M)`-/'");
+      817:  528:            mvwprintw(win, y+4, x, "<-._/J L /  ");
+      817:  529:			break;
+        -:  530:		case 5:
+    #####:  531:			mvwprintw(win, y, x, " /|{)/");
+    #####:  532:            mvwprintw(win, y+1, x, "+---)    _");
+    #####:  533:            mvwprintw(win, y+2, x, " \\||(___( ~");
+    #####:  534:            mvwprintw(win, y+3, x, " _|)---\\\\_");
+    #####:  535:            mvwprintw(win, y+4, x, "\\        \\");
+    #####:  536:			break;
+        -:  537:			
+        -:  538:		case 4:
+       45:  539:			x = x-18;
+       45:  540:			y = y + 5;
+        -:  541:			
+       45:  542:			mvwprintw(win, y, x, " <>=======() ");
+       45:  543:            mvwprintw(win, y+1, x, "   (/\\___   /|\\\\          ()==========<>_");
+       45:  544:            mvwprintw(win, y+2, x, "        \\_/ | \\\\        //|\\   ______/ \\)");
+       45:  545:            mvwprintw(win, y+3, x, "          \\_|  \\\\      // | \\_/");
+       45:  546:            mvwprintw(win, y+4, x, "            \\|\\/|\\_   //  /\\/");
+       45:  547:			mvwprintw(win, y+5, x, "            (oo)\\ \\_//  /");
+       45:  548:			mvwprintw(win, y+6, x, "            //_/\\_\\/ /  |");
+       45:  549:			mvwprintw(win, y+7, x, "           @@/  |=\\  \\  |");
+       45:  550:			mvwprintw(win, y+8, x, "                \\_=\\_ \\ |");
+       45:  551:			mvwprintw(win, y+9, x, "               __(\\===\\(  )\\");
+       45:  552:			mvwprintw(win, y+10, x, "              (((~) __(_/   |");
+       45:  553:			mvwprintw(win, y+11, x, "                   (((~) \\  /");
+       45:  554:			mvwprintw(win, y+12, x, "                   ______/ /");
+       45:  555:			mvwprintw(win, y+13, x, "                   '------'");
+        -:  556:				   
+       45:  557:			break;		
+        -:  558:			
+        -:  559:	}
+     1987:  560:}
+        -:  561:
+       68:  562:void desenhaedificio(WINDOW *win, int nivel, int edificio, int y, int x)
+        -:  563:{
+       68:  564:	switch(edificio)
+        -:  565:	{
+        -:  566:		case 0:
+        -:  567:
+       17:  568:			mvwprintw(win, y, x, "	        x");
+       17:  569:            mvwprintw(win, y+1, x, ".-. ________|_    Comercio");
+       17:  570:            mvwprintw(win, y+2, x, "|=|/     /    \\   Nivel: %d", nivel);
+       17:  571:            mvwprintw(win, y+3, x, "| |_LOJA_|_||_|   %d gold/wave",100*nivel);
+       17:  572:            mvwprintw(win, y+4, x, "|_|_[ ]__|____|");
+       17:  573:            break;
+        -:  574:
+        -:  575:		case 1:
+       17:  576:        	mvwprintw(win, y, x, " _   |~  _");
+       17:  577:			mvwprintw(win, y+1, x, "[_]--'--[_]     Quartel");
+       17:  578:			mvwprintw(win, y+2, x, "| |  S  |'|     Nivel: %d", nivel);
+       17:  579:			mvwprintw(win, y+3, x, "| | /^\\ | |");
+       17:  580:			mvwprintw(win, y+4, x, "|_|_|I|_|_|");
+       17:  581:			break;
+        -:  582:        case 2:
+       17:  583:        	  mvwprintw(win, y, x, "      +");
+       17:  584:			mvwprintw(win, y+1, x, "   _.-A-._      Campo de Tiro");
+       17:  585:			mvwprintw(win, y+2, x, ".='_______'=.     Nivel: %d", nivel);
+       17:  586:			mvwprintw(win, y+3, x, " ||     o ||");
+       17:  587:			mvwprintw(win, y+4, x, "_||[X]__|_||__");
+       17:  588:			break;
+        -:  589:		case 3:
+       17:  590:			mvwprintw(win, y, x, "    __-L-__");
+       17:  591:			mvwprintw(win, y+1, x, "   /\\-'o'-/\\    Casa das Lancas");
+       17:  592:			mvwprintw(win, y+2, x, "  _||:<_>:||_      Nivel: %d", nivel);
+       17:  593:			mvwprintw(win, y+3, x, " /\\_/=====\\_/\\");
+       17:  594:			mvwprintw(win, y+4, x, "_|:_:_[I]_:_:|_");
+       17:  595:			break;
+        -:  596:
+        -:  597:		case 4:
+    #####:  598:			mvwprintw(win, y, x, "   +");
+    #####:  599:			mvwprintw(win, y+1, x, "   A____");
+    #####:  600:			mvwprintw(win, y+2, x, "  /\\____\\");
+    #####:  601:			mvwprintw(win, y+3, x, " _||\"\"\"\"|_");
+    #####:  602:			mvwprintw(win, y+4, x, "~^~^~^~^~^~^~");
+        -:  603:
+    #####:  604:			break;
+        -:  605:	}
+       68:  606:}
+        -:  607:
+     3819:  608:void seta(WINDOW *win, int tipo, int y, int x)
+        -:  609:{
+     3819:  610:	if (tipo == 1)
+        -:  611:	{
+      489:  612:		mvwprintw(win, y, x, "  \\");
+      489:  613:		mvwprintw(win, y+1, x, "===\\");
+      489:  614:		mvwprintw(win, y+2, x, "===/");
+      489:  615:		mvwprintw(win, y+3, x, "  /");
+        -:  616:	}
+        -:  617:	else
+        -:  618:	{
+     3330:  619:		if (tipo == 2)
+        -:  620:		{
+      287:  621:			mvwprintw(win, y, x, " /");
+      287:  622:			mvwprintw(win, y+1, x, "/===");
+      287:  623:			mvwprintw(win, y+2, x, "\\===");
+      287:  624:			mvwprintw(win, y+3, x, " \\");
+        -:  625:		}
+        -:  626:		else
+        -:  627:		{
+     3043:  628:			mvwprintw(win, y, x, "      ");
+     3043:  629:			mvwprintw(win, y+1, x, "      ");
+     3043:  630:			mvwprintw(win, y+2, x, "      ");
+     3043:  631:			mvwprintw(win, y+3, x, "      ");
+        -:  632:		}
+        -:  633:	}
+     3819:  634:}
+        -:  635:
+     1051:  636:void seta_batalha(WINDOW *winfield, int j, int i)
+        -:  637:{
+     1051:  638:	if (j == 2)
+        -:  639:	{
+      287:  640:		switch(i)
+        -:  641:		{
+        -:  642:			case 1:
+      108:  643:				seta(winfield, 2, 3, 23);
+      108:  644:				wrefresh(winfield);
+      108:  645:				break;
+        -:  646:			case 2:
+       92:  647:				seta(winfield, 0, 3, 23);
+       92:  648:				seta(winfield, 2, 10, 23);
+       92:  649:				wrefresh(winfield);
+       92:  650:				break;
+        -:  651:			case 3:
+       63:  652:				seta(winfield, 0, 10, 23);
+       63:  653:				seta(winfield, 2, 17, 23);
+       63:  654:				wrefresh(winfield);
+       63:  655:				break;
+        -:  656:			case 4:
+       24:  657:				seta(winfield, 0, 17, 23);
+       24:  658:				seta(winfield, 2, 24, 23);
+       24:  659:				wrefresh(winfield);
+       24:  660:				break;
+        -:  661:		}
+        -:  662:	}
+        -:  663:	else
+        -:  664:	{
+      764:  665:		if (j == 1)
+        -:  666:		{
+      489:  667:			switch(i)
+        -:  668:			{
+        -:  669:				case 1:
+      309:  670:					seta(winfield, 1, 3, 70);
+      309:  671:					seta(winfield, 0, 10, 70);
+      309:  672:					wrefresh(winfield);
+      309:  673:					break;
+        -:  674:				case 2:
+      132:  675:					seta(winfield, 0, 3, 70);
+      132:  676:					seta(winfield, 0, 17, 70);
+      132:  677:					seta(winfield, 1, 10, 70);
+      132:  678:					wrefresh(winfield);
+      132:  679:					break;
+        -:  680:				case 3:
+       43:  681:					seta(winfield, 0, 10, 70);
+       43:  682:					seta(winfield, 0, 24, 70);
+       43:  683:					seta(winfield, 1, 17, 70);
+       43:  684:					wrefresh(winfield);
+       43:  685:					break;
+        -:  686:				case 4:
+        5:  687:					seta(winfield, 0, 17, 70);
+        5:  688:					seta(winfield, 1, 24, 70);
+        5:  689:					wrefresh(winfield);
+        5:  690:					break;
+        -:  691:			}
+        -:  692:		}
+        -:  693:		else
+        -:  694:		{
+      275:  695:			seta(winfield, 0, 3, 23);
+      275:  696:			seta(winfield, 0, 10, 23);
+      275:  697:			seta(winfield, 0, 17, 23);
+      275:  698:			seta(winfield, 0, 24, 23);
+      275:  699:			seta(winfield, 0, 3, 70);
+      275:  700:			seta(winfield, 0, 10, 70);
+      275:  701:			seta(winfield, 0, 17, 70);
+      275:  702:			seta(winfield, 0, 24, 70);
+        -:  703:		}
+        -:  704:	}
+     1051:  705:}

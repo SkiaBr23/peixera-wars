@@ -1,0 +1,1043 @@
+        -:    0:Source:grafico.c
+        -:    0:Programs:4
+        -:    1:/*! \file grafico.c
+        -:    2:	\brief Módulo de implementação do módulo grafico.h **/
+        -:    3:
+        -:    4:/*
+        -:    5:PROJETO
+        -:    6:Nome: MAXIMILLIAN FAN XAVIER, OTÁVIO ALVES DIAS, RAFAEL DIAS DA COSTA, TÚLIO ABNER DE LIMA
+        -:    7:Matrícula: 12/0153271, 12/0131480, 12/0133253, 12/0137194
+        -:    8:Curso: Engenharia de Computação
+        -:    9:Disciplina: Métodos de Programação
+        -:   10:Turma: A
+        -:   11:Prof: Jan Mendonça
+        -:   12:*/
+        -:   13:
+        -:   14:/*INCLUSÃO DAS BIBLIOTECAS*/
+        -:   15:#include <ncurses.h>
+        -:   16:#include <menu.h>
+        -:   17:#include <stdio.h>
+        -:   18:#include <stdlib.h>
+        -:   19:#include <string.h>
+        -:   20:#include <time.h>
+        -:   21:#include <unistd.h>
+        -:   22:#include "grafico.h"
+        -:   23:#include "estruturas.h"
+        -:   24:#include "engine.h"
+        -:   25:
+        -:   26:/*DEFINIÇÃO DE CONSTANTES*/
+        -:   27:#define HUDH 7
+        -:   28:#define CASTLEW 40
+        -:   29:#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+        -:   30:#define CTRLD 	4
+        -:   31:
+        -:   32:/****************************************************************************/
+        -:   33:/**
+        -:   34:* \fn void inicia_ncurses()
+        -:   35:*
+        -:   36:* \brief Função responsável por iniciar o modo ncurses.
+        -:   37:*
+        -:   38:* \return void
+        -:   39:***************************************************************************/
+        -:   40:/*
+        -:   41:REQUISITO: Não possui requisitos.
+        -:   42:HIPÓTESE: Será possível utilizar as funções da ncurses.
+        -:   43:ASSERTIVAS DE ENTRADA: A função não possui entrada.
+        -:   44:ASSERTIVAS DE SAÍDA: A função não possui saída. 
+        -:   45:INTERFACE EXPLÍCITA: Tipo de retorno void.
+        -:   46:INTERFACE IMPLÍCITA: função auxiliar.
+        -:   47:*/
+        1:   48:void inicia_ncurses()
+        -:   49:{
+        1:   50:	initscr();
+        1:   51:}
+        -:   52:
+        -:   53:/****************************************************************************/
+        -:   54:/**
+        -:   55:* \fn void finaliza_ncurses()
+        -:   56:*
+        -:   57:* \brief Função responsável por finalizar o modo ncurses.
+        -:   58:*
+        -:   59:* \return void
+        -:   60:***************************************************************************/
+        -:   61:/*
+        -:   62:REQUISITO: Não possui requisitos.
+        -:   63:HIPÓTESE: Não será mais possível utilizar as funções da ncurses.
+        -:   64:ASSERTIVAS DE ENTRADA: A função não possui entrada.
+        -:   65:ASSERTIVAS DE SAÍDA: A função não possui saída. 
+        -:   66:INTERFACE EXPLÍCITA: Tipo de retorno void.
+        -:   67:INTERFACE IMPLÍCITA: função auxiliar.
+        -:   68:*/
+        1:   69:void finaliza_ncurses()
+        -:   70:{
+        1:   71:	endwin();
+        1:   72:}
+        -:   73:
+        -:   74:/****************************************************************************/
+        -:   75:/**
+        -:   76:* \fn void destroy_win(WINDOW *local_win)
+        -:   77:*
+        -:   78:* \brief Função responsável por apagar as informações de uma janela e deletar sua estrutura.
+        -:   79:*
+        -:   80:* @param local_win Uma estrutura do tipo WINDOW previamente inicializada.
+        -:   81:*
+        -:   82:* \return void
+        -:   83:***************************************************************************/
+        -:   84:/*
+        -:   85:REQUISITO: A janela passada por parâmetro deve estar inicializada.
+        -:   86:HIPÓTESE: A janela deixará de existir.
+        -:   87:ASSERTIVAS DE ENTRADA: A estrutura não pode apontar para NULL.
+        -:   88:ASSERTIVAS DE SAÍDA: A função não possui saída. 
+        -:   89:INTERFACE EXPLÍCITA: Tipo de retorno void e o parâmetro de entrada WINDOW *local_win.
+        -:   90:INTERFACE IMPLÍCITA: funções auxiliares pala gerenciar a janela.
+        -:   91:*/
+       49:   92:void destroy_win(WINDOW *local_win)
+        -:   93:{
+        -:   94:	
+       49:   95:	wborder(local_win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');/*Apaga a borda da janela*/
+       49:   96:	wrefresh(local_win);
+       49:   97:	delwin(local_win);/*deleta a estrutura*/
+       49:   98:}
+        -:   99:
+        -:  100:/****************************************************************************/
+        -:  101:/**
+        -:  102:* \fn int menu_edificio(void)
+        -:  103:*
+        -:  104:* \brief Função responsável pela criação do menu de evolução dos edifícios.
+        -:  105:*
+        -:  106:* \return Opção selecionada do menu
+        -:  107:***************************************************************************/
+        -:  108:
+        -:  109:/**
+        -:  110:
+        -:  111:REQUISITO: A função deve ser chamada no final de uma rodada.
+        -:  112:HIPÓTESE: A função irá retornar um valor correspondente à uma das opções do menu.
+        -:  113:ASSERTIVAS DE ENTRADA: A função não possui parâmetros.
+        -:  114:ASSERTIVAS DE SAÍDA: O retorno deve ser um número entre 1 e 4. 
+        -:  115:INTERFACE EXPLÍCITA: Tipo de retorno int.
+        -:  116:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  117:**/
+        9:  118:int menu_edificio()
+        -:  119:{
+        9:  120:	WINDOW *menu = newwin(10, 45, 10, 60);/*Cria uma nova janela*/
+        9:  121:	box(menu, 0, 0);/*Coloca a borda*/
+        -:  122:
+        -:  123:	int c;
+        -:  124:
+        9:  125:	mvwprintw(menu, 2, 3, "Escolha um edificio para evoluir:");
+        9:  126:	mvwprintw(menu, 4, 4, "1 - Comercio");
+        9:  127:	mvwprintw(menu, 5, 4, "2 - Quartel");
+        9:  128:	mvwprintw(menu, 6, 4, "3 - Campo de tiro");
+        9:  129:	mvwprintw(menu, 7, 4, "4 - Casa das lanças");
+        -:  130:
+        9:  131:	wrefresh(menu);
+        -:  132:
+        -:  133:	do
+        -:  134:	{
+        9:  135:		c = getchar();
+        9:  136:	} while ((c != '1') && (c != '2') && (c != '3') && (c != '4'));
+        -:  137:
+        9:  138:	switch(c)
+        -:  139:	{
+        -:  140:		case '1':
+        2:  141:			return 4;
+        -:  142:			break;
+        -:  143:		case '2':
+        2:  144:			return 1;
+        -:  145:			break;
+        -:  146:		case '3':
+        3:  147:			return 2;
+        -:  148:			break;
+        -:  149:		case '4':
+        2:  150:			return 3;
+        -:  151:			break;
+        -:  152:	}
+    #####:  153:	return 1;
+        -:  154:}
+        -:  155:
+        -:  156:
+        -:  157:/****************************************************************************/
+        -:  158:/**
+        -:  159:* \fn int menu_unidade(Castelo *castelo)
+        -:  160:*
+        -:  161:* \brief Função responsável pela criação do menu de evolução dos edifícios.
+        -:  162:*
+        -:  163:* @param castelo Estrutura de Castelo previamente inicializada.
+        -:  164:* 
+        -:  165:* \return Opção selecionada do menu
+        -:  166:***************************************************************************/
+        -:  167:
+        -:  168:/**
+        -:  169:REQUISITO: A função deve ser chamada no início de uma rodada.
+        -:  170:HIPÓTESE: A função irá retornar um valor correspondente à uma das opções do menu.
+        -:  171:ASSERTIVAS DE ENTRADA: castelo != NULL.
+        -:  172:ASSERTIVAS DE SAÍDA: O retorno deve ser um número entre 1 e 3. 
+        -:  173:INTERFACE EXPLÍCITA: Tipo de retorno int.
+        -:  174:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  175:**/
+       48:  176:int menu_unidade(Castelo *castelo)
+        -:  177:{
+       48:  178:	WINDOW *menu = newwin(12, 53, 10, 60);
+       48:  179:	box(menu, 0, 0);
+        -:  180:
+        -:  181:	int c;
+        -:  182:
+       48:  183:	mvwprintw(menu, 2, 3, "Escolha uma unidade para treinar:");
+        -:  184:
+       48:  185:	switch(castelo->quartel->nivel)
+        -:  186:	{
+        -:  187:		case 1:
+       24:  188:			mvwprintw(menu, 4, 3, "Guerreiro Nv 1");
+       24:  189:			mvwprintw(menu, 5, 3, "Vida: 300");
+       24:  190:			mvwprintw(menu, 6, 3, "Ataque: 60");
+       24:  191:			mvwprintw(menu, 7, 3, "Esquiva: 15%%");
+       24:  192:			mvwprintw(menu, 8, 3, "Preco: $25");
+       24:  193:			mvwprintw(menu, 10, 3, "Pressione 1");
+       24:  194:			break;
+        -:  195:		case 2:
+       12:  196:			mvwprintw(menu, 4, 3, "Guerreiro Nv 2");
+       12:  197:			mvwprintw(menu, 5, 3, "Vida: 400");
+       12:  198:			mvwprintw(menu, 6, 3, "Ataque: 60");
+       12:  199:			mvwprintw(menu, 7, 3, "Esquiva: 15%%");
+       12:  200:			mvwprintw(menu, 8, 3, "Preco: $60");
+       12:  201:			mvwprintw(menu, 10, 3, "Pressione 1");
+       12:  202:			break;
+        -:  203:		case 3:
+       12:  204:			mvwprintw(menu, 4, 3, "Guerreiro Nv 3");
+       12:  205:			mvwprintw(menu, 5, 3, "Vida: 500");
+       12:  206:			mvwprintw(menu, 6, 3, "Ataque: 60");
+       12:  207:			mvwprintw(menu, 7, 3, "Esquiva: 15%%");
+       12:  208:			mvwprintw(menu, 8, 3, "Preco: $95");
+       12:  209:			mvwprintw(menu, 10, 3, "Pressione 1");
+       12:  210:			break;		
+        -:  211:	}
+        -:  212:
+       48:  213:	switch(castelo->campodetiro->nivel)
+        -:  214:	{
+        -:  215:		case 1:
+        8:  216:			mvwprintw(menu, 4, 20, "Arqueiro Nv 1");
+        8:  217:			mvwprintw(menu, 5, 20, "Vida: 280");
+        8:  218:			mvwprintw(menu, 6, 20, "Ataque: 60");
+        8:  219:			mvwprintw(menu, 7, 20, "Esquiva: 20%%");
+        8:  220:			mvwprintw(menu, 8, 20, "Preco: $25");
+        8:  221:			mvwprintw(menu, 10, 20, "Pressione 2");
+        8:  222:			break;
+        -:  223:		case 2:
+        8:  224:			mvwprintw(menu, 4, 20, "Arqueiro Nv 2");
+        8:  225:			mvwprintw(menu, 5, 20, "Vida: 280");
+        8:  226:			mvwprintw(menu, 6, 20, "Ataque: 60");
+        8:  227:			mvwprintw(menu, 7, 20, "Esquiva: 30%%");
+        8:  228:			mvwprintw(menu, 8, 20, "Preco: $60");
+        8:  229:			mvwprintw(menu, 10, 20, "Pressione 2");
+        8:  230:			break;
+        -:  231:		case 3:
+       32:  232:			mvwprintw(menu, 4, 20, "Arqueiro Nv 3");
+       32:  233:			mvwprintw(menu, 5, 20, "Vida: 280");
+       32:  234:			mvwprintw(menu, 6, 20, "Ataque: 60");
+       32:  235:			mvwprintw(menu, 7, 20, "Esquiva: 40%%");
+       32:  236:			mvwprintw(menu, 8, 20, "Preco: $95");
+       32:  237:			mvwprintw(menu, 10, 20, "Pressione 2");
+       32:  238:			break;		
+        -:  239:	}
+        -:  240:
+       48:  241:	switch(castelo->casadaslancas->nivel)
+        -:  242:	{
+        -:  243:		case 1:
+       28:  244:			mvwprintw(menu, 4, 36, "Lanceiro Nv 1");
+       28:  245:			mvwprintw(menu, 5, 36, "Vida: 280");
+       28:  246:			mvwprintw(menu, 6, 36, "Ataque: 70");
+       28:  247:			mvwprintw(menu, 7, 36, "Esquiva: 15%%");
+       28:  248:			mvwprintw(menu, 8, 36, "Preco: $25");
+       28:  249:			mvwprintw(menu, 10, 36, "Pressione 3");
+       28:  250:			break;
+        -:  251:		case 2:
+       12:  252:			mvwprintw(menu, 4, 36, "Lanceiro Nv 2");
+       12:  253:			mvwprintw(menu, 5, 36, "Vida: 280");
+       12:  254:			mvwprintw(menu, 6, 36, "Ataque: 90");
+       12:  255:			mvwprintw(menu, 7, 36, "Esquiva: 15%%");
+       12:  256:			mvwprintw(menu, 8, 36, "Preco: $60");
+       12:  257:			mvwprintw(menu, 10, 36, "Pressione 3");
+       12:  258:			break;
+        -:  259:		case 3:
+        8:  260:			mvwprintw(menu, 4, 36, "Lanceiro Nv 3");
+        8:  261:			mvwprintw(menu, 5, 36, "Vida: 280");
+        8:  262:			mvwprintw(menu, 6, 36, "Ataque: 120");
+        8:  263:			mvwprintw(menu, 7, 36, "Esquiva: 15%%");
+        8:  264:			mvwprintw(menu, 8, 36, "Preco: $95");
+        8:  265:			mvwprintw(menu, 10, 36, "Pressione 3");
+        8:  266:			break;		
+        -:  267:	}
+        -:  268:
+       48:  269:	wrefresh(menu);
+        -:  270:
+        -:  271:	do
+        -:  272:	{
+       49:  273:		c = getchar();
+       49:  274:	} while ((c != '1') && (c != '2') && (c != '3'));
+        -:  275:
+       48:  276:	mvwprintw(menu, 2, 3, "                                                  ");/*Apaga o conteúdo da janela*/
+       48:  277:	mvwprintw(menu, 4, 3, "                                                  ");
+       48:  278:	mvwprintw(menu, 5, 3, "                                                  ");
+       48:  279:	mvwprintw(menu, 6, 3, "                                                  ");
+       48:  280:	mvwprintw(menu, 7, 3, "                                                  ");
+       48:  281:	mvwprintw(menu, 8, 3, "                                                  ");
+        -:  282:
+       48:  283:	destroy_win(menu);
+        -:  284:
+       48:  285:	switch(c)
+        -:  286:	{
+        -:  287:		case '1':
+        4:  288:			return 1;
+        -:  289:			break;
+        -:  290:		case '2':
+    #####:  291:			return 2;
+        -:  292:			break;
+        -:  293:		case '3':
+       44:  294:			return 3;
+        -:  295:			break;
+        -:  296:	}
+    #####:  297:	return 1;
+        -:  298:}
+        -:  299:
+        -:  300:/****************************************************************************/
+        -:  301:/**
+        -:  302:* \fn void mensagem(int y, int x, char frase[])
+        -:  303:*
+        -:  304:* \brief Função responsável pela impressão de uma mensagem na tela.
+        -:  305:*
+        -:  306:* @param y Coordenada y desejada
+        -:  307:* @param x Coordenada x desejada
+        -:  308:* @param frase[] String a ser mostrada ao jogador
+        -:  309:* 
+        -:  310:* \return void
+        -:  311:***************************************************************************/
+        -:  312:
+        -:  313:/**
+        -:  314:REQUISITO: O usuário deve passar as coordenadas da impressão e a mensagem.
+        -:  315:HIPÓTESE: A função irá imprimir na tela a mensagem passada como parâmetro.
+        -:  316:ASSERTIVAS DE ENTRADA: os inteiros devem estar entre 0 e LINES e COLS respectivamente, e a frase seve ser uma string não nula.
+        -:  317:ASSERTIVAS DE SAÍDA: A função não possui saída. 
+        -:  318:INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros int y, int x, char frase[].
+        -:  319:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  320:**/
+       77:  321:void mensagem(int y, int x, char frase[])
+        -:  322:{
+        -:  323:	int tam;
+       77:  324:	tam = strlen(frase);/*Verifica o tamanho da mensagem para construir a janela*/
+       77:  325:	WINDOW *mensagem = newwin(5, tam+4, y, x);
+       77:  326:	box(mensagem, 0, 0);
+        -:  327:
+       77:  328:	mvwprintw(mensagem, 2, 2, frase);
+        -:  329:
+       77:  330:	wrefresh(mensagem);
+       77:  331:}
+        -:  332:
+        -:  333:/****************************************************************************/
+        -:  334:/**
+        -:  335:* \fn char* mensagem_entrada(int y, int x, char frase[])
+        -:  336:*
+        -:  337:* \brief Função responsável por imprimir uma mensagem na tela e guardar a informação digitada pelo usuário.
+        -:  338:*
+        -:  339:* @param y Coordenada y desejada
+        -:  340:* @param x Coordenada x desejada
+        -:  341:* @param frase[] String a ser mostrada ao jogador
+        -:  342:*
+        -:  343:* \return string Texto inserido pelo usuario
+        -:  344:***************************************************************************/
+        -:  345:
+        -:  346:/**
+        -:  347:REQUISITO: O usuário deve passar as coordenadas da impressão e a mensagem.
+        -:  348:HIPÓTESE: A função irá imprimir na tela a mensagem passada como parâmetro e irá retornar a string digitada.
+        -:  349:ASSERTIVAS DE ENTRADA: os inteiros devem estar entre 0 e LINES e COLS respectivamente, e a frase seve ser uma string não nula.
+        -:  350:ASSERTIVAS DE SAÍDA: A saída deve ser um ponteiro para char. 
+        -:  351:INTERFACE EXPLÍCITA: Tipo de retorno char*, com parâmetros int y, int x, char frase[].
+        -:  352:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  353:**/
+    #####:  354:char* mensagem_entrada(int y, int x, char frase[])
+        -:  355:{
+    #####:  356:	char *string = (char *) malloc(31 * sizeof(char));
+        -:  357:	int tam;
+        -:  358:	int i;
+    #####:  359:	tam = strlen(frase);
+    #####:  360:	WINDOW *mensagem = newwin(7, tam+4, y, x);
+    #####:  361:	box(mensagem, 0, 0);
+        -:  362:
+    #####:  363:	mvwprintw(mensagem, 2, 2, frase);
+    #####:  364:	wrefresh(mensagem);
+    #####:  365:	move(y+4, x+2);/*Move o cursor para receber a String*/
+    #####:  366:	echo();/*Permite que os caracteres digitados apareçam na tela*/
+    #####:  367:	getstr(string);/*Pega a String*/
+    #####:  368:	noecho();/*Cancela a função echo()*/
+    #####:  369:	string[30] = '\0';
+        -:  370:
+    #####:  371:	for (i = 0; i < tam; ++i)/*Apaga o conteúdo da janela*/
+        -:  372:	{
+    #####:  373:		mvwprintw(mensagem, 2, i+2, " ");
+        -:  374:	}
+        -:  375:
+    #####:  376:	destroy_win(mensagem);/*apaga a estrutura*/
+        -:  377:
+    #####:  378:	return string;
+        -:  379:}
+        -:  380:
+        -:  381:/****************************************************************************/
+        -:  382:/**
+        -:  383:* \fn void tela_inicial()
+        -:  384:*
+        -:  385:* \brief Função responsável pela  impressão da tela inicial, com desenhos e opções do menu.
+        -:  386:*
+        -:  387:* \return void
+        -:  388:***************************************************************************/
+        -:  389:/**
+        -:  390:REQUISITO: Não há requisitos.
+        -:  391:HIPÓTESE: A função irá imprimir na tela o design da tela inicial.
+        -:  392:ASSERTIVAS DE ENTRADA: A função não possui entrada.
+        -:  393:ASSERTIVAS DE SAÍDA: A função não possui saída. 
+        -:  394:INTERFACE EXPLÍCITA: Tipo de retorno void.
+        -:  395:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  396:**/
+        3:  397:void tela_inicial()
+        -:  398:{
+        3:  399:	WINDOW *build = newwin(35, 63, 5, 60);
+        3:  400:	WINDOW *menuwin = newwin(5, 15, 11, 40);
+        3:  401:	WINDOW *tela = newwin(LINES, COLS, 0, 0);
+        -:  402:	
+        3:  403:	keypad(menuwin, TRUE);/*Permite o uso de todos as teclas do teclado na janela menuwin*/
+        -:  404:
+        3:  405:	refresh();
+        -:  406:/*Imprime o título*/
+        3:  407:	mvwprintw(tela, 1, 30, " ____  ____  __  _  _  ____  ____   __     _  _   __   ____  ____");
+        3:  408:	mvwprintw(tela, 2, 30, "(  _ \\(  __)(  )( \\/ )(  __)(  _ \\ / _\\   / )( \\ / _\\ (  _ \\/ ___)");
+        3:  409:	mvwprintw(tela, 3, 30, " ) __/ ) _)  )(  )  (  ) _)  )   //    \\  \\ /\\ //    \\ )   /\\___ \\");
+        3:  410:	mvwprintw(tela, 4, 30, "(__)  (____)(__)(_/\\_)(____)(__\\_)\\_/\\_/  (_/\\_)\\_/\\_/(__\\_)(____/");
+        3:  411:	wrefresh(tela);
+        -:  412:/*Imprime o castelo*/
+        3:  413:	mvwprintw(build, 0, 0, "                                                    !_\n                                                    |*~=-.,\n                                                    |_,-'`\n                                                    |\n                                                    |\n                                                   /^\\\n                     !_                           /   \\\n                     |*`~-.,                     /,    \\\n                     |.-~^`                     /#\"     \\\n                     |                        _/##_   _  \\_\n                _   _|  _   _   _            [ ]_[ ]_[ ]_[ ]\n               [ ]_[ ]_[ ]_[ ]_[ ]            |_=_-=_ - =_|\n             !_ |_=_ =-_-_  = =_|           !_ |=_= -    |\n             |*`--,_- _        |            |*`~-.,= []  |\n             |.-'|=     []     |   !_       |_.-\"`_-     |\n             |   |_=- -        |   |*`~-.,  |  |=_-      |\n            /^\\  |=_= -        |   |_,-~`  /^\\ |_ - =[]  |\n        _  /   \\_|_=- _   _   _|  _|  _   /   \\|=_-      |\n       [ ]/,    \\[ ]_[ ]_[ ]_[ ]_[ ]_[ ]_/,    \\[ ]=-    |\n        |/#\"     \\_=-___=__=__- =-_ -=_ /#\"     \\| _ []  |\n       _/##_   _  \\_-_ =  _____       _/##_   _  \\_ -    |\\\n      [ ]_[ ]_[ ]_[ ]=_0~{_ _ _}~0   [ ]_[ ]_[ ]_[ ]=-   | \\\n      |_=__-_=-_  =_|-=_ |~~~~~|     |_=-___-_ =-__|_    |  \\\n       | _- =-     |-_   | E C |      |= _=       | -    |___\\\n       |= -_=      |=  _ |~~~~~|      |_-=_       |=_    |/+\\|\n       | =_  -     |_ = _ `-.-`       | =_ = =    |=_-   ||+||\n       |-_=- _     |=_   =            |=_= -_     |  =   ||+||\n       |=_- /+\\    | -=               |_=- /+\\    |=_    |^^^|\n       |=_ |+|+|   |= -  -_,--,_      |_= |+|+|   |  -_  |=  |\n       |  -|+|+|   |-_=  / |  | \\     |=_ |+|+|   |-=_   |_-/\n       |=_=|+|+|   | =_= | |  | |     |_- |+|+|   |_ =   |=/\n       | _ ^^^^^   |= -  | |  <&>     |=_=^^^^^   |_=-   |/\n       |=_ =       | =_-_| |  | |     |   =_      | -_   |\n       |_=-_       |=_=  | |  | |     |=_=        |=-    |\n `^^^^^^^^^^`^`^^`^`^`^^^\"\"\"\"\"\"\"\"^`^^``^^`^^`^^`^`^``^`^``^``^^");
+        -:  414:	
+        3:  415:	wrefresh(build);
+        -:  416:
+        3:  417:	Inicia();
+        -:  418:	
+    #####:  419:}
+        -:  420:
+        -:  421:/****************************************************************************/
+        -:  422:/**
+        -:  423:* \fn void tela_final()
+        -:  424:*
+        -:  425:* \brief Função responsável por imprimir a mensagem de despedida e encerrar o programa.
+        -:  426:*
+        -:  427:* \return void
+        -:  428:***************************************************************************/
+        -:  429:
+        -:  430:/**
+        -:  431:REQUISITO: Não há requisitos.
+        -:  432:HIPÓTESE: A função irá imprimir na tela o design da tela final e irá encerrar o programa.
+        -:  433:ASSERTIVAS DE ENTRADA: A função não possui entrada.
+        -:  434:ASSERTIVAS DE SAÍDA: A função não possui saída. 
+        -:  435:INTERFACE EXPLÍCITA: Tipo de retorno void.
+        -:  436:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  437:**/
+        1:  438:void tela_final()
+        -:  439:{
+        1:  440:	clear();
+        1:  441:	mvprintw(LINES/2 - 2, COLS/2 - 10, "OBRIGADO POR JOGAR!");
+        1:  442:	refresh();
+        1:  443:	sleep(2);/*Aguarda dois segundos*/
+        1:  444:	finaliza_ncurses();/*Encerra a Ncurses*/
+        1:  445:	exit(1);/*Encerra o programa*/
+        -:  446:}
+        -:  447:
+        -:  448:/****************************************************************************/
+        -:  449:/**
+        -:  450:* \fn TelaGameOver()
+        -:  451:*
+        -:  452:* \brief Função responsável por imprimir a mensagem de fim de jogo e encerrar o programa.
+        -:  453:*
+        -:  454:* \return void
+        -:  455:***************************************************************************/
+        -:  456:/*
+        -:  457:REQUISITO: Não há requisitos.
+        -:  458:HIPÓTESE: A função irá imprimir na tela o design da tela de fim de jogo e irá encerrar o programa.
+        -:  459:ASSERTIVAS DE ENTRADA: A função não possui entrada.
+        -:  460:ASSERTIVAS DE SAÍDA: A função não possui saída. 
+        -:  461:INTERFACE EXPLÍCITA: Tipo de retorno void.
+        -:  462:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  463:**/
+    #####:  464:void TelaGameOver()
+        -:  465:{
+    #####:  466:	int x = COLS/4,y=15;
+    #####:  467:	clear();
+        -:  468:
+    #####:  469:	mvprintw(y  ,x,"      _____          __  __ ______    ______      ________ _____  _");
+    #####:  470:	mvprintw(y+1,x,"     / ____|   /\\   |  \\/  |  ____|  / __ \\ \\    / /  ____|  __ \\| |");
+    #####:  471:	mvprintw(y+2,x,"    | |  __   /  \\  | \\  / | |__    | |  | \\ \\  / /| |__  | |__) | |");
+    #####:  472:	mvprintw(y+3,x,"    | | |_ | / /\\ \\ | |\\/| |  __|   | |  | |\\ \\/ / |  __| |  _  /| |");
+    #####:  473:	mvprintw(y+4,x,"    | |__| |/ ____ \\| |  | | |____  | |__| | \\  /  | |____| | \\ \\|_|");
+    #####:  474:	mvprintw(y+5,x,"     \\_____/_/    \\_\\_|  |_|______|  \\____/   \\/   |______|_|  \\_(_)");
+    #####:  475:	mvprintw(y+6,x," ________________________________________________________________________ ");
+    #####:  476:	mvprintw(y+7,x,"|________________________________________________________________________|");
+    #####:  477:	refresh();
+    #####:  478:	sleep(3);/*Aguarda 3 segundos*/
+    #####:  479:	finaliza_ncurses();/*Encerra a Ncurses*/
+    #####:  480:	exit(1);/*Encerra o programa*/
+        -:  481:}
+        -:  482:
+        -:  483:/****************************************************************************/
+        -:  484:/**
+        -:  485:* \fn void creditos(int y, int x)
+        -:  486:*
+        -:  487:* \brief Função responsável pela impressão dos créditos.
+        -:  488:*
+        -:  489:* @param y Coordenada x desejada
+        -:  490:* @param x Coordenada y desejada
+        -:  491:*
+        -:  492:* \return void
+        -:  493:***************************************************************************/
+        -:  494:
+        -:  495:/**
+        -:  496:
+        -:  497:REQUISITO: O usuário deve passar as coordenadas da impressão.
+        -:  498:HIPÓTESE: A função irá imprimir na tela os créditos dos criadores do jogo.
+        -:  499:ASSERTIVAS DE ENTRADA: os inteiros devem estar entre 0 e LINES e COLS respectivamente.
+        -:  500:ASSERTIVAS DE SAÍDA: A função não possui saída. 
+        -:  501:INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros int y, int x.
+        -:  502:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  503:**/
+        1:  504:void creditos(int y, int x)
+        -:  505:{
+        1:  506:	WINDOW *creditos = newwin(16, 64, y, x);
+        -:  507:	int i, j;
+        -:  508:
+        -:  509:	
+        1:  510:	mvwprintw(creditos, 2, 2, "			    								   ,  ,");
+        1:  511:	mvwprintw(creditos, 3, 2, "                                               / \\/ \\");
+        1:  512:	mvwprintw(creditos, 4, 2, "                                              (/ //_ \\_");
+        1:  513:	mvwprintw(creditos, 5, 2, "     .-._                                      \\||  .  \\");
+        1:  514:	mvwprintw(creditos, 6, 2, "      \\  '-._                            _,:__.-'/---\\_ \\");
+        1:  515:	mvwprintw(creditos, 7, 2, " ______/___  '.    .--------------------'~-'--.)__( , )\\ \\");
+        1:  516:	mvwprintw(creditos, 8, 2, "`'--.___  _\\  /    |   Maximillian Fan Xavier ,'    \\)|\\ `\\|");
+        1:  517:	mvwprintw(creditos, 9, 2, "     /_.-' _\\ \\ _:,_    Otavio Alves Dias           ' |   (");
+        1:  518:	mvwprintw(creditos, 10, 2, "   .'__ _.' \\'-/,`-~`    Rafael Dias da Costa        |/");
+        1:  519:	mvwprintw(creditos, 11, 2, "       '. ___.> /=,|       Tulio Abner de Lima       |");
+        1:  520:	mvwprintw(creditos, 12, 2, "        / .-'/_ )  '---------------------------------'");
+        1:  521:	mvwprintw(creditos, 13, 2, "        )'  ( /(/");
+        1:  522:	mvwprintw(creditos, 14, 2, "             \\\\ '");
+        1:  523:	mvwprintw(creditos, 15, 2, "              '==''");
+        -:  524:
+        1:  525:	wrefresh(creditos);
+        -:  526:
+        1:  527:	getch();
+        -:  528:
+       15:  529:	for (j = 2; j < 16; j++)/*Apaga o conteúdo da janela*/
+        -:  530:	{
+      910:  531:		for (i = 0; i < 64; i++)
+        -:  532:		{
+      896:  533:			mvwprintw(creditos, j, i+2, " ");
+        -:  534:		}
+        -:  535:	}
+        -:  536:
+        1:  537:	destroy_win(creditos);
+        1:  538:}
+        -:  539:
+        -:  540:/****************************************************************************/
+        -:  541:/**
+        -:  542:* \fn void print_hud(WINDOW *hud,int gold, int wave)
+        -:  543:*
+        -:  544:* \brief Função responsável pela impressão do HUD superior, contendo título e informações sobre o jogo(ouro disponível e numero da horda).
+        -:  545:*
+        -:  546:* @param hud Ponteiro para a janela do HUD do jogo (Head's Up Display)
+        -:  547:* @param wave Inteiro que determina em qual wave o jogador se encontra
+        -:  548:* @param gold Inteiro que determina o gold atual do usuário
+        -:  549:*
+        -:  550:* \return void
+        -:  551:***************************************************************************/
+        -:  552:
+        -:  553:/**
+        -:  554:REQUISITO: O usuário deve passar o ponteiro para a janela, a quantidade de ouro e o número da horda.
+        -:  555:HIPÓTESE: A função irá imprimir na tela o HUD.
+        -:  556:ASSERTIVAS DE ENTRADA: hud não pode ser nulo, gold não pode ser negativo e wave deve estar entre 1 e 10.
+        -:  557:ASSERTIVAS DE SAÍDA: A função não possui saída. 
+        -:  558:INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *hud,int gold, int wave.
+        -:  559:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  560:**/
+       15:  561:void print_hud(WINDOW *hud,int gold, int wave)
+        -:  562:{
+        -:  563:
+       15:  564:	box(hud, 0 , 0);/*Cria a margem da janela*/
+        -:  565:
+       15:  566:	mvwprintw(hud, 1, 1, " ____  ____  __  _  _  ____  ____   __     _  _   __   ____  ____");
+       15:  567:	mvwprintw(hud, 2, 1, "(  _ \\(  __)(  )( \\/ )(  __)(  _ \\ / _\\   / )( \\ / _\\ (  _ \\/ ___)");
+       15:  568:	mvwprintw(hud, 3, 1, " ) __/ ) _)  )(  )  (  ) _)  )   //    \\  \\ /\\ //    \\ )   /\\___ \\");
+       15:  569:	mvwprintw(hud, 4, 1, "(__)  (____)(__)(_/\\_)(____)(__\\_)\\_/\\_/  (_/\\_)\\_/\\_/(__\\_)(____/");
+        -:  570:
+       15:  571:	mvwprintw(hud, 2, 80, "Gold$ %d", gold);
+       15:  572:	mvwprintw(hud, 4, 80, "Wave %d", wave);
+       15:  573:	mvwprintw(hud, 2, 100, "M - Menu");
+        -:  574:
+       15:  575:}
+        -:  576:
+        -:  577:/****************************************************************************/
+        -:  578:/**
+        -:  579:* \fn void print_field(WINDOW *field, CabecaPFilas *filas)
+        -:  580:*
+        -:  581:* \brief Função responsável pela impressão do campo de batalha.
+        -:  582:*
+        -:  583:* @param field Ponteiro para a janela do campo de batalha do jogo
+        -:  584:* @param filas Ponteiro para a estrutura de filas de unidades e inimigos.
+        -:  585:*
+        -:  586:* \return void
+        -:  587:***************************************************************************/
+        -:  588:
+        -:  589:/** 
+        -:  590:REQUISITO: O usuário deve passar o ponteiro para a janela e o ponteiro para as filas de personagens.
+        -:  591:HIPÓTESE: A função irá imprimir na tela o campo de batalha.
+        -:  592:ASSERTIVAS DE ENTRADA: field e filas não podem ser nulos.
+        -:  593:ASSERTIVAS DE SAÍDA: A função não possui saída. 
+        -:  594:INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *field, CabecaPFilas *filas.
+        -:  595:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  596:**/
+      182:  597:void print_field(WINDOW *field, CabecaPFilas *filas)
+        -:  598:{
+        -:  599:
+      182:  600:	box(field, 0 , 0);
+        -:  601:	Unidade *lis;
+        -:  602:	int i, j;
+        -:  603:
+     5824:  604:	for (i = 1; i < LINES-HUDH-2; ++i)/*Apaga o conteúdo da Janela*/
+        -:  605:	{
+   586768:  606:		for (j = 1; j < COLS-CASTLEW; ++j)
+        -:  607:		{
+   581126:  608:			mvwprintw(field, i, j, " ");
+        -:  609:		}
+        -:  610:	}
+        -:  611:
+      778:  612:	for (lis = filas->player, i = 3; lis!=NULL; lis = lis->prox, i+=7)/*Imprime as unidade do jogador*/
+        -:  613:	{
+      596:  614:		desenhaunidade(field, lis->classe, i, 10);
+      596:  615:		mvwprintw(field, i, 5, "HP %d", lis->vida);
+        -:  616:	}
+        -:  617:
+      405:  618:	for (lis = filas->cpu, i = 3; lis!=NULL; lis = lis->prox, i+=7)/*Imprime as unidades do inimigo*/
+        -:  619:	{
+      223:  620:		desenhainimigo(field, lis->classe, i, 80);
+      223:  621:		mvwprintw(field, i, 90, "HP %d", lis->vida);
+        -:  622:	}
+      182:  623:}
+        -:  624:
+        -:  625:/****************************************************************************/
+        -:  626:/**
+        -:  627:* \fn void print_castle(WINDOW *castle, Castelo *castelo)
+        -:  628:*
+        -:  629:* \brief Função responsável pela impressão da área de edifícios.
+        -:  630:*
+        -:  631:* @param castle Ponteiro para a janela do castelo, onde ficam os edifícios.
+        -:  632:* @param castelo Ponteiro para a estrutura Castelo
+        -:  633:*
+        -:  634:* \return void
+        -:  635:***************************************************************************/
+        -:  636:
+        -:  637:/**
+        -:  638:REQUISITO: O usuário deve passar o ponteiro para a janela e o ponteiro para os edifícios.
+        -:  639:HIPÓTESE: A função irá imprimir na tela a área de edifícios.
+        -:  640:ASSERTIVAS DE ENTRADA: castle e castelo não podem ser nulos.
+        -:  641:ASSERTIVAS DE SAÍDA: A função não possui saída. 
+        -:  642:INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *castle, Castelo *castelo.
+        -:  643:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  644:**/
+       15:  645:void print_castle(WINDOW *castle, Castelo *castelo)
+        -:  646:{
+        -:  647:
+       15:  648:	box(castle, 0 , 0);
+        -:  649:
+       15:  650:		desenhaedificio(castle, castelo->comercio->nivel, 0, 2, 4);
+       15:  651:		desenhaedificio(castle, castelo->quartel->nivel,1, 10, 6);
+       15:  652:		desenhaedificio(castle, castelo->campodetiro->nivel,2,18,4);
+       15:  653:		desenhaedificio(castle, castelo->casadaslancas->nivel,3,26,3);
+        -:  654:
+       15:  655:}
+        -:  656:
+        -:  657:/****************************************************************************/
+        -:  658:/**
+        -:  659:* \fn menu (WINDOW *menuwin)
+        -:  660:*
+        -:  661:* \brief Função que cria o menu de opções disponíveis para o usuário na tela inicial.
+        -:  662:*
+        -:  663:* @param menuwin Ponteiro da janela de menu
+        -:  664:*
+        -:  665:* \return Opção selecionada pelo jogador
+        -:  666:***************************************************************************/
+        -:  667:
+        -:  668:/**
+        -:  669:REQUISITO: O usuário deve passar o ponteiro para a janela.
+        -:  670:HIPÓTESE: A função irá imprimir na tela o menu.
+        -:  671:ASSERTIVAS DE ENTRADA: menuwin não pode ser nulo.
+        -:  672:ASSERTIVAS DE SAÍDA: A saída deve estar entre -1 e 3.
+        -:  673:INTERFACE EXPLÍCITA: Tipo de retorno int, com parâmetro WINDOW *menuwin.
+        -:  674:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  675:**/
+        8:  676:int menu (WINDOW *menuwin)
+        -:  677:{
+        -:  678:
+        8:  679:	char *choices[] = {/*Cria os itens do menu*/
+        -:  680:                        "Novo Jogo",
+        -:  681:                        "Carregar Jogo",
+        -:  682:                        "Creditos",
+        -:  683:                        "Sair",
+        -:  684:                  	};
+        -:  685:
+        -:  686:	ITEM **my_items;		
+        -:  687:	ITEM *cur_item;
+        -:  688:	MENU *my_menu;
+        -:  689:    int n_choices, i, c;
+        -:  690:	
+        8:  691:    n_choices = ARRAY_SIZE(choices);/*Estabelece o número de itens*/
+        8:  692:    my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));/*Aloca os itens na memória*/
+        -:  693:
+        8:  694:    for(i = 0; i < n_choices; ++i) my_items[i] = new_item(choices[i], choices[i]);/*Grava os itens*/
+        -:  695:
+        8:  696:	my_items[n_choices] = (ITEM *)NULL;
+        -:  697:
+        8:  698:	my_menu = new_menu((ITEM **)my_items);/*Coloca os itens no menu*/
+        8:  699:	set_menu_win(my_menu, menuwin);/*Coloca o menu na janela*/
+        8:  700:	post_menu(my_menu);/*Imprime o menu na tela*/
+        8:  701:	wrefresh(menuwin);
+        -:  702:	
+        -:  703:	while(1)
+        -:  704:	{       
+       21:  705:		c = getch();
+       21:  706:		switch(c)
+        -:  707:        {	
+        -:  708:        	case 's':
+        9:  709:				menu_driver(my_menu, REQ_DOWN_ITEM);/*Caso o jogador aperte s passa a seleção do menu para baixo*/
+        9:  710:				wrefresh(menuwin);
+        9:  711:				break;
+        -:  712:			case 'w':
+        2:  713:				menu_driver(my_menu, REQ_UP_ITEM);/*Caso o jogador aperte w passa a seleção do menu para cima*/
+        2:  714:				wrefresh(menuwin);
+        2:  715:				break;
+        -:  716:			case 10:	/* Enter */
+        8:  717:				cur_item = current_item(my_menu);
+        8:  718:				return (item_index(cur_item));/*Retorna a opção do menu selecionada*/
+        -:  719:		}
+       13:  720:	}
+        -:  721:	return -1;
+        -:  722:}
+        -:  723:
+        -:  724:/****************************************************************************/
+        -:  725:/**
+        -:  726:* \fn void desenhaunidade (WINDOW *win, int unidade, int y, int x)
+        -:  727:*
+        -:  728:* \brief Função responsável pela impressão do desenho da unidade escolhida nas coordenadas indicadas.
+        -:  729:*
+        -:  730:* @param win Ponteiro para a janela em que será desenhada a unidade
+        -:  731:* @param unidade Indentificador de unidade. Dependendo do número, desenha uma unidade diferente
+        -:  732:* @param y Coordenada y desejada
+        -:  733:* @param x Coordenada x desejada
+        -:  734:*
+        -:  735:* \return void
+        -:  736:***************************************************************************/
+        -:  737:
+        -:  738:/**
+        -:  739:REQUISITO: O usuário deve passar o ponteiro para a janela, o tipo de unidade e as coordenadas.
+        -:  740:HIPÓTESE: A função irá imprimir no campo de batalha as unidades adiquiridas pelo jogador.
+        -:  741:ASSERTIVAS DE ENTRADA: win não pode ser nulo, unidade deve estar entre 1 e 4, y e x devem estar entre 0 e LINES e COLS respectivamente.
+        -:  742:ASSERTIVAS DE SAÍDA: A função não possui saída.
+        -:  743:INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *win, int unidade, int y, int x.
+        -:  744:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  745:**/
+      596:  746:void desenhaunidade (WINDOW *win, int unidade, int y, int x)
+        -:  747:{
+      596:  748:	switch(unidade)
+        -:  749:	{
+        -:  750:		case 1:
+       26:  751:			mvwprintw(win, y  , x, "    O");
+       26:  752:            mvwprintw(win, y+1, x, "\\  /M\\");
+       26:  753:            mvwprintw(win, y+2, x, " X/ W \\");
+       26:  754:            mvwprintw(win, y+3, x, "    |\\");
+       26:  755:            mvwprintw(win, y+4, x, "   /_ |_");
+       26:  756:            break;
+        -:  757:        case 2:
+    #####:  758:        	mvwprintw(win, y  , x, "    O  \\");
+    #####:  759:            mvwprintw(win, y+1, x, "   /M\\_(");
+    #####:  760:            mvwprintw(win, y+2, x, "  / W  /");
+    #####:  761:            mvwprintw(win, y+3, x, "    |\\");
+    #####:  762:            mvwprintw(win, y+4, x, "   /_ |_");
+    #####:  763:            break;
+        -:  764:        case 3:
+      570:  765:        	mvwprintw(win, y  , x, "    O");
+      570:  766:            mvwprintw(win, y+1, x, "   /M\\");
+      570:  767:            mvwprintw(win, y+2, x, "  W===M===[>");
+      570:  768:            mvwprintw(win, y+3, x, "    |\\");
+      570:  769:            mvwprintw(win, y+4, x, "   /_ |_");
+      570:  770:			break;
+        -:  771:	}
+      596:  772:}
+        -:  773:
+        -:  774:/****************************************************************************/
+        -:  775:/**
+        -:  776:* \fn void desenhainimigo (WINDOW *win, int inimigo, int y, int x)
+        -:  777:*
+        -:  778:* \brief Função responsável pela impressão de unidades inimigas nas coordenadas escolhidas.
+        -:  779:*
+        -:  780:* @param win Ponteiro para a janela em que será desenhada a unidade
+        -:  781:* @param inimigo Indentificador de unidade. Dependendo do número, desenha uma unidade diferente
+        -:  782:* @param y Coordenada y desejada
+        -:  783:* @param x Coordenada x desejada
+        -:  784:*
+        -:  785:* \return void
+        -:  786:***************************************************************************/
+        -:  787:
+        -:  788:/**
+        -:  789:REQUISITO: O usuário deve passar o ponteiro para a janela, o tipo de unidade e as coordenadas.
+        -:  790:HIPÓTESE: A função irá imprimir no campo de batalha as unidades geradas pelo inimigo.
+        -:  791:ASSERTIVAS DE ENTRADA: win não pode ser nulo, inimigo deve estar entre 1 e 4, y e x devem estar entre 0 e LINES e COLS respectivamente.
+        -:  792:ASSERTIVAS DE SAÍDA: A função não possui saída.
+        -:  793:INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *win, int inimigo, int y, int x.
+        -:  794:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  795:**/
+      223:  796:void desenhainimigo (WINDOW *win, int inimigo, int y, int x)
+        -:  797:{
+      223:  798:	switch(inimigo)
+        -:  799:	{
+        -:  800:		case 1:
+       99:  801:			mvwprintw(win, y  , x, "(___)");
+       99:  802:            mvwprintw(win, y+1, x, "(o o)_____/");
+       99:  803:            mvwprintw(win, y+2, x, " @@ `     \\");
+       99:  804:            mvwprintw(win, y+3, x, "  \\ ____, /");
+       99:  805:            mvwprintw(win, y+4, x, "  //    //");
+       99:  806:            mvwprintw(win, y+5, x, " ^^    ^^");
+       99:  807:            break;
+        -:  808:        case 2:
+       65:  809:        	mvwprintw(win, y  , x, "   _//|.-~~~~-,");
+       65:  810:            mvwprintw(win, y+1, x, " _/66  \\       \\_@");
+       65:  811:            mvwprintw(win, y+2, x, "(\")_   /   /   |");
+       65:  812:            mvwprintw(win, y+3, x, "  '--'|| |-\\  /");
+       65:  813:            mvwprintw(win, y+4, x, "      //_/ /_/");
+       65:  814:            break;
+        -:  815:        case 3:
+       57:  816:        	mvwprintw(win, y  , x, "     |_|   ");
+       57:  817:            mvwprintw(win, y+1, x, "    ('.')  ///");
+       57:  818:            mvwprintw(win, y+2, x, "     (W)   /");
+       57:  819:            mvwprintw(win, y+3, x, "    <(M)`-/'");
+       57:  820:            mvwprintw(win, y+4, x, "<-._/J L /  ");
+       57:  821:			break;			
+        -:  822:		case 4:
+        2:  823:			x = x-18;
+        2:  824:			y = y + 5;
+        2:  825:			mvwprintw(win, y  , x, " <>=======()");
+        2:  826:            mvwprintw(win, y+1, x, "   (/\\___   /|\\\\          ()==========<>_");
+        2:  827:            mvwprintw(win, y+2, x, "        \\_/ | \\\\        //|\\   ______/ \\)");
+        2:  828:            mvwprintw(win, y+3, x, "          \\_|  \\\\      // | \\_/");
+        2:  829:            mvwprintw(win, y+4, x, "            \\|\\/|\\_   //  /\\/");
+        2:  830:			mvwprintw(win, y+5, x, "            (oo)\\ \\_//  /");
+        2:  831:			mvwprintw(win, y+6, x, "            //_/\\_\\/ /  |");
+        2:  832:			mvwprintw(win, y+7, x, "           @@/  |=\\  \\  |");
+        2:  833:			mvwprintw(win, y+8, x, "                \\_=\\_ \\ |");
+        2:  834:			mvwprintw(win, y+9, x, "               __(\\===\\(  )\\");
+        2:  835:			mvwprintw(win, y+10, x, "              (((~) __(_/   |");
+        2:  836:			mvwprintw(win, y+11, x, "                   (((~) \\  /");
+        2:  837:			mvwprintw(win, y+12, x, "                   ______/ /");
+        2:  838:			mvwprintw(win, y+13, x, "                   '------'");
+        2:  839:			break;	
+        -:  840:	}
+      223:  841:}
+        -:  842:
+        -:  843:/****************************************************************************/
+        -:  844:/**
+        -:  845:* \fn desenhaedificio(WINDOW *win, int nivel, int edificio, int y, int x)
+        -:  846:*
+        -:  847:* \brief Função responsável pela impressão do desenho dos edifícios.
+        -:  848:*
+        -:  849:* @param win Ponteiro para a janela em que será desenhada o edificio.
+        -:  850:* @param nivel Nível atual do edifício que será desenhado.
+        -:  851:* @param edificio Indentificador de edificio. Dependendo do número, desenha um edificio diferente.
+        -:  852:* @param y Coordenada y desejada.
+        -:  853:* @param x Coordenada x desejada.
+        -:  854:*
+        -:  855:* \return void
+        -:  856:***************************************************************************/
+        -:  857:
+        -:  858:/**
+        -:  859:REQUISITO: O usuário deve passar o ponteiro para a janela, o nível do edifício, o tipo do edifício e as coordenadas.
+        -:  860:HIPÓTESE: A função irá imprimir os desenhos na área de edifícios.
+        -:  861:ASSERTIVAS DE ENTRADA: win não pode ser nulo, nivel deve estar entre 1 e 3, edificio deve estar entre 0 e 3, y e x devem estar entre 0 e LINES e COLS respectivamente.
+        -:  862:ASSERTIVAS DE SAÍDA: A função não possui saída.
+        -:  863:INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *win, int nivel, int edificio, int y, int x.
+        -:  864:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  865:**/
+       60:  866:void desenhaedificio(WINDOW *win, int nivel, int edificio, int y, int x)
+        -:  867:{
+       60:  868:	switch(edificio)
+        -:  869:	{
+        -:  870:		case 0:
+       15:  871:			mvwprintw(win, y  , x, "	        x");
+       15:  872:            mvwprintw(win, y+1, x, ".-. ________|_    Comercio");
+       15:  873:            mvwprintw(win, y+2, x, "|=|/     /    \\   Nivel: %d", nivel);
+       15:  874:            mvwprintw(win, y+3, x, "| |_LOJA_|_||_|   %d gold/wave",100*nivel);
+       15:  875:            mvwprintw(win, y+4, x, "|_|_[ ]__|____|");
+       15:  876:            break;
+        -:  877:		case 1:
+       15:  878:        	mvwprintw(win, y  , x, " _   |~  _");
+       15:  879:			mvwprintw(win, y+1, x, "[_]--'--[_]     Quartel");
+       15:  880:			mvwprintw(win, y+2, x, "| |  S  |'|     Nivel: %d", nivel);
+       15:  881:			mvwprintw(win, y+3, x, "| | /^\\ | |");
+       15:  882:			mvwprintw(win, y+4, x, "|_|_|I|_|_|");
+       15:  883:			break;
+        -:  884:        case 2:
+       15:  885:        	mvwprintw(win, y  , x, "      +");
+       15:  886:			mvwprintw(win, y+1, x, "   _.-A-._      Campo de Tiro");
+       15:  887:			mvwprintw(win, y+2, x, ".='_______'=.     Nivel: %d", nivel);
+       15:  888:			mvwprintw(win, y+3, x, " ||     o ||");
+       15:  889:			mvwprintw(win, y+4, x, "_||[X]__|_||__");
+       15:  890:			break;
+        -:  891:		case 3:
+       15:  892:			mvwprintw(win, y  , x, "    __-L-__");
+       15:  893:			mvwprintw(win, y+1, x, "   /\\-'o'-/\\    Casa das Lancas");
+       15:  894:			mvwprintw(win, y+2, x, "  _||:<_>:||_      Nivel: %d", nivel);
+       15:  895:			mvwprintw(win, y+3, x, " /\\_/=====\\_/\\");
+       15:  896:			mvwprintw(win, y+4, x, "_|:_:_[I]_:_:|_");
+       15:  897:			break;
+        -:  898:	}
+       60:  899:}
+        -:  900:
+        -:  901:/****************************************************************************/
+        -:  902:/**
+        -:  903:* \fn void seta(WINDOW *win, int tipo, int y, int x)
+        -:  904:*
+        -:  905:* \brief  Função responsável pela impressão das setas.
+        -:  906:*
+        -:  907:* @param win Ponteiro para a janela.
+        -:  908:* @param tipo Direção da seta.
+        -:  909:* @param y Coordenada y da impressão.
+        -:  910:* @param x Coordenada x da impressão.
+        -:  911:*
+        -:  912:* \return void
+        -:  913:***************************************************************************/
+        -:  914:
+        -:  915:/**
+        -:  916:REQUISITO: O usuário deve passar o ponteiro para a janela, o tipo da seta e as coordenadas.
+        -:  917:HIPÓTESE: A função irá imprimir a seta escolhida nas coordenadas.
+        -:  918:ASSERTIVAS DE ENTRADA: win não pode ser nulo, y e x devem estar entre 0 e LINES e COLS respectivamente.
+        -:  919:ASSERTIVAS DE SAÍDA: A função não possui saída.
+        -:  920:INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *win, int tipo, int y, int x.
+        -:  921:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  922:**/
+      521:  923:void seta(WINDOW *win, int tipo, int y, int x)
+        -:  924:{
+      521:  925:	if (tipo == 1)
+        -:  926:	{
+       53:  927:		mvwprintw(win, y  , x, "  \\");
+       53:  928:		mvwprintw(win, y+1, x, "===\\");
+       53:  929:		mvwprintw(win, y+2, x, "===/");
+       53:  930:		mvwprintw(win, y+3, x, "  /");
+        -:  931:	}
+        -:  932:	else
+        -:  933:	{
+      468:  934:		if (tipo == 2)
+        -:  935:		{
+       53:  936:			mvwprintw(win, y  , x, " /");
+       53:  937:			mvwprintw(win, y+1, x, "/===");
+       53:  938:			mvwprintw(win, y+2, x, "\\===");
+       53:  939:			mvwprintw(win, y+3, x, " \\");
+        -:  940:		}
+        -:  941:		else/*Apaga a seta*/
+        -:  942:		{
+      415:  943:			mvwprintw(win, y  , x, "      ");
+      415:  944:			mvwprintw(win, y+1, x, "      ");
+      415:  945:			mvwprintw(win, y+2, x, "      ");
+      415:  946:			mvwprintw(win, y+3, x, "      ");
+        -:  947:		}
+        -:  948:	}
+      521:  949:}
+        -:  950:
+        -:  951:/****************************************************************************/
+        -:  952:/**
+        -:  953:* \fn void seta_batalha(WINDOW *winfield, int j, int i)
+        -:  954:*
+        -:  955:* \brief Função responsável pela atualização do desenho de seta durante uma batalha.
+        -:  956:*
+        -:  957:* @param winfield Ponteiro para a janela.
+        -:  958:* @param j Direção da seta.
+        -:  959:* @param i Posição da seta.
+        -:  960:*
+        -:  961:* \return void
+        -:  962:***************************************************************************/
+        -:  963:
+        -:  964:/**
+        -:  965:REQUISITO: O usuário deve passar o ponteiro para a janela, a direção e o tipo da seta.
+        -:  966:HIPÓTESE: A função irá imprimir a seta escolhida.
+        -:  967:ASSERTIVAS DE ENTRADA: winfield não pode ser nulo, i deve estar entre 1 e 4.
+        -:  968:ASSERTIVAS DE SAÍDA: A função não possui saída.
+        -:  969:INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *winfield, int j, int i.
+        -:  970:INTERFACE IMPLÍCITA: variáveis e funções auxiliares.
+        -:  971:**/
+      147:  972:void seta_batalha(WINDOW *winfield, int j, int i)
+        -:  973:{
+      147:  974:	if (j == 2)
+        -:  975:	{
+       53:  976:		switch(i)/*Imprime a seta correspondente e apaga as outras*/
+        -:  977:		{
+        -:  978:			case 1:
+       19:  979:				seta(winfield, 2, 3, 23);
+       19:  980:				wrefresh(winfield);
+       19:  981:				break;
+        -:  982:			case 2:
+       14:  983:				seta(winfield, 0, 3, 23);
+       14:  984:				seta(winfield, 2, 10, 23);
+       14:  985:				wrefresh(winfield);
+       14:  986:				break;
+        -:  987:			case 3:
+       11:  988:				seta(winfield, 0, 10, 23);
+       11:  989:				seta(winfield, 2, 17, 23);
+       11:  990:				wrefresh(winfield);
+       11:  991:				break;
+        -:  992:			case 4:
+        9:  993:				seta(winfield, 0, 17, 23);
+        9:  994:				seta(winfield, 2, 24, 23);
+        9:  995:				wrefresh(winfield);
+        9:  996:				break;
+        -:  997:		}
+        -:  998:	}
+        -:  999:	else
+        -: 1000:	{
+       94: 1001:		if (j == 1)
+        -: 1002:		{
+       53: 1003:			switch(i)/*Imprime a seta correspondente e apaga as outras*/
+        -: 1004:			{
+        -: 1005:				case 1:
+       53: 1006:					seta(winfield, 1, 3, 70);
+       53: 1007:					seta(winfield, 0, 10, 70);
+       53: 1008:					wrefresh(winfield);
+       53: 1009:					break;
+        -: 1010:				case 2:
+    #####: 1011:					seta(winfield, 0, 3, 70);
+    #####: 1012:					seta(winfield, 0, 17, 70);
+    #####: 1013:					seta(winfield, 1, 10, 70);
+    #####: 1014:					wrefresh(winfield);
+    #####: 1015:					break;
+        -: 1016:				case 3:
+    #####: 1017:					seta(winfield, 0, 10, 70);
+    #####: 1018:					seta(winfield, 0, 24, 70);
+    #####: 1019:					seta(winfield, 1, 17, 70);
+    #####: 1020:					wrefresh(winfield);
+    #####: 1021:					break;
+        -: 1022:				case 4:
+    #####: 1023:					seta(winfield, 0, 17, 70);
+    #####: 1024:					seta(winfield, 1, 24, 70);
+    #####: 1025:					wrefresh(winfield);
+    #####: 1026:					break;
+        -: 1027:			}
+        -: 1028:		}
+        -: 1029:		else/*Apaga todas as setas*/
+        -: 1030:		{
+       41: 1031:			seta(winfield, 0, 3, 23);
+       41: 1032:			seta(winfield, 0, 10, 23);
+       41: 1033:			seta(winfield, 0, 17, 23);
+       41: 1034:			seta(winfield, 0, 24, 23);
+       41: 1035:			seta(winfield, 0, 3, 70);
+       41: 1036:			seta(winfield, 0, 10, 70);
+       41: 1037:			seta(winfield, 0, 17, 70);
+       41: 1038:			seta(winfield, 0, 24, 70);
+        -: 1039:		}
+        -: 1040:	}
+      147: 1041:}
