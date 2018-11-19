@@ -1,0 +1,939 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>PeixeraWars: Referência ao ficheiro grafico.c</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">PeixeraWars
+   &#160;<span id="projectnumber">1.0.0</span>
+   </div>
+   <div id="projectbrief">Jogo de estratégia baseado em turnos</div>
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- Gerado por Doxygen 1.7.6.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Ficheiros</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Funções</a>  </div>
+  <div class="headertitle">
+<div class="title">Referência ao ficheiro grafico.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Módulo de implementação do módulo <a class="el" href="grafico_8h.html" title="Módulo para gerenciar a interface gráfica.">grafico.h</a>.  
+<a href="#details">Mais...</a></p>
+<div class="textblock"><code>#include &lt;ncurses.h&gt;</code><br/>
+<code>#include &lt;menu.h&gt;</code><br/>
+<code>#include &lt;stdio.h&gt;</code><br/>
+<code>#include &lt;stdlib.h&gt;</code><br/>
+<code>#include &lt;string.h&gt;</code><br/>
+<code>#include &lt;time.h&gt;</code><br/>
+<code>#include &lt;unistd.h&gt;</code><br/>
+<code>#include &quot;<a class="el" href="grafico_8h_source.html">grafico.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="estruturas_8h_source.html">estruturas.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="engine_8h_source.html">engine.h</a>&quot;</code><br/>
+</div><table class="memberdecls">
+<tr><td colspan="2"><h2><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#ae41cf1d2edcdcde84810342e123970e3">HUDH</a>&#160;&#160;&#160;7</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a3a1e68cb1b2bf30db58ed0a688ce447c">CASTLEW</a>&#160;&#160;&#160;40</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a25f003de16c08a4888b69f619d70f427">ARRAY_SIZE</a>(a)&#160;&#160;&#160;(sizeof(a) / sizeof(a[0]))</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a66c7984dbe4ba8f39e6f94fbd0a58a00">CTRLD</a>&#160;&#160;&#160;4</td></tr>
+<tr><td colspan="2"><h2><a name="func-members"></a>
+Funções</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a7a0d6a95bdaa10db7c050b21fe084b49">inicia_ncurses</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável por iniciar o modo ncurses.  <a href="#a7a0d6a95bdaa10db7c050b21fe084b49"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a2f1d963decc31d951961b439eae2fd82">finaliza_ncurses</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável por finalizar o modo ncurses.  <a href="#a2f1d963decc31d951961b439eae2fd82"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#ada66364dd2a35d4c59586818d91dfcf8">destroy_win</a> (WINDOW *local_win)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável por apagar as informações de uma janela e deletar sua estrutura.  <a href="#ada66364dd2a35d4c59586818d91dfcf8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#ae41ff83d1436eae547973220b8b01f4d">menu_edificio</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela criação do menu de evolução dos edifícios.  <a href="#ae41ff83d1436eae547973220b8b01f4d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a26358a3d267b436a3be769bbfe61ef5d">menu_unidade</a> (<a class="el" href="estruturas_8h.html#ab5ee034a420e0a105cf07abdd6c06177">Castelo</a> *<a class="el" href="structcastelo.html">castelo</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela criação do menu de evolução dos edifícios.  <a href="#a26358a3d267b436a3be769bbfe61ef5d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#acd1cee52d27e57acd84d6d25dfd96bfb">mensagem</a> (int y, int x, char frase[])</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela impressão de uma mensagem na tela.  <a href="#acd1cee52d27e57acd84d6d25dfd96bfb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a6dee66272c6ef14c938f4b5263110211">mensagem_entrada</a> (int y, int x, char frase[])</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável por imprimir uma mensagem na tela e guardar a informação digitada pelo usuário.  <a href="#a6dee66272c6ef14c938f4b5263110211"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a2a194251baa5812baac5606d21cd97e5">tela_inicial</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela impressão da tela inicial, com desenhos e opções do menu.  <a href="#a2a194251baa5812baac5606d21cd97e5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a71610923bdf8b770790c386b6cd18b63">tela_final</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável por imprimir a mensagem de despedida e encerrar o programa.  <a href="#a71610923bdf8b770790c386b6cd18b63"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a783f9e9e4570e2857eaf5a9df635e5d2">TelaGameOver</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável por imprimir a mensagem de fim de jogo e encerrar o programa.  <a href="#a783f9e9e4570e2857eaf5a9df635e5d2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a76fde41fe71bc3720e0b47fcb2523fd5">creditos</a> (int y, int x)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela impressão dos créditos.  <a href="#a76fde41fe71bc3720e0b47fcb2523fd5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a9e32679286ee0e57cc522aabfa88021a">print_hud</a> (WINDOW *hud, int gold, int wave)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela impressão do HUD superior, contendo título e informações sobre o jogo(ouro disponível e numero da horda).  <a href="#a9e32679286ee0e57cc522aabfa88021a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#ac6bc8bf589678dd44151bc8a4685ecab">print_field</a> (WINDOW *field, <a class="el" href="estruturas_8h.html#ae7404ad1121a2b107c66d58cb1ba39bf">CabecaPFilas</a> *filas)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela impressão do campo de batalha.  <a href="#ac6bc8bf589678dd44151bc8a4685ecab"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#abe7d84eae09e4309b6ba2c9b86ea8685">print_castle</a> (WINDOW *castle, <a class="el" href="estruturas_8h.html#ab5ee034a420e0a105cf07abdd6c06177">Castelo</a> *<a class="el" href="structcastelo.html">castelo</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela impressão da área de edifícios.  <a href="#abe7d84eae09e4309b6ba2c9b86ea8685"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a891d476534652b9bf3b3435839a19192">menu</a> (WINDOW *menuwin)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função que cria o menu de opções disponíveis para o usuário na tela inicial.  <a href="#a891d476534652b9bf3b3435839a19192"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a63d0622f4a9e780a6561575886264cf0">desenhaunidade</a> (WINDOW *win, int <a class="el" href="structunidade.html">unidade</a>, int y, int x)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela impressão do desenho da unidade escolhida nas coordenadas indicadas.  <a href="#a63d0622f4a9e780a6561575886264cf0"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#a3c991aba85d2ce017c5fbd8b69f50a26">desenhainimigo</a> (WINDOW *win, int inimigo, int y, int x)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela impressão de unidades inimigas nas coordenadas escolhidas.  <a href="#a3c991aba85d2ce017c5fbd8b69f50a26"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#ab410936373e2dd4a2812e6ce1c6aa57e">desenhaedificio</a> (WINDOW *win, int nivel, int <a class="el" href="structedificio.html">edificio</a>, int y, int x)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela impressão do desenho dos edifícios.  <a href="#ab410936373e2dd4a2812e6ce1c6aa57e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#ac721cf711a36f6455044b3c1d1c5b42a">seta</a> (WINDOW *win, int tipo, int y, int x)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela impressão das setas.  <a href="#ac721cf711a36f6455044b3c1d1c5b42a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grafico_8c.html#abbe40fd399048d4a423cb4b8fe0b5170">seta_batalha</a> (WINDOW *winfield, int j, int i)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Função responsável pela atualização do desenho de seta durante uma batalha.  <a href="#abbe40fd399048d4a423cb4b8fe0b5170"></a><br/></td></tr>
+</table>
+<hr/><a name="details" id="details"></a><h2>Descrição detalhada</h2>
+<div class="textblock"><p>Módulo de implementação do módulo <a class="el" href="grafico_8h.html" title="Módulo para gerenciar a interface gráfica.">grafico.h</a>. </p>
+</div><hr/><h2>Documentação das macros</h2>
+<a class="anchor" id="a25f003de16c08a4888b69f619d70f427"></a><!-- doxytag: member="grafico.c::ARRAY_SIZE" ref="a25f003de16c08a4888b69f619d70f427" args="(a)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="peixera_8c.html#a25f003de16c08a4888b69f619d70f427">ARRAY_SIZE</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">a</td><td>)</td>
+          <td>&#160;&#160;&#160;(sizeof(a) / sizeof(a[0]))</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3a1e68cb1b2bf30db58ed0a688ce447c"></a><!-- doxytag: member="grafico.c::CASTLEW" ref="a3a1e68cb1b2bf30db58ed0a688ce447c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="peixera_8c.html#a3a1e68cb1b2bf30db58ed0a688ce447c">CASTLEW</a>&#160;&#160;&#160;40</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a66c7984dbe4ba8f39e6f94fbd0a58a00"></a><!-- doxytag: member="grafico.c::CTRLD" ref="a66c7984dbe4ba8f39e6f94fbd0a58a00" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="peixera_8c.html#a66c7984dbe4ba8f39e6f94fbd0a58a00">CTRLD</a>&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae41cf1d2edcdcde84810342e123970e3"></a><!-- doxytag: member="grafico.c::HUDH" ref="ae41cf1d2edcdcde84810342e123970e3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="grafico_8c.html#ae41cf1d2edcdcde84810342e123970e3">HUDH</a>&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Documentação das funções</h2>
+<a class="anchor" id="a76fde41fe71bc3720e0b47fcb2523fd5"></a><!-- doxytag: member="grafico.c::creditos" ref="a76fde41fe71bc3720e0b47fcb2523fd5" args="(int y, int x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#a76fde41fe71bc3720e0b47fcb2523fd5">creditos</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela impressão dos créditos. </p>
+<p>REQUISITO: O usuário deve passar as coordenadas da impressão. HIPÓTESE: A função irá imprimir na tela os créditos dos criadores do jogo. ASSERTIVAS DE ENTRADA: os inteiros devem estar entre 0 e LINES e COLS respectivamente. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros int y, int x. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">y</td><td>Coordenada x desejada </td></tr>
+    <tr><td class="paramname">x</td><td>Coordenada y desejada</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab410936373e2dd4a2812e6ce1c6aa57e"></a><!-- doxytag: member="grafico.c::desenhaedificio" ref="ab410936373e2dd4a2812e6ce1c6aa57e" args="(WINDOW *win, int nivel, int edificio, int y, int x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="grafico_8h.html#afde892454c736e2074e236c16463199b">desenhaedificio</a> </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>win</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nivel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>edificio</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela impressão do desenho dos edifícios. </p>
+<p>REQUISITO: O usuário deve passar o ponteiro para a janela, o nível do edifício, o tipo do edifício e as coordenadas. HIPÓTESE: A função irá imprimir os desenhos na área de edifícios. ASSERTIVAS DE ENTRADA: win não pode ser nulo, nivel deve estar entre 1 e 3, edificio deve estar entre 0 e 3, y e x devem estar entre 0 e LINES e COLS respectivamente. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *win, int nivel, int edificio, int y, int x. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">win</td><td>Ponteiro para a janela em que será desenhada o edificio. </td></tr>
+    <tr><td class="paramname">nivel</td><td>Nível atual do edifício que será desenhado. </td></tr>
+    <tr><td class="paramname">edificio</td><td>Indentificador de edificio. Dependendo do número, desenha um edificio diferente. </td></tr>
+    <tr><td class="paramname">y</td><td>Coordenada y desejada. </td></tr>
+    <tr><td class="paramname">x</td><td>Coordenada x desejada.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3c991aba85d2ce017c5fbd8b69f50a26"></a><!-- doxytag: member="grafico.c::desenhainimigo" ref="a3c991aba85d2ce017c5fbd8b69f50a26" args="(WINDOW *win, int inimigo, int y, int x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#a3c991aba85d2ce017c5fbd8b69f50a26">desenhainimigo</a> </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>win</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>inimigo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela impressão de unidades inimigas nas coordenadas escolhidas. </p>
+<p>REQUISITO: O usuário deve passar o ponteiro para a janela, o tipo de unidade e as coordenadas. HIPÓTESE: A função irá imprimir no campo de batalha as unidades geradas pelo inimigo. ASSERTIVAS DE ENTRADA: win não pode ser nulo, inimigo deve estar entre 1 e 4, y e x devem estar entre 0 e LINES e COLS respectivamente. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *win, int inimigo, int y, int x. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">win</td><td>Ponteiro para a janela em que será desenhada a unidade </td></tr>
+    <tr><td class="paramname">inimigo</td><td>Indentificador de unidade. Dependendo do número, desenha uma unidade diferente </td></tr>
+    <tr><td class="paramname">y</td><td>Coordenada y desejada </td></tr>
+    <tr><td class="paramname">x</td><td>Coordenada x desejada</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a63d0622f4a9e780a6561575886264cf0"></a><!-- doxytag: member="grafico.c::desenhaunidade" ref="a63d0622f4a9e780a6561575886264cf0" args="(WINDOW *win, int unidade, int y, int x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#a63d0622f4a9e780a6561575886264cf0">desenhaunidade</a> </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>win</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>unidade</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela impressão do desenho da unidade escolhida nas coordenadas indicadas. </p>
+<p>REQUISITO: O usuário deve passar o ponteiro para a janela, o tipo de unidade e as coordenadas. HIPÓTESE: A função irá imprimir no campo de batalha as unidades adiquiridas pelo jogador. ASSERTIVAS DE ENTRADA: win não pode ser nulo, unidade deve estar entre 1 e 4, y e x devem estar entre 0 e LINES e COLS respectivamente. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *win, int unidade, int y, int x. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">win</td><td>Ponteiro para a janela em que será desenhada a unidade </td></tr>
+    <tr><td class="paramname">unidade</td><td>Indentificador de unidade. Dependendo do número, desenha uma unidade diferente </td></tr>
+    <tr><td class="paramname">y</td><td>Coordenada y desejada </td></tr>
+    <tr><td class="paramname">x</td><td>Coordenada x desejada</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ada66364dd2a35d4c59586818d91dfcf8"></a><!-- doxytag: member="grafico.c::destroy_win" ref="ada66364dd2a35d4c59586818d91dfcf8" args="(WINDOW *local_win)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#ada66364dd2a35d4c59586818d91dfcf8">destroy_win</a> </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>local_win</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável por apagar as informações de uma janela e deletar sua estrutura. </p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">local_win</td><td>Uma estrutura do tipo WINDOW previamente inicializada.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2f1d963decc31d951961b439eae2fd82"></a><!-- doxytag: member="grafico.c::finaliza_ncurses" ref="a2f1d963decc31d951961b439eae2fd82" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#a2f1d963decc31d951961b439eae2fd82">finaliza_ncurses</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável por finalizar o modo ncurses. </p>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7a0d6a95bdaa10db7c050b21fe084b49"></a><!-- doxytag: member="grafico.c::inicia_ncurses" ref="a7a0d6a95bdaa10db7c050b21fe084b49" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#a7a0d6a95bdaa10db7c050b21fe084b49">inicia_ncurses</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável por iniciar o modo ncurses. </p>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="acd1cee52d27e57acd84d6d25dfd96bfb"></a><!-- doxytag: member="grafico.c::mensagem" ref="acd1cee52d27e57acd84d6d25dfd96bfb" args="(int y, int x, char frase[])" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#acd1cee52d27e57acd84d6d25dfd96bfb">mensagem</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>frase</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela impressão de uma mensagem na tela. </p>
+<p>REQUISITO: O usuário deve passar as coordenadas da impressão e a mensagem. HIPÓTESE: A função irá imprimir na tela a mensagem passada como parâmetro. ASSERTIVAS DE ENTRADA: os inteiros devem estar entre 0 e LINES e COLS respectivamente, e a frase seve ser uma string não nula. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros int y, int x, char frase[]. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">y</td><td>Coordenada y desejada </td></tr>
+    <tr><td class="paramname">x</td><td>Coordenada x desejada </td></tr>
+    <tr><td class="paramname">frase[]</td><td>String a ser mostrada ao jogador</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6dee66272c6ef14c938f4b5263110211"></a><!-- doxytag: member="grafico.c::mensagem_entrada" ref="a6dee66272c6ef14c938f4b5263110211" args="(int y, int x, char frase[])" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * <a class="el" href="grafico_8h.html#a91065c5c1d0ae136bc276ce0f5220f4c">mensagem_entrada</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>frase</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável por imprimir uma mensagem na tela e guardar a informação digitada pelo usuário. </p>
+<p>REQUISITO: O usuário deve passar as coordenadas da impressão e a mensagem. HIPÓTESE: A função irá imprimir na tela a mensagem passada como parâmetro e irá retornar a string digitada. ASSERTIVAS DE ENTRADA: os inteiros devem estar entre 0 e LINES e COLS respectivamente, e a frase seve ser uma string não nula. ASSERTIVAS DE SAÍDA: A saída deve ser um ponteiro para char. INTERFACE EXPLÍCITA: Tipo de retorno char*, com parâmetros int y, int x, char frase[]. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">y</td><td>Coordenada y desejada </td></tr>
+    <tr><td class="paramname">x</td><td>Coordenada x desejada </td></tr>
+    <tr><td class="paramname">frase[]</td><td>String a ser mostrada ao jogador</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>string Texto inserido pelo usuario </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a891d476534652b9bf3b3435839a19192"></a><!-- doxytag: member="grafico.c::menu" ref="a891d476534652b9bf3b3435839a19192" args="(WINDOW *menuwin)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="grafico_8h.html#ae83fcdbeb2b6757fc741ae953b633ee1">menu</a> </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>menuwin</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função que cria o menu de opções disponíveis para o usuário na tela inicial. </p>
+<p>REQUISITO: O usuário deve passar o ponteiro para a janela. HIPÓTESE: A função irá imprimir na tela o menu. ASSERTIVAS DE ENTRADA: menuwin não pode ser nulo. ASSERTIVAS DE SAÍDA: A saída deve estar entre -1 e 3. INTERFACE EXPLÍCITA: Tipo de retorno int, com parâmetro WINDOW *menuwin. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">menuwin</td><td>Ponteiro da janela de menu</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>Opção selecionada pelo jogador </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae41ff83d1436eae547973220b8b01f4d"></a><!-- doxytag: member="grafico.c::menu_edificio" ref="ae41ff83d1436eae547973220b8b01f4d" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="grafico_8h.html#ae41ff83d1436eae547973220b8b01f4d">menu_edificio</a> </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela criação do menu de evolução dos edifícios. </p>
+<p>REQUISITO: A função deve ser chamada no final de uma rodada. HIPÓTESE: A função irá retornar um valor correspondente à uma das opções do menu. ASSERTIVAS DE ENTRADA: A função não possui parâmetros. ASSERTIVAS DE SAÍDA: O retorno deve ser um número entre 1 e 4. INTERFACE EXPLÍCITA: Tipo de retorno int. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>Opção selecionada do menu </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a26358a3d267b436a3be769bbfe61ef5d"></a><!-- doxytag: member="grafico.c::menu_unidade" ref="a26358a3d267b436a3be769bbfe61ef5d" args="(Castelo *castelo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="grafico_8h.html#a9a92c2fa8f6fe9d707bf6dbcae444db2">menu_unidade</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="estruturas_8h.html#ab5ee034a420e0a105cf07abdd6c06177">Castelo</a> *&#160;</td>
+          <td class="paramname"><em>castelo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela criação do menu de evolução dos edifícios. </p>
+<p>REQUISITO: A função deve ser chamada no início de uma rodada. HIPÓTESE: A função irá retornar um valor correspondente à uma das opções do menu. ASSERTIVAS DE ENTRADA: castelo != NULL. ASSERTIVAS DE SAÍDA: O retorno deve ser um número entre 1 e 3. INTERFACE EXPLÍCITA: Tipo de retorno int. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">castelo</td><td>Estrutura de Castelo previamente inicializada.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>Opção selecionada do menu </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="abe7d84eae09e4309b6ba2c9b86ea8685"></a><!-- doxytag: member="grafico.c::print_castle" ref="abe7d84eae09e4309b6ba2c9b86ea8685" args="(WINDOW *castle, Castelo *castelo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#abc6bc32331f9332e0c1b824178c01fac">print_castle</a> </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>castle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="estruturas_8h.html#ab5ee034a420e0a105cf07abdd6c06177">Castelo</a> *&#160;</td>
+          <td class="paramname"><em>castelo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela impressão da área de edifícios. </p>
+<p>REQUISITO: O usuário deve passar o ponteiro para a janela e o ponteiro para os edifícios. HIPÓTESE: A função irá imprimir na tela a área de edifícios. ASSERTIVAS DE ENTRADA: castle e castelo não podem ser nulos. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *castle, Castelo *castelo. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">castle</td><td>Ponteiro para a janela do castelo, onde ficam os edifícios. </td></tr>
+    <tr><td class="paramname">castelo</td><td>Ponteiro para a estrutura Castelo</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac6bc8bf589678dd44151bc8a4685ecab"></a><!-- doxytag: member="grafico.c::print_field" ref="ac6bc8bf589678dd44151bc8a4685ecab" args="(WINDOW *field, CabecaPFilas *filas)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#aa7d859d6aaff63fe1956a3aa11517b68">print_field</a> </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>field</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="estruturas_8h.html#ae7404ad1121a2b107c66d58cb1ba39bf">CabecaPFilas</a> *&#160;</td>
+          <td class="paramname"><em>filas</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela impressão do campo de batalha. </p>
+<p>REQUISITO: O usuário deve passar o ponteiro para a janela e o ponteiro para as filas de personagens. HIPÓTESE: A função irá imprimir na tela o campo de batalha. ASSERTIVAS DE ENTRADA: field e filas não podem ser nulos. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *field, CabecaPFilas *filas. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">field</td><td>Ponteiro para a janela do campo de batalha do jogo </td></tr>
+    <tr><td class="paramname">filas</td><td>Ponteiro para a estrutura de filas de unidades e inimigos.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9e32679286ee0e57cc522aabfa88021a"></a><!-- doxytag: member="grafico.c::print_hud" ref="a9e32679286ee0e57cc522aabfa88021a" args="(WINDOW *hud, int gold, int wave)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#ac24605e4110b35fbb782a4f2b27d459f">print_hud</a> </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>hud</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>gold</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>wave</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela impressão do HUD superior, contendo título e informações sobre o jogo(ouro disponível e numero da horda). </p>
+<p>REQUISITO: O usuário deve passar o ponteiro para a janela, a quantidade de ouro e o número da horda. HIPÓTESE: A função irá imprimir na tela o HUD. ASSERTIVAS DE ENTRADA: hud não pode ser nulo, gold não pode ser negativo e wave deve estar entre 1 e 10. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *hud,int gold, int wave. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hud</td><td>Ponteiro para a janela do HUD do jogo (Head's Up Display) </td></tr>
+    <tr><td class="paramname">wave</td><td>Inteiro que determina em qual wave o jogador se encontra </td></tr>
+    <tr><td class="paramname">gold</td><td>Inteiro que determina o gold atual do usuário</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac721cf711a36f6455044b3c1d1c5b42a"></a><!-- doxytag: member="grafico.c::seta" ref="ac721cf711a36f6455044b3c1d1c5b42a" args="(WINDOW *win, int tipo, int y, int x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#ac721cf711a36f6455044b3c1d1c5b42a">seta</a> </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>win</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tipo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela impressão das setas. </p>
+<p>REQUISITO: O usuário deve passar o ponteiro para a janela, o tipo da seta e as coordenadas. HIPÓTESE: A função irá imprimir a seta escolhida nas coordenadas. ASSERTIVAS DE ENTRADA: win não pode ser nulo, y e x devem estar entre 0 e LINES e COLS respectivamente. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *win, int tipo, int y, int x. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">win</td><td>Ponteiro para a janela. </td></tr>
+    <tr><td class="paramname">tipo</td><td>Direção da seta. </td></tr>
+    <tr><td class="paramname">y</td><td>Coordenada y da impressão. </td></tr>
+    <tr><td class="paramname">x</td><td>Coordenada x da impressão.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="abbe40fd399048d4a423cb4b8fe0b5170"></a><!-- doxytag: member="grafico.c::seta_batalha" ref="abbe40fd399048d4a423cb4b8fe0b5170" args="(WINDOW *winfield, int j, int i)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#abbe40fd399048d4a423cb4b8fe0b5170">seta_batalha</a> </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>winfield</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>j</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela atualização do desenho de seta durante uma batalha. </p>
+<p>REQUISITO: O usuário deve passar o ponteiro para a janela, a direção e o tipo da seta. HIPÓTESE: A função irá imprimir a seta escolhida. ASSERTIVAS DE ENTRADA: winfield não pode ser nulo, i deve estar entre 1 e 4. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void, com parâmetros WINDOW *winfield, int j, int i. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="params"><dt><b>Parâmetros:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">winfield</td><td>Ponteiro para a janela. </td></tr>
+    <tr><td class="paramname">j</td><td>Direção da seta. </td></tr>
+    <tr><td class="paramname">i</td><td>Posição da seta.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a71610923bdf8b770790c386b6cd18b63"></a><!-- doxytag: member="grafico.c::tela_final" ref="a71610923bdf8b770790c386b6cd18b63" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#a71610923bdf8b770790c386b6cd18b63">tela_final</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável por imprimir a mensagem de despedida e encerrar o programa. </p>
+<p>REQUISITO: Não há requisitos. HIPÓTESE: A função irá imprimir na tela o design da tela final e irá encerrar o programa. ASSERTIVAS DE ENTRADA: A função não possui entrada. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2a194251baa5812baac5606d21cd97e5"></a><!-- doxytag: member="grafico.c::tela_inicial" ref="a2a194251baa5812baac5606d21cd97e5" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="grafico_8h.html#a2a194251baa5812baac5606d21cd97e5">tela_inicial</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável pela impressão da tela inicial, com desenhos e opções do menu. </p>
+<p>REQUISITO: Não há requisitos. HIPÓTESE: A função irá imprimir na tela o design da tela inicial. ASSERTIVAS DE ENTRADA: A função não possui entrada. ASSERTIVAS DE SAÍDA: A função não possui saída. INTERFACE EXPLÍCITA: Tipo de retorno void. INTERFACE IMPLÍCITA: variáveis e funções auxiliares.</p>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a783f9e9e4570e2857eaf5a9df635e5d2"></a><!-- doxytag: member="grafico.c::TelaGameOver" ref="a783f9e9e4570e2857eaf5a9df635e5d2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="grafico_8h.html#af494143d818c67bcbbda3ce40151d1f1">TelaGameOver</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Função responsável por imprimir a mensagem de fim de jogo e encerrar o programa. </p>
+<dl class="return"><dt><b>Retorna:</b></dt><dd>void </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tudo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Ficheiros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Definições de tipos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+
+<hr class="footer"/><address class="footer"><small>
+Gerado em Segunda, 30 de Junho de 2014 20:57:54 para PeixeraWars por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.7.6.1
+</small></address>
+
+</body>
+</html>

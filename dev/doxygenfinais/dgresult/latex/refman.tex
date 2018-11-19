@@ -1,0 +1,88 @@
+\documentclass[a4paper]{book}
+\usepackage{makeidx}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{ifthen}
+\usepackage[table]{xcolor}
+\usepackage{textcomp}
+\usepackage{alltt}
+\usepackage{ifpdf}
+\ifpdf
+\usepackage[pdftex,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\else
+\usepackage[ps2pdf,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\usepackage{pspicture}
+\fi
+\usepackage[utf8]{inputenc}
+Portuguese
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\usepackage{sectsty}
+\usepackage[titles]{tocloft}
+\usepackage{doxygen}
+\lstset{language=C++,inputencoding=utf8,basicstyle=\footnotesize,breaklines=true,breakatwhitespace=true,tabsize=8,numbers=left }
+\makeindex
+\setcounter{tocdepth}{3}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\familydefault}{\sfdefault}
+\hfuzz=15pt
+\setlength{\emergencystretch}{15pt}
+\hbadness=750
+\tolerance=750
+\begin{document}
+\hypersetup{pageanchor=false,citecolor=blue}
+\begin{titlepage}
+\vspace*{7cm}
+\begin{center}
+{\Large \-Peixera\-Wars \\[1ex]\large 1.\-0.\-0 }\\
+\vspace*{1cm}
+{\large \-Gerado por Doxygen 1.7.6.1}\\
+\vspace*{0.5cm}
+{\small Segunda, 30 de Junho de 2014 20:57:54}\\
+\end{center}
+\end{titlepage}
+\clearemptydoublepage
+\pagenumbering{roman}
+\tableofcontents
+\clearemptydoublepage
+\pagenumbering{arabic}
+\hypersetup{pageanchor=true,citecolor=blue}
+\chapter{\-E\-S\-P\-E\-C\-I\-F\-I\-C\-AÇÃ\-O}
+\label{index}\hypertarget{index}{}\input{index}
+\chapter{Índice das estruturas de dados}
+\input{annotated}
+\chapter{Índice dos ficheiros}
+\input{files}
+\chapter{\-Documentação da classe}
+\input{structcabecageral}
+\input{structcabecapfilas}
+\input{structcastelo}
+\input{structcomercio}
+\input{structedificio}
+\input{structunidade}
+\chapter{\-Documentação do ficheiro}
+\input{engine_8c}
+\input{engine_8h}
+\input{especificacao_8hh}
+\input{estruturas_8h}
+\input{funcoes_8c}
+\input{grafico_8c}
+\input{grafico_8h}
+\input{peixera_8c}
+\printindex
+\end{document}

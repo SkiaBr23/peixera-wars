@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>PeixeraWars: Código-Fonte de estruturas.h</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">PeixeraWars
+   &#160;<span id="projectnumber">1.0.0</span>
+   </div>
+   <div id="projectbrief">Jogo de estratégia baseado em turnos</div>
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- Gerado por Doxygen 1.7.6.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Ficheiros</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">estruturas.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="estruturas_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00004"></a>00004 <span class="comment">/*</span>
+<a name="l00005"></a>00005 <span class="comment">PROJETO</span>
+<a name="l00006"></a>00006 <span class="comment">Nome: MAXIMILLIAN FAN XAVIER, OTÁVIO ALVES DIAS, RAFAEL DIAS DA COSTA, TÚLIO ABNER DE LIMA</span>
+<a name="l00007"></a>00007 <span class="comment">Matrícula: 12/0153271, 12/0131480, 12/0133253, 12/0137194</span>
+<a name="l00008"></a>00008 <span class="comment">Curso: Engenharia de Computação</span>
+<a name="l00009"></a>00009 <span class="comment">Disciplina: Métodos de Programação</span>
+<a name="l00010"></a>00010 <span class="comment">Turma: A</span>
+<a name="l00011"></a>00011 <span class="comment">Prof: Jan Mendonça</span>
+<a name="l00012"></a>00012 <span class="comment">*/</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="comment">/*      Arquivo Header  */</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 <span class="comment">/*      ---------------Estruturas---------------        */</span>
+<a name="l00021"></a><a class="code" href="structunidade.html">00021</a> <span class="keyword">struct </span><a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">unidade</a> {
+<a name="l00022"></a><a class="code" href="structunidade.html#a5ad38abe22f6739f387e4653850ed5ee">00022</a>         <span class="keywordtype">int</span> <a class="code" href="structunidade.html#a5ad38abe22f6739f387e4653850ed5ee">vida</a>;
+<a name="l00023"></a><a class="code" href="structunidade.html#a8f9411cc7c2f4b7a3800e807ea85e606">00023</a>         <span class="keywordtype">int</span> <a class="code" href="structunidade.html#a8f9411cc7c2f4b7a3800e807ea85e606">dano</a>;
+<a name="l00024"></a><a class="code" href="structunidade.html#ace4fd16342645758350afa447a9827e5">00024</a>         <span class="keywordtype">float</span> <a class="code" href="structunidade.html#ace4fd16342645758350afa447a9827e5">esquiva</a>;
+<a name="l00025"></a><a class="code" href="structunidade.html#afafcd32854d6f6b1c4cd3cca8f1315a7">00025</a>         <span class="keywordtype">int</span> <a class="code" href="structunidade.html#afafcd32854d6f6b1c4cd3cca8f1315a7">nivel</a>;
+<a name="l00026"></a><a class="code" href="structunidade.html#a6dba0a17b4b24adfd8eef72687d3f0da">00026</a>         <span class="keywordtype">int</span> <a class="code" href="structunidade.html#a6dba0a17b4b24adfd8eef72687d3f0da">classe</a>;
+<a name="l00027"></a><a class="code" href="structunidade.html#a7f4ce5c1013e03c4e99c3772904235e5">00027</a>         <span class="keyword">struct </span><a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">unidade</a> *<a class="code" href="structunidade.html#a7f4ce5c1013e03c4e99c3772904235e5">prox</a>;
+<a name="l00028"></a><a class="code" href="structunidade.html#ae95a7a2ca6d4e4458fa7775580a3b304">00028</a>         <span class="keyword">struct </span><a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">unidade</a> *<a class="code" href="structunidade.html#ae95a7a2ca6d4e4458fa7775580a3b304">ant</a>;
+<a name="l00029"></a>00029 };
+<a name="l00030"></a><a class="code" href="estruturas_8h.html#a0ebbe6457da14a6f9da4407e7c3f4b67">00030</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">unidade</a> <a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a>;
+<a name="l00031"></a>00031 
+<a name="l00035"></a><a class="code" href="structedificio.html">00035</a> <span class="keyword">struct </span><a class="code" href="structedificio.html" title="Estrutura genérica do tipo edificio. Responsável por representar a maioria das construções do jogo...">edificio</a>  {
+<a name="l00036"></a><a class="code" href="structedificio.html#aafb05a9adafaeced482a85eb7e2894ee">00036</a>         <span class="keywordtype">int</span> <a class="code" href="structedificio.html#aafb05a9adafaeced482a85eb7e2894ee">custounidade</a>;
+<a name="l00037"></a><a class="code" href="structedificio.html#afafcd32854d6f6b1c4cd3cca8f1315a7">00037</a>         <span class="keywordtype">int</span> <a class="code" href="structedificio.html#afafcd32854d6f6b1c4cd3cca8f1315a7">nivel</a>;
+<a name="l00038"></a>00038 };
+<a name="l00039"></a><a class="code" href="estruturas_8h.html#a4f6770c26bdc78cee84e67e2c3f67eba">00039</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structedificio.html" title="Estrutura genérica do tipo edificio. Responsável por representar a maioria das construções do jogo...">edificio</a> <a class="code" href="structedificio.html" title="Estrutura genérica do tipo edificio. Responsável por representar a maioria das construções do jogo...">Edificio</a>;
+<a name="l00040"></a>00040 
+<a name="l00044"></a><a class="code" href="structcomercio.html">00044</a> <span class="keyword">struct </span><a class="code" href="structcomercio.html" title="Estrutura do tipo comércio a qual faz parte do castelo. Responsável por controlar a produção de ouro...">comercio</a> {
+<a name="l00045"></a><a class="code" href="structcomercio.html#ad0eebe3dcaa5b98c97b0c563b0554860">00045</a>         <span class="keywordtype">int</span> <a class="code" href="structcomercio.html#ad0eebe3dcaa5b98c97b0c563b0554860">taxaouro</a>;
+<a name="l00046"></a><a class="code" href="structcomercio.html#afafcd32854d6f6b1c4cd3cca8f1315a7">00046</a>         <span class="keywordtype">int</span> <a class="code" href="structcomercio.html#afafcd32854d6f6b1c4cd3cca8f1315a7">nivel</a>;
+<a name="l00047"></a>00047 };
+<a name="l00048"></a><a class="code" href="estruturas_8h.html#ab0359d36d245f3ce6bbe26f6795b7af7">00048</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structcomercio.html" title="Estrutura do tipo comércio a qual faz parte do castelo. Responsável por controlar a produção de ouro...">comercio</a> <a class="code" href="structcomercio.html" title="Estrutura do tipo comércio a qual faz parte do castelo. Responsável por controlar a produção de ouro...">Comercio</a>;
+<a name="l00049"></a>00049 
+<a name="l00053"></a><a class="code" href="structcabecapfilas.html">00053</a> <span class="keyword">struct </span><a class="code" href="structcabecapfilas.html" title="Estrutura de cabeça que organiza as duas filas de ação do jogo.">cabecapfilas</a> {
+<a name="l00054"></a><a class="code" href="structcabecapfilas.html#a62974e000e6746f21eb4f0e6e12238f6">00054</a>         <a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a> *<a class="code" href="structcabecapfilas.html#a62974e000e6746f21eb4f0e6e12238f6">player</a>;
+<a name="l00055"></a><a class="code" href="structcabecapfilas.html#a5965ee42bad2e06d6187976980334f80">00055</a>         <a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a> *<a class="code" href="structcabecapfilas.html#a5965ee42bad2e06d6187976980334f80">cpu</a>;
+<a name="l00056"></a>00056 };
+<a name="l00057"></a><a class="code" href="estruturas_8h.html#ae7404ad1121a2b107c66d58cb1ba39bf">00057</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structcabecapfilas.html" title="Estrutura de cabeça que organiza as duas filas de ação do jogo.">cabecapfilas</a> <a class="code" href="structcabecapfilas.html" title="Estrutura de cabeça que organiza as duas filas de ação do jogo.">CabecaPFilas</a>;
+<a name="l00058"></a>00058 
+<a name="l00062"></a><a class="code" href="structcastelo.html">00062</a> <span class="keyword">struct </span><a class="code" href="structcastelo.html" title="Estrutura de cabeça que organiza e dá acesso aos quatro edifícios do jogo, possui informações de vida...">castelo</a> {
+<a name="l00063"></a><a class="code" href="structcastelo.html#a0d096fd01efb245bb3fed56f87da404c">00063</a>         <a class="code" href="structedificio.html" title="Estrutura genérica do tipo edificio. Responsável por representar a maioria das construções do jogo...">Edificio</a> *<a class="code" href="structcastelo.html#a0d096fd01efb245bb3fed56f87da404c">quartel</a>;
+<a name="l00064"></a><a class="code" href="structcastelo.html#aae60536f9b63f8bc5e72f56a43db0957">00064</a>         <a class="code" href="structedificio.html" title="Estrutura genérica do tipo edificio. Responsável por representar a maioria das construções do jogo...">Edificio</a> *<a class="code" href="structcastelo.html#aae60536f9b63f8bc5e72f56a43db0957">campodetiro</a>;
+<a name="l00065"></a><a class="code" href="structcastelo.html#ae572d9e86d21727762f7f9e6bc8b4b46">00065</a>         <a class="code" href="structedificio.html" title="Estrutura genérica do tipo edificio. Responsável por representar a maioria das construções do jogo...">Edificio</a> *<a class="code" href="structcastelo.html#ae572d9e86d21727762f7f9e6bc8b4b46">casadaslancas</a>;
+<a name="l00066"></a><a class="code" href="structcastelo.html#a6ba479b07d3d17eb15796ed601738375">00066</a>         <a class="code" href="structcomercio.html" title="Estrutura do tipo comércio a qual faz parte do castelo. Responsável por controlar a produção de ouro...">Comercio</a> *<a class="code" href="structcastelo.html#a6ba479b07d3d17eb15796ed601738375">comercio</a>;
+<a name="l00067"></a><a class="code" href="structcastelo.html#afc6393ec87ac2f385cad47984d32b00b">00067</a>         <span class="keywordtype">int</span> <a class="code" href="structcastelo.html#afc6393ec87ac2f385cad47984d32b00b">ouro</a>;
+<a name="l00068"></a>00068 };
+<a name="l00069"></a><a class="code" href="estruturas_8h.html#ab5ee034a420e0a105cf07abdd6c06177">00069</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structcastelo.html" title="Estrutura de cabeça que organiza e dá acesso aos quatro edifícios do jogo, possui informações de vida...">castelo</a> <a class="code" href="structcastelo.html" title="Estrutura de cabeça que organiza e dá acesso aos quatro edifícios do jogo, possui informações de vida...">Castelo</a>;
+<a name="l00070"></a>00070 
+<a name="l00074"></a><a class="code" href="structcabecageral.html">00074</a> <span class="keyword">struct </span><a class="code" href="structcabecageral.html" title="Estrutura de cabeça geral responsável pela união dos edifícios e das unidades.">cabecageral</a> {
+<a name="l00075"></a><a class="code" href="structcabecageral.html#a40aa7397f92075ac0d1b5e4ae0032d5a">00075</a>         <a class="code" href="structcabecapfilas.html" title="Estrutura de cabeça que organiza as duas filas de ação do jogo.">CabecaPFilas</a> *<a class="code" href="structcabecageral.html#a40aa7397f92075ac0d1b5e4ae0032d5a">character</a>;
+<a name="l00076"></a><a class="code" href="structcabecageral.html#a6284859843d67ddfb1d33b460a7a7c86">00076</a>         <a class="code" href="structcastelo.html" title="Estrutura de cabeça que organiza e dá acesso aos quatro edifícios do jogo, possui informações de vida...">Castelo</a> *<a class="code" href="structcabecageral.html#a6284859843d67ddfb1d33b460a7a7c86">castle</a>;
+<a name="l00077"></a>00077 };
+<a name="l00078"></a><a class="code" href="estruturas_8h.html#a833ca644e598f41676e18a557864171a">00078</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structcabecageral.html" title="Estrutura de cabeça geral responsável pela união dos edifícios e das unidades.">cabecageral</a> <a class="code" href="structcabecageral.html" title="Estrutura de cabeça geral responsável pela união dos edifícios e das unidades.">CabecaGeral</a>;
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082 <span class="comment">/*      ---------------DEFINIÇÃO DE FUNÇÕES---------------  */</span>
+<a name="l00083"></a>00083 <span class="comment">/*FUNÇÕES DE CABECA GERAL*/</span>
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 <a class="code" href="structcabecageral.html" title="Estrutura de cabeça geral responsável pela união dos edifícios e das unidades.">CabecaGeral</a>* <a class="code" href="estruturas_8h.html#aff2d59299d36523dd70e87e5dfe6bae5" title="Aloca a estrutura controladora do game e faz com que seus ponteiros internos para as estruturas do ga...">CriaCabecaGeral</a>();
+<a name="l00086"></a>00086 <span class="keywordtype">int</span> <a class="code" href="estruturas_8h.html#a7d015e31e3d7745ac0acd498b8a7a4b2" title="Verifica se a estrutura controladora do game é nula ou não.">CabecaGeralVazia</a>(<a class="code" href="structcabecageral.html" title="Estrutura de cabeça geral responsável pela união dos edifícios e das unidades.">CabecaGeral</a>* lis);
+<a name="l00087"></a>00087 <span class="keywordtype">int</span> <a class="code" href="estruturas_8h.html#abfb14d52dadba35ae1bef5bef4af6dbb" title="Verifica se as estruturas internas do controlador são nulas ou não.">VerificarCabecaGeral</a>(<a class="code" href="structcabecageral.html" title="Estrutura de cabeça geral responsável pela união dos edifícios e das unidades.">CabecaGeral</a>* CG);
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089 <span class="comment">/*FUNÇÕES DE CABECAPFILAS*/</span>
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091 <a class="code" href="structcabecapfilas.html" title="Estrutura de cabeça que organiza as duas filas de ação do jogo.">CabecaPFilas</a>* <a class="code" href="estruturas_8h.html#a090a0bd1ebf1cef1ab966dbc0f28fed7" title="Aloca a estrutura que contém as duas listas de personagens do game (player e cpu), fazendo com que seus ponteiros internos apontem para * NULL.">CriaCabecaPFilas</a>();
+<a name="l00092"></a>00092 <span class="keywordtype">int</span> <a class="code" href="estruturas_8h.html#a2fcc27ec3c60b572671f8234ffe7a51f" title="Verifica se a estrutura que contém as listas de personagens é nula ou não.">CabecaPFilasVazia</a>(<a class="code" href="structcabecapfilas.html" title="Estrutura de cabeça que organiza as duas filas de ação do jogo.">CabecaPFilas</a>* lis);
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094 <span class="comment">/*FUNÇÕES DE CASTELO*/</span>
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096 <a class="code" href="structcastelo.html" title="Estrutura de cabeça que organiza e dá acesso aos quatro edifícios do jogo, possui informações de vida...">Castelo</a>* <a class="code" href="estruturas_8h.html#a95942dff1d9b41e28a94016794a5f45a" title="Aloca a estrutura que contém os ponteiros para cada edifício do game e faz com que esses ponteiros ap...">CriaCastelo</a> (<span class="keywordtype">int</span> novawave,<span class="keywordtype">int</span> valor);
+<a name="l00097"></a>00097 <span class="keywordtype">int</span> <a class="code" href="estruturas_8h.html#a5fed03bd0130e336c98b3d440f654be2" title="Verifica se a estrutura que contém os edifícios é nula ou não.">CasteloVazia</a>(<a class="code" href="structcastelo.html" title="Estrutura de cabeça que organiza e dá acesso aos quatro edifícios do jogo, possui informações de vida...">Castelo</a>* lis);
+<a name="l00098"></a>00098 <span class="keywordtype">int</span> <a class="code" href="estruturas_8h.html#af552ec753dbfd8faa5ba633bc8f37fab" title="Verifica se cada edifício da estrutura Castelo é nulo ou não.">VerificarCastelo</a>(<a class="code" href="structcastelo.html" title="Estrutura de cabeça que organiza e dá acesso aos quatro edifícios do jogo, possui informações de vida...">Castelo</a>* C);
+<a name="l00099"></a>00099 <a class="code" href="structcastelo.html" title="Estrutura de cabeça que organiza e dá acesso aos quatro edifícios do jogo, possui informações de vida...">Castelo</a>* <a class="code" href="estruturas_8h.html#a43cede037d244cd94f7bfd6ab54fba28" title="Atualiza a quantidade de ouro (recurso) do castelo do game.">AtualizarCasteloOuro</a>(<a class="code" href="structcastelo.html" title="Estrutura de cabeça que organiza e dá acesso aos quatro edifícios do jogo, possui informações de vida...">Castelo</a>* C, <span class="keywordtype">int</span> ouro);
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101 <span class="comment">/*FUNÇÕES DE UNIDADE*/</span>
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103 <a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a> * <a class="code" href="estruturas_8h.html#a2aba2dc59b652d65e4140b7e0804fc38" title="Inicializa uma estrutura de Unidade com o valor NULL.">CriaUnidade</a> ();
+<a name="l00104"></a>00104 <span class="keywordtype">int</span> <a class="code" href="estruturas_8h.html#afbe5cc91d835ff47950e48790fe1949c" title="Verifica se a estrutura de Unidade é nula ou não.">UnidadeVazia</a>(<a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a>* lis);
+<a name="l00105"></a>00105 <a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a> * <a class="code" href="estruturas_8h.html#ab409c520508a4c5f33e663880fa1e064" title="Realiza a inserção de um personagem na lista de personagens do game sempre a última posição da lista...">InserirUnidadeFinal</a>(<a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a>*,<span class="keywordtype">int</span>,<span class="keywordtype">int</span>,<span class="keywordtype">float</span>,<span class="keywordtype">int</span>,<span class="keywordtype">int</span>);
+<a name="l00106"></a>00106 <span class="keywordtype">int</span> <a class="code" href="estruturas_8h.html#ac41c495059d51b13c6d5699ab04d1667" title="Assertiva estrutural para garantir que a estrutura de lista duplamente encadeada foi implementada cor...">VerificaEstrutura</a>(<a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a> * lista);
+<a name="l00107"></a>00107 <a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a> * <a class="code" href="estruturas_8h.html#a407a2210492b16725135a1c8effed6e0" title="Realiza a remoção do último nó (personagem) da lista de personagens.">RemoverUnidadeFinal</a>(<a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a> * lis);
+<a name="l00108"></a>00108 <a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a> * <a class="code" href="estruturas_8h.html#a6fcd097166fac054f380ebe70dbb92bb" title="Realiza a remoção do nó (personagem) específico que foi enviado para a função.">RemoverUnidade</a>(<a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a>* lis, <a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a> *retira);
+<a name="l00109"></a>00109 <a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a> * <a class="code" href="estruturas_8h.html#ac0fa0b234ba7cb5223d6f02417da52cf" title="Realiza a limpeza de uma lista de personagens, removendo todos os seus nós.">LimpaLista</a>(<a class="code" href="structunidade.html" title="Estrutura genérica do tipo unidade. Responsável por representar todas as unidades do jogo...">Unidade</a>* lis);
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111 <span class="comment">/*FUNÇÕES DE COMERCIO*/</span>
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113 <a class="code" href="structcomercio.html" title="Estrutura do tipo comércio a qual faz parte do castelo. Responsável por controlar a produção de ouro...">Comercio</a>* <a class="code" href="estruturas_8h.html#a85e83491d0d8f4a3b7518aff11691cae" title="Inicializa a estrutura Comércio com o valor NULL.">CriaComercio</a> ();
+<a name="l00114"></a>00114 <span class="keywordtype">int</span> <a class="code" href="estruturas_8h.html#af22f0b9c3902d68a39245d1e17d8b9e5" title="Verifica se a estrutura Comercio está alocada ou não.">ComercioVazia</a>(<a class="code" href="structcomercio.html" title="Estrutura do tipo comércio a qual faz parte do castelo. Responsável por controlar a produção de ouro...">Comercio</a>* lis);
+<a name="l00115"></a>00115 <a class="code" href="structcomercio.html" title="Estrutura do tipo comércio a qual faz parte do castelo. Responsável por controlar a produção de ouro...">Comercio</a>* <a class="code" href="estruturas_8h.html#a3a4c400dfae341981aadc9053ffc3c6e" title="Aloca a estrutura Comercio com os devidos atributos.">InicializarComercio</a>(<a class="code" href="structcomercio.html" title="Estrutura do tipo comércio a qual faz parte do castelo. Responsável por controlar a produção de ouro...">Comercio</a>* C,<span class="keywordtype">int</span> taxaouro,<span class="keywordtype">int</span> nivel);
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117 <span class="comment">/*FUNÇÕES DE EDIFICIO*/</span>
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119 <a class="code" href="structedificio.html" title="Estrutura genérica do tipo edificio. Responsável por representar a maioria das construções do jogo...">Edificio</a>* <a class="code" href="estruturas_8h.html#a00d366a15f3a4afe51caced81b45079f" title="Inicializa a estrutura Edificio com o valor NULL.">CriaEdificio</a>();
+<a name="l00120"></a>00120 <span class="keywordtype">int</span> <a class="code" href="estruturas_8h.html#a964aab53c47a7e3ae3fa50ba5ffdbd3c" title="Verifica se a estrutura Edificio é nula ou não.">EdificioVazia</a>(<a class="code" href="structedificio.html" title="Estrutura genérica do tipo edificio. Responsável por representar a maioria das construções do jogo...">Edificio</a>* lis);
+<a name="l00121"></a>00121 <a class="code" href="structedificio.html" title="Estrutura genérica do tipo edificio. Responsável por representar a maioria das construções do jogo...">Edificio</a>* <a class="code" href="estruturas_8h.html#ac59327876a862a2dffdf35619a3bf1ef" title="Aloca a estrutura Edifício que pode representar no game um Quartel, Casa da Lanças ou Campo de Tiro...">InicializarEdificio</a>(<a class="code" href="structedificio.html" title="Estrutura genérica do tipo edificio. Responsável por representar a maioria das construções do jogo...">Edificio</a>* E,<span class="keywordtype">int</span> custounidade,<span class="keywordtype">int</span> nivel);
+</pre></div></div><!-- contents -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tudo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Ficheiros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Definições de tipos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+
+<hr class="footer"/><address class="footer"><small>
+Gerado em Segunda, 30 de Junho de 2014 20:57:54 para PeixeraWars por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.7.6.1
+</small></address>
+
+</body>
+</html>

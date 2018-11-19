@@ -1,0 +1,4 @@
+A FAZER:
+Relatório do Max.
+Relatório do Rafael.
+Testes finais com o gcov.

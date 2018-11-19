@@ -1,0 +1,25 @@
+/*
+TRABALHO 1
+Nome: RAFAEL DIAS DA COSTA
+Matrícula: 12/0133253
+Curso: Engenharia de Computação
+Disciplina: Métodos de Programação
+Turma: A
+Prof: Jan Mendonça
+*/
+
+Data	|	Horas Trabalhadas	|	Tipo Tarefa									|	Descrição da Tarefa Realizada
+11/06  	|  		2 horas  		|  	Estudar aulas e laboratórios relacionados	|   Aprendendo a usar ncurses
+16/06   |  		2 horas     	|  	Estudar aulas e laboratórios relacionados	|   Aprendendo a usar ncurses
+18/06   |  		2 horas     	|  	Estudar aulas e laboratórios relacionados	|   Montagem do banco de dados de modelos de personagem
+18/06	|	    3 horas 		|   Revisar especificações		                |	Análise dos problemas e brainstorm com o grupo para as correções e adaptações necessárias.
+18/06	|	 	3 horas     	|   Revisar projetos			                |	Repensada a ideia geral do projeto. Decisão final: Mudar as especificações para algo mais simples. O estilo de jogo muda de RTS para baseado em turnos.
+19/06   |  		1 hora	     	|  	Estudar aulas e laboratórios relacionados	|   Aprendendo a usar ncurses
+20/06   |  		3 horas     	|  	Codificar o módulo							|   Montagem da base da interface gráfica
+22/06	|		4 horas		    |	Revisar código do módulo					|	Junção das funções de interface gráfica com as estruturas de dados.
+23/06	|		7 horas			|	Codificar módulo							|	Adição de telas de início e fim de jogo, créditos, e implementação do Boss.
+26/06	|		7 horas			|	Codificar módulo							|	Correção de erros apresentados na junção.
+28/06	|		3 horas			|	Estudar aulas e laboratórios relacionados   |	Leitura do manual do Doxygen e implementação.
+29/06	|		5 horas			|	Especificação do módulo						|	Implementação do Doxygen nos módulos do código.
+30/06	|		5 horas	    	|	Especificação do módulo			    		|	Especificação do Doxygen em todos os módulos.
+30/06	|		5 horas	    	|	Codificar módulo							|	Processamento do Doxygen, ajustes finais e testes no jogo.

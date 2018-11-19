@@ -1,0 +1,813 @@
+        -:    0:Source:engine.c
+        -:    0:Programs:4
+        -:    1:/*
+        -:    2:PROJETO
+        -:    3:Nome: MAXIMILLIAN FAN XAVIER, OTÁVIO ALVES DIAS, RAFAEL DIAS DA COSTA, TÚLIO ABNER DE LIMA
+        -:    4:Matrícula: 12/0153271, 12/0131480, 12/0133253, 12/0137194
+        -:    5:Curso: Engenharia de Computação
+        -:    6:Disciplina: Métodos de Programação
+        -:    7:Turma: A
+        -:    8:Prof: Jan Mendonça
+        -:    9:*/
+        -:   10:
+        -:   11:#include <stdio.h>
+        -:   12:#include <stdlib.h>
+        -:   13:#include <string.h>
+        -:   14:#include <strings.h>
+        -:   15:#include <time.h>
+        -:   16:#include <unistd.h>
+        -:   17:#include "estruturas.h"
+        -:   18:#include "engine.h"
+        -:   19:#include "grafico.h"
+        -:   20:
+        -:   21:#define HUBH 7
+        -:   22:#define CASTLEW 40
+        -:   23:#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+        -:   24:#define CTRLD 	4
+        -:   25:
+        -:   26:/*	--------------------FUNÇÕES DA ENGINE--------------------	*/
+        -:   27:
+        -:   28:/*
+        -:   29:Função de criação das estruturas.
+        -:   30:REQUISITO: Ter ponteiro de interface devidamente alocado e memória livre.
+        -:   31:HIPÓTESE: A função deve 
+        -:   32:*/
+        4:   33:void CriaEstruturas(CabecaGeral* Interface){
+        4:   34:	if(Interface!=NULL){
+        -:   35:		/*CRIAÇÃO DAS CABEÇAS*/
+        4:   36:		Interface->character = CriaCabecaPFilas();
+        4:   37:		Interface->castle = CriaCastelo();
+        -:   38:	
+        -:   39:		/*CRIAÇÃO DAS LISTAS DE UNIDADES*/
+        4:   40:		Interface->character->player = CriaUnidade();
+        4:   41:		Interface->character->cpu = CriaUnidade();
+        -:   42:		
+        -:   43:		/*CRIAÇÃO DOS EDIFÍCIOS*/
+        4:   44:		Interface->castle->quartel = CriaEdificio();
+        4:   45:		Interface->castle->campodetiro = CriaEdificio();	
+        4:   46:		Interface->castle->casadaslancas = CriaEdificio();
+        4:   47:		Interface->castle->comercio = CriaComercio();	
+        -:   48:	}
+        4:   49:}
+        -:   50:
+        -:   51:/*
+        -:   52:Função de inicialização das estruturas.
+        -:   53:REQUISITO: Ter ponteiros de interface,castelo e filas devidamente alocados.
+        -:   54:HIPÓTESE: A função deve atribuir valores iniciais para um jogo prestes a ser inicializado caso o status seja 0, se status é 1, atribui os valores enviados como parâmetro.
+        -:   55:*/
+        4:   56:void InicializaEstruturas(CabecaGeral* Interface,int status,int cuQ,int nQ,int cuCDT,int nCDT,int cuCDL,int nCDL,int tC,int nC){
+        4:   57:	if(Interface!=NULL){
+        4:   58:		if(status == 0){
+        2:   59:			Interface->castle->quartel = InicializarEdificio(Interface->castle->quartel,25,1);
+        2:   60:			Interface->castle->campodetiro = InicializarEdificio(Interface->castle->campodetiro,25,1);
+        2:   61:			Interface->castle->casadaslancas = InicializarEdificio(Interface->castle->casadaslancas,25,1);
+        2:   62:			Interface->castle->comercio = InicializarComercio(Interface->castle->comercio,100,1);
+        -:   63:		}
+        4:   64:		if(status == 1){
+        2:   65:			if((nQ>0 && nQ<=3) && (nCDT>0 && nCDT<=3) && (nCDL>0 && nCDL<=3) && (nC>0 && nC<=3)){
+        2:   66:				Interface->castle->quartel = InicializarEdificio(Interface->castle->quartel,cuQ,nQ);
+        2:   67:				Interface->castle->campodetiro = InicializarEdificio(Interface->castle->campodetiro,cuCDT,nCDT);
+        2:   68:				Interface->castle->casadaslancas = InicializarEdificio(Interface->castle->casadaslancas,cuCDL,nCDL);
+        2:   69:				Interface->castle->comercio = InicializarComercio(Interface->castle->comercio,tC,nC);
+        -:   70:			}
+        -:   71:		}
+        -:   72:	}
+        4:   73:}
+        -:   74:
+        -:   75:/*
+        -:   76:Função verificação das estruturas.
+        -:   77:REQUISITO: Ter ponteiro de interface devidamente alocado.
+        -:   78:HIPÓTESE: A função deve verificar se a interface foi inicializada corretamente. Caso esteja tudo bem, retorna 1, caso contrário, retorna 0.
+        -:   79:*/
+        4:   80:int VerificaInterface(CabecaGeral* Interface){
+        4:   81:	if((VerificarCabecaGeral(Interface)) && (VerificarCastelo(Interface->castle))){
+        4:   82:		return 1;
+        -:   83:	}else{
+    #####:   84:		return 0;
+        -:   85:	}
+        -:   86:}
+        -:   87:
+        -:   88:/*
+        -:   89:Função de interface com o usuário.
+        -:   90:REQUISITO: Não há.
+        -:   91:HIPÓTESE: A função deve mostrar um menu de seleção inicial para o jogador.
+        -:   92:*/
+        4:   93:void Inicia(){
+        4:   94:	WINDOW *menuwin = newwin(5, 15, 11, 40);
+        4:   95:	int opcao = menu(menuwin);
+        -:   96:
+        4:   97:	switch(opcao){
+        -:   98:		case 0:
+        2:   99:			StartGame(NULL, 1);
+    #####:  100:			break;
+        -:  101:			
+        -:  102:		case 1:
+        2:  103:			LoadGame();
+    #####:  104:			break;
+        -:  105:			
+        -:  106:		case 2:
+    #####:  107:			creditos(15, 1);
+    #####:  108:			Inicia();
+    #####:  109:			break;
+        -:  110:		case 3:
+    #####:  111:			tela_final();
+    #####:  112:			break;
+        -:  113:		
+        -:  114:		default:
+    #####:  115:			Inicia();
+        -:  116:	}
+    #####:  117:}
+        -:  118:
+        -:  119:/*
+        -:  120:Função de inicio do jogo.
+        -:  121:REQUISITO: Ter espaço na memória.
+        -:  122:HIPÓTESE: A função deve chamar todas as funções de criação e inicialização, verificar suas alocações e apontamentos e certificar-se que o jogo está pronto para começar.
+        -:  123:*/
+        4:  124:void StartGame(CabecaGeral* Cabeca, int horda){
+        4:  125:	int new = 1;
+        4:  126:	CabecaGeral* Interface = CriaCabecaGeral();
+        -:  127:
+        4:  128:	if(Cabeca == NULL){
+        2:  129:		CriaEstruturas(Interface);
+        2:  130:		InicializaEstruturas(Interface,0,25,1,25,1,25,1,100,1);
+        2:  131:		new = 1;
+        -:  132:	}else{
+        2:  133:		Interface = Cabeca;
+        2:  134:		new = 0;
+        -:  135:	}
+        -:  136:	
+        -:  137:	/*VERIFICAÇÃO DA INTERFACE*/
+        4:  138:	if(VerificaInterface(Interface)){
+        4:  139:		Run(Interface,new,horda);
+        -:  140:	}
+    #####:  141:}
+        -:  142:
+        -:  143:/*
+        -:  144:Função de salvar o jogo.
+        -:  145:REQUISITO: Ter ponteiro de interface devidamente alocado e o jogo inicializado.
+        -:  146:HIPÓTESE: A função deve gravar as informações de atributos dos edifícios e em que horda o jogador se encontra num arquivo binário.
+        -:  147:*/
+       10:  148:void SaveGame(CabecaGeral* Interface, int horda){
+        -:  149:	FILE* fp1;
+       10:  150:	char saida[9] = "save.bin";
+        -:  151:	
+       10:  152:	fp1 = fopen(saida,"w+b");
+        -:  153:	
+       10:  154:	if((horda>0 && horda<=10) && (!CabecaGeralVazia(Interface))){
+        9:  155:		fwrite(&Interface->castle->ouro,sizeof(int),1,fp1);
+        9:  156:		fwrite(&Interface->castle->quartel->custounidade,sizeof(int),1,fp1);
+        9:  157:		fwrite(&Interface->castle->quartel->nivel,sizeof(int),1,fp1);
+        9:  158:		fwrite(&Interface->castle->campodetiro->custounidade,sizeof(int),1,fp1);
+        9:  159:		fwrite(&Interface->castle->campodetiro->nivel,sizeof(int),1,fp1);
+        9:  160:		fwrite(&Interface->castle->casadaslancas->custounidade,sizeof(int),1,fp1);
+        9:  161:		fwrite(&Interface->castle->casadaslancas->nivel,sizeof(int),1,fp1);
+        9:  162:		fwrite(&Interface->castle->comercio->taxaouro,sizeof(int),1,fp1);
+        9:  163:		fwrite(&Interface->castle->comercio->nivel,sizeof(int),1,fp1);
+        9:  164:		fwrite(&horda,sizeof(int),1,fp1);
+        9:  165:		mensagem(17, 40, "Jogo salvo com sucesso");
+        -:  166:	}
+       10:  167:	fclose(fp1);
+       10:  168:}
+        -:  169:
+        -:  170:/*
+        -:  171:Função de carregar um jogo salvo.
+        -:  172:REQUISITO: Ter um arquivo binário a ser lido e memória livre para alocação.
+        -:  173:HIPÓTESE: A função deve ler as informações de um arquivo bináro e atribuir os valores nos devidos ponteiros de edificios e informações no geral.
+        -:  174:*/
+        2:  175:void LoadGame(){
+        -:  176:	FILE* fp1;
+        2:  177:	char entrada[9] = "save.bin";
+        -:  178:	int ouro,cuQ,nQ,cuCDT,nCDT,cuCDL,nCDL,tC,nC,horda;
+        2:  179:	CabecaGeral* Interface = CriaCabecaGeral();
+        -:  180:
+        2:  181:	fp1 = fopen(entrada,"r+b");
+        2:  182:	fread(&ouro,sizeof(int),1,fp1);
+        2:  183:	fread(&cuQ,sizeof(int),1,fp1);
+        2:  184:	fread(&nQ,sizeof(int),1,fp1);
+        2:  185:	fread(&cuCDT,sizeof(int),1,fp1);
+        2:  186:	fread(&nCDT,sizeof(int),1,fp1);
+        2:  187:	fread(&cuCDL,sizeof(int),1,fp1);
+        2:  188:	fread(&nCDL,sizeof(int),1,fp1);
+        2:  189:	fread(&tC,sizeof(int),1,fp1);
+        2:  190:	fread(&nC,sizeof(int),1,fp1);
+        2:  191:	fread(&horda,sizeof(int),1,fp1);
+        2:  192:	fclose(fp1);
+        -:  193:	
+        2:  194:	CriaEstruturas(Interface);
+        2:  195:	InicializaEstruturas(Interface,1,cuQ,nQ,cuCDT,nCDT,cuCDL,nCDL,tC,nC);
+        2:  196:	StartGame(Interface,horda);
+    #####:  197:}
+        -:  198:
+        -:  199:/*
+        -:  200:Função que evolui um edifício do jogo.
+        -:  201:REQUISITO: Ponteiro de CabecaGeral alocado e inicializado.
+        -:  202:HIPÓTESE: A função deve evoluir um determinado edificio e enviar um inteiro, indicando que a evolução foi efetuada.
+        -:  203:*/
+       10:  204:int MenuEvolucaoEdificio(CabecaGeral* Interface){
+       10:  205:	int OpcaoEdificio = menu_edificio();
+       10:  206:	int EvoluiuEdificio = 0;
+       10:  207:	switch(OpcaoEdificio){
+        -:  208:		case 1:
+        2:  209:			if(Interface->castle->quartel->nivel < 3){
+        2:  210:				Interface->castle->quartel->nivel++;
+        2:  211:				Interface->castle->quartel->custounidade +=35;
+        2:  212:				EvoluiuEdificio=1;
+        -:  213:			}
+        -:  214:			else
+        -:  215:			{
+    #####:  216:				mensagem(21, 62, "Edificio no nivel maximo.");
+        -:  217:			}
+        2:  218:			break;
+        -:  219:				
+        -:  220:		case 2:
+        2:  221:			if(Interface->castle->campodetiro->nivel < 3){
+        2:  222:				Interface->castle->campodetiro->nivel++;
+        2:  223:				Interface->castle->campodetiro->custounidade +=35;
+        2:  224:				EvoluiuEdificio=1;
+        -:  225:			}
+        -:  226:			else
+        -:  227:			{
+    #####:  228:				mensagem(21, 62, "Edificio no nivel maximo.");
+        -:  229:			}
+        2:  230:			break;
+        -:  231:
+        -:  232:			case 3:
+        2:  233:			if(Interface->castle->casadaslancas->nivel < 3){
+        2:  234:				Interface->castle->casadaslancas->nivel++;
+        2:  235:				Interface->castle->casadaslancas->custounidade +=35;
+        2:  236:				EvoluiuEdificio=1;
+        -:  237:			}
+        -:  238:			else
+        -:  239:			{
+    #####:  240:				mensagem(21, 62, "Edificio no nivel maximo.");
+        -:  241:			}
+        2:  242:			break;
+        -:  243:						
+        -:  244:		case 4:
+        4:  245:			if(Interface->castle->comercio->nivel < 3){
+        2:  246:				Interface->castle->comercio->nivel++;
+        2:  247:				Interface->castle->comercio->taxaouro +=100;
+        2:  248:				EvoluiuEdificio=1;
+        -:  249:			}
+        -:  250:			else
+        -:  251:			{
+        2:  252:				mensagem(21, 62, "Edificio no nivel maximo.");
+        -:  253:			}
+        4:  254:			break;
+        -:  255:						
+        -:  256:		default:
+    #####:  257:			MenuEvolucaoEdificio(Interface);
+        -:  258:	}
+        -:  259:	
+       10:  260:	return EvoluiuEdificio;
+        -:  261:}
+        -:  262:
+        -:  263:/*
+        -:  264:Função que insere unidades no jogo.
+        -:  265:REQUISITO: Ponteiro de CabecaGeral alocado e inicializado.
+        -:  266:HIPÓTESE: A função deve inserir até quatro unidades e enviar um inteiro, indicando que a inserção foi efetuada.
+        -:  267:*/
+       49:  268:int MenuEscolhaUnidade(CabecaGeral* Interface){			
+       49:  269:	int OpcaoUnidade = menu_unidade(Interface->castle);
+        -:  270:	
+       49:  271:	switch(OpcaoUnidade){
+        -:  272:		case 1:
+       13:  273:			if(Interface->castle->quartel->nivel == 1){
+        8:  274:				if(Interface->castle->ouro >= Interface->castle->quartel->custounidade){
+        8:  275:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,300,60,0.15,1,1);
+        8:  276:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->quartel->custounidade));
+        8:  277:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        8:  278:					refresh(); 
+        -:  279:				}else{
+    #####:  280:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  281:					return 1;
+        -:  282:				}
+        -:  283:			}
+       13:  284:			if(Interface->castle->quartel->nivel == 2){
+        4:  285:				if(Interface->castle->ouro >= Interface->castle->quartel->custounidade){
+        4:  286:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,400,60,0.15,2,1);				
+        4:  287:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->quartel->custounidade));
+        4:  288:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        4:  289:					refresh();
+        -:  290:				}else{
+    #####:  291:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  292:					return 1;
+        -:  293:				}
+        -:  294:			}
+       13:  295:			if(Interface->castle->quartel->nivel == 3){
+        1:  296:				if(Interface->castle->ouro >= Interface->castle->quartel->custounidade){
+        1:  297:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,500,60,0.15,3,1);				
+        1:  298:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->quartel->custounidade));
+        1:  299:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        1:  300:					refresh();
+        -:  301:				}else{
+    #####:  302:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  303:					return 1;
+        -:  304:				}
+        -:  305:			}
+        -:  306:
+       13:  307:			break;
+        -:  308:
+        -:  309:		case 2:
+        2:  310:			if(Interface->castle->campodetiro->nivel == 1){
+        2:  311:				if(Interface->castle->ouro >= Interface->castle->campodetiro->custounidade){
+        2:  312:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,70,0.15,1,2);				
+        2:  313:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->campodetiro->custounidade));
+        2:  314:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        2:  315:					refresh();
+        -:  316:				}else{
+    #####:  317:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  318:					return 1;
+        -:  319:				}
+        -:  320:			}
+        2:  321:			if(Interface->castle->campodetiro->nivel == 2){
+    #####:  322:				if(Interface->castle->ouro >= Interface->castle->campodetiro->custounidade){
+    #####:  323:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,90,0.15,2,2);				
+    #####:  324:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->campodetiro->custounidade));
+    #####:  325:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+    #####:  326:					refresh();
+        -:  327:				}else{
+    #####:  328:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  329:					return 1;
+        -:  330:				}
+        -:  331:			}
+        2:  332:			if(Interface->castle->campodetiro->nivel == 3){
+    #####:  333:				if(Interface->castle->ouro >= Interface->castle->campodetiro->custounidade){
+    #####:  334:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,120,0.15,3,2);				
+    #####:  335:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->campodetiro->custounidade));
+    #####:  336:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+    #####:  337:					refresh();
+        -:  338:				}else{
+    #####:  339:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  340:					return 1;
+        -:  341:				}
+        -:  342:			}
+        2:  343:			break;
+        -:  344:
+        -:  345:		case 3:
+       34:  346:			if(Interface->castle->casadaslancas->nivel == 1){
+        7:  347:				if(Interface->castle->ouro >= Interface->castle->casadaslancas->custounidade){
+        7:  348:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,60,0.2,1,3);				
+        7:  349:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->casadaslancas->custounidade));
+        7:  350:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        7:  351:					refresh();
+        -:  352:				}else{
+    #####:  353:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  354:					return 1;
+        -:  355:				}
+        -:  356:			}
+       34:  357:			if(Interface->castle->casadaslancas->nivel == 2){
+       15:  358:				if(Interface->castle->ouro >= Interface->castle->casadaslancas->custounidade){
+       14:  359:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,60,0.3,2,3);				
+       14:  360:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->casadaslancas->custounidade));
+       14:  361:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+       14:  362:					refresh();
+        -:  363:				}else{
+        1:  364:					mensagem(22, 62, "Nao ha ouro suficiente");
+        1:  365:					return 1;
+        -:  366:				}
+        -:  367:			}
+       33:  368:			if(Interface->castle->casadaslancas->nivel == 3){
+       12:  369:				if(Interface->castle->ouro >= Interface->castle->casadaslancas->custounidade){
+       12:  370:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,60,0.4,3,3);				
+       12:  371:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->casadaslancas->custounidade));
+       12:  372:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+       12:  373:					refresh();
+        -:  374:				}else{
+    #####:  375:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  376:					return 1;
+        -:  377:				}
+        -:  378:			}
+       33:  379:			break;
+        -:  380:
+        -:  381:		default:
+    #####:  382:		MenuEscolhaUnidade(Interface);
+        -:  383:	}
+       48:  384:	return 0;
+        -:  385:}
+        -:  386:
+        -:  387:/*
+        -:  388:Função que integra as demais funções do jogo.
+        -:  389:REQUISITO: Memória livre para alocação, ponteiro de CabecaGeral alocado e inicializado.
+        -:  390:HIPÓTESE: .
+        -:  391:*/
+        4:  392:void Run (CabecaGeral* Interface, int new, int wave){
+        4:  393:	int horda = 0;	/*diz em qual horda o jogador se encontra*/
+        4:  394:	int fim = 0;	/*indica fim de jogo*/
+        4:  395:	int newhorda = 1;	/*indica se é o início de uma nova horda*/
+        4:  396:	int EvoluiuEdificio = 0;	/*indica se o jogador já evoluiu um de seus edifícios*/
+        4:  397:	int TemDinheiro = 1;	/*indica se o jogador possui dinheiro suficiente para comprar unidades*/
+        4:  398:	int mensagem = 0;
+        -:  399:	int i;
+        -:  400:
+        4:  401:	WINDOW *winhub = newwin(HUBH,COLS, 0, 0);
+        4:  402:	WINDOW *wincastle = newwin(LINES-HUBH, CASTLEW, HUBH,0);
+        4:  403:	WINDOW *winfield = newwin(LINES-HUBH, COLS-CASTLEW, HUBH, CASTLEW);
+        -:  404:	                        /* (height,width,starty,startx) */
+        -:  405:	
+        4:  406:	if(!CabecaGeralVazia(Interface)){
+        4:  407:		if(new==1){	/*atribui o valor da horda. Caso seja um novo jogo, horda =1, caso seja um Load, horda = wave.*/
+        2:  408:			horda = 1;
+        -:  409:		}else{
+        2:  410:			horda = wave;
+        -:  411:		}
+        4:  412:		print_hub(winhub,Interface->castle->ouro,horda);
+        4:  413:		wrefresh(winhub);
+        -:  414:
+        4:  415:		print_field(winfield, Interface->character);
+        4:  416:		wrefresh(winfield);
+        -:  417:
+        4:  418:		print_castle(wincastle, Interface->castle);
+        4:  419:		wrefresh(wincastle);
+        -:  420:
+       18:  421:		while(fim==0 && (horda>0 && horda<=10)){	/*contagem de hordas*/
+        -:  422:
+       13:  423:			srand(time(NULL));
+        -:  424:
+       13:  425:			print_hub(winhub,Interface->castle->ouro,horda);
+       13:  426:			wrefresh(winhub);
+        -:  427:
+       13:  428:			print_field(winfield, Interface->character);
+       13:  429:			wrefresh(winfield);
+        -:  430:
+       13:  431:			print_castle(wincastle, Interface->castle);
+       13:  432:			wrefresh(wincastle);
+        -:  433:
+       13:  434:			if(newhorda==1){	/*momento de pausa para o jogador fazer as evoluções e compras de unidades*/
+       75:  435:				while((!TemQuatro(Interface->character->player)) && TemDinheiro==1){	/*limita a quantidade de unidades em jogo para até 4 e habilita a compra das mesmas*/
+       49:  436:					mensagem = MenuEscolhaUnidade(Interface);
+       49:  437:					if((Interface->castle->ouro < Interface->castle->quartel->custounidade) && (Interface->castle->ouro < Interface->castle->campodetiro->custounidade) && (Interface->castle->ouro < Interface->castle->casadaslancas->custounidade)) 
+        -:  438:					{
+        8:  439:						TemDinheiro = 0;
+        -:  440:					}
+       49:  441:					if (mensagem == 0)
+        -:  442:					{
+       48:  443:						print_field(winfield, Interface->character);
+       48:  444:						wrefresh(winfield);
+        -:  445:					}
+        -:  446:				}
+       62:  447:				for (i = 0; i < 4; i++)
+        -:  448:				{
+       49:  449:					if(horda == 10)
+        -:  450:					{
+        1:  451:						InsereUnidadeBoss(Interface);
+        1:  452:						i = 4;
+        -:  453:					}
+        -:  454:					else
+       48:  455:						InsereUnidadeInimiga(Interface);
+        -:  456:						
+       49:  457:					usleep(400000);
+       49:  458:					print_field(winfield, Interface->character);
+       49:  459:					wrefresh(winfield);
+        -:  460:				}
+       13:  461:				newhorda = 0;
+        -:  462:			}
+        -:  463:
+       13:  464:			fim = GameLoop (Interface, winfield);
+        -:  465:			
+       44:  466:			while(!UnidadeVazia(Interface->character->player)){				/*remove todas as unidades da lista de jogador */
+       22:  467:				Interface->character->player = RemoverUnidadeFinal(Interface->character->player);
+        -:  468:			} 
+        -:  469:			
+        -:  470:	
+       11:  471:			if (fim == 0) {
+       30:  472:				while(EvoluiuEdificio==0 && horda<9){	/*a partir da segunda horda já é possível fazer evoluções dos edifícios*/
+       10:  473:					EvoluiuEdificio = MenuEvolucaoEdificio(Interface);
+        -:  474:				}
+       10:  475:				horda++;	/*avança para a próxima horda*/
+       10:  476:				EvoluiuEdificio = 0;	/*dá um ponto de evolução para o jogador*/
+       10:  477:				Interface->castle->ouro += Interface->castle->comercio->taxaouro;	/*credita o ouro*/
+       10:  478:				newhorda = 1;
+       10:  479:				TemDinheiro = 1;
+       10:  480:				SaveGame(Interface, horda);
+        -:  481:			} else {
+        1:  482:				TelaGameOver();
+        -:  483:			}
+        -:  484:		}
+        1:  485:		tela_final();
+        -:  486:	}
+    #####:  487:}
+        -:  488:
+       13:  489:int GameLoop (CabecaGeral * Interface, WINDOW * winfield) {
+       13:  490:	int fluxo = 0;	
+        -:  491:	int vencedor;
+        -:  492:	
+      132:  493:	while (fluxo == 0) {	
+        -:  494:		/*Indica o período em que o player realiza o seu ataque*/
+      108:  495:		fluxo = Batalha(Interface, winfield);
+      106:  496:		if (fluxo == 0) {
+        -:  497:			/*Indica o período em que a cpu realiza o seu ataque*/
+       96:  498:			fluxo = Batalha2 (Interface, winfield);
+       96:  499:			print_field(winfield, Interface->character);
+       96:  500:			wrefresh(winfield);
+        -:  501:		}
+        -:  502:	}
+       11:  503:	if (fluxo == 1) {
+       10:  504:		vencedor = 0;
+        1:  505:	} else if (fluxo == 2) {
+        1:  506:		vencedor = 1;
+        -:  507:	}
+        -:  508:	
+       11:  509:	return vencedor;
+        -:  510:}
+        -:  511:
+        -:  512:
+      108:  513:int Batalha(CabecaGeral *Interface, WINDOW *winfield)
+        -:  514:{
+      108:  515:	int i = 1;
+      108:  516:	int j = 1;
+      108:  517:	char c = '\0';
+        -:  518:	Unidade *player;
+      108:  519:	Unidade *cpu= Interface->character->cpu;
+        -:  520:
+      383:  521:	for (player = Interface->character->player; player!=NULL; player = player->prox, cpu= Interface->character->cpu, i++)
+        -:  522:	{
+        -:  523:		
+      287:  524:		seta_batalha(winfield, 2, i);
+      287:  525:		seta_batalha(winfield, 1, 1);
+        -:  526:
+     1093:  527:		while(c != 10)
+        -:  528:		{       
+      531:  529:			c = getch();
+      531:  530:			switch(c)
+        -:  531:	        {	
+        -:  532:	        	case 'm':
+        2:  533:	        		tela_inicial();
+        -:  534:	        	case 's':
+      186:  535:	        		if (cpu->prox!=NULL)
+        -:  536:	        		{
+      167:  537:	        			cpu = cpu->prox;
+      167:  538:	        			j++;
+      167:  539:	        			seta_batalha(winfield, 1, j);
+      167:  540:						wrefresh(winfield);
+        -:  541:	        		}
+      186:  542:					break;
+        -:  543:				case 'w':
+       40:  544:					if (cpu->ant!=NULL)
+        -:  545:	        		{
+       35:  546:	        			cpu = cpu->ant;
+       35:  547:	        			j--;
+       35:  548:	        			seta_batalha(winfield, 1, j);
+       35:  549:					wrefresh(winfield);
+        -:  550:	        		}
+       40:  551:					break;
+        -:  552:				case 10:	/* Enter */
+      285:  553:					Interface->character->cpu = Atacar(player, cpu);
+      285:  554:					print_field(winfield, Interface->character);
+      285:  555:					wrefresh(winfield);
+      285:  556:					if (UnidadeVazia(Interface->character->cpu)) {
+       10:  557:						return 1;
+        -:  558:					}
+      275:  559:					break;	
+        -:  560:			}
+        -:  561:		}
+      275:  562:		c = '\0';
+      275:  563:		seta_batalha(winfield, 0, 0);
+      275:  564:		wrefresh(winfield);
+      275:  565:		j = 1;
+        -:  566:	}
+        -:  567:
+       96:  568:	return 0;
+        -:  569:}
+        -:  570:
+        -:  571:
+      285:  572:Unidade *Atacar(Unidade *atacante, Unidade *vitima)
+        -:  573:{
+        -:  574:	float esquiva;
+        -:  575:	Unidade *aux;
+        -:  576:	int dano;
+      285:  577:	for (aux=vitima; aux->ant!=NULL; aux=aux->ant);
+        -:  578:
+      285:  579:	esquiva = (float)GerarValor(101, 0)/100;
+        -:  580:
+      285:  581:	if ((esquiva>vitima->esquiva))
+        -:  582:	{
+      228:  583:		dano = (atacante->dano + GerarValor(21, -10));
+      228:  584:		vitima->vida -= dano;
+      228:  585:		if(dano > atacante->dano + 10)
+    #####:  586:		mensagem(20, 75, "Foi super efetivo!");
+      228:  587:		else if(dano < atacante->dano - 5)
+       48:  588:		mensagem(20,75,"Não foi efetivo!");
+        -:  589:		else
+      180:  590:		mensagem(20,75,"Acertou o golpe!");
+      228:  591:		sleep(1);
+      228:  592:		if (vitima->vida<=0)
+        -:  593:		{
+       41:  594:			aux = RemoverUnidade(aux, vitima);
+        -:  595:		}
+        -:  596:	}
+        -:  597:	else
+        -:  598:	{
+       57:  599:		mensagem(20, 75, "Errou o golpe!");
+       57:  600:		sleep(1);
+        -:  601:	}
+      285:  602:	return aux;
+        -:  603:}
+        -:  604:
+        -:  605:
+       96:  606:int Batalha2(CabecaGeral *Interface, WINDOW *winfield)
+        -:  607:{
+        -:  608:	int hit;
+        -:  609:	Unidade *cpu;
+       96:  610:	mensagem(20, 60, "O inimigo vai iniciar o seu ataque, prepare-se!");
+       96:  611:	sleep(3);	
+       96:  612:	print_field(winfield, Interface->character);
+       96:  613:	wrefresh(winfield);
+      292:  614:	for (cpu = Interface->character->cpu; cpu != NULL; cpu = cpu->prox) {
+      197:  615:		Interface->character->player = AtaqueInimigo (&hit, cpu, Interface->character->player);
+      197:  616:		if (UnidadeVazia(Interface->character->player)) {
+        1:  617:			return 2;
+        -:  618:		}
+      196:  619:		if (hit == 1) {
+      144:  620:			mensagem(20, 60, "O inimigo conseguiu realizar o ataque!");
+      144:  621:			sleep(2);
+      144:  622:			print_field(winfield, Interface->character);
+      144:  623:			wrefresh(winfield);
+      144:  624:			if (cpu->prox != NULL) {
+       73:  625:				mensagem(20,60, "O inimigo esta preparando seu novo ataque");
+       73:  626:				sleep(3);
+       73:  627:				print_field(winfield, Interface->character);
+       73:  628:				wrefresh(winfield);
+        -:  629:			}
+        -:  630:		}
+      196:  631:		if (hit == 0) {
+       52:  632:			mensagem(20, 65, "O inimigo fracassou no ataque!");
+       52:  633:			sleep(2);
+       52:  634:			print_field(winfield, Interface->character);
+       52:  635:			wrefresh(winfield);
+       52:  636:			if (cpu->prox != NULL) {
+       28:  637:				mensagem(20,60, "O inimigo esta preparando seu novo ataque");
+       28:  638:				sleep(3);
+       28:  639:				print_field(winfield, Interface->character);
+       28:  640:				wrefresh(winfield);
+        -:  641:			}
+        -:  642:		}
+        -:  643:	}
+        -:  644:
+        -:  645:
+       95:  646:	return 0;
+        -:  647:}
+        -:  648:
+      197:  649:Unidade * buscaAlvo (Unidade * vitima) {
+        -:  650:	Unidade * p;
+      197:  651:	Unidade * alvo = NULL;
+      197:  652:	int vida = vitima->vida;
+      801:  653:	for (p = vitima; p != NULL; p = p->prox) {
+      604:  654:		if (p->vida <= vida) {
+      525:  655:			alvo = p;
+      525:  656:			vida = p->vida;
+        -:  657:		}
+        -:  658:	}
+      197:  659:	return alvo;
+        -:  660:}
+        -:  661:			
+        -:  662:
+      197:  663:Unidade *AtaqueInimigo(int * hit, Unidade *atacante, Unidade *vitima)
+        -:  664:{
+        -:  665:	float esquiva;
+        -:  666:	int dano;
+      197:  667:	Unidade * vit = vitima;
+      197:  668:	Unidade * atac = atacante;
+        -:  669:	Unidade * alvo;
+        -:  670:
+      197:  671:	alvo = buscaAlvo (vit);
+      197:  672:	esquiva = (float)GerarValor(101, 0)/100;
+      197:  673:	if ((esquiva > alvo->esquiva)) {
+      145:  674:		dano = (atac->dano + GerarValor(21, -10));
+      145:  675:		alvo->vida -= dano;
+      145:  676:		*hit = 1;
+      145:  677:		if (alvo->vida<=0) {
+       23:  678:			vit = RemoverUnidade(vit, alvo);
+        -:  679:		}
+        -:  680:	} else {
+       52:  681:		*hit = 0;
+        -:  682:	}	
+      197:  683:	return vit;
+        -:  684:}
+        -:  685:
+        -:  686:
+        -:  687:/*
+        -:  688:Função que que verifica se há quatro elementos em uma lista.
+        -:  689:REQUISITO: Ponteiro de Unidade alocado.
+        -:  690:HIPÓTESE: A função conta quantos elementos existem em uma lista de unidades e retorna 1 caso o somatório atinja o valor 4.
+        -:  691:*/
+       62:  692:int TemQuatro(Unidade* lista){
+        -:  693:	Unidade* p;
+       62:  694:	int i = 0;
+        -:  695:
+       62:  696:	if(!UnidadeVazia(lista)){
+      157:  697:		for(p=lista;p!=NULL;p=p->prox){
+      118:  698:			i++;
+      118:  699:			if(i==4){
+       10:  700:				return 1;
+        -:  701:			}
+        -:  702:		}
+        -:  703:	}
+       52:  704:	return 0;
+        -:  705:}
+        -:  706:
+        -:  707:/*
+        -:  708:Função que que gera valores aleatórios entre 1 e 3.
+        -:  709:REQUISITO: Não há.
+        -:  710:HIPÓTESE: A função deve gerar valores aleatórios para classe das unidades inimigas.
+        -:  711:*/
+        -:  712:
+      903:  713:int GerarValor(int a, int b){
+      903:  714:	int valor = 0;
+        -:  715:
+      903:  716: 	valor = rand() % a+b;
+        -:  717:
+      903:  718:return valor;
+        -:  719:}
+        -:  720:
+        -:  721:/*
+        -:  722:Função que insere unidades inimigas no jogo.
+        -:  723:REQUISITO: Ponteiro de CabecaGeral alocado e inicializado.
+        -:  724:HIPÓTESE: A função deve inserir até quatro unidades inimigas com nível e classe de acordo com valores gerados aleatoriamente.
+        -:  725:*/
+        -:  726:
+       48:  727:void InsereUnidadeInimiga(CabecaGeral* Interface, int horda){   
+       48:  728: int OpcaoUnidade = GerarValor(3, 1);
+       48:  729: int OpcaoNivel = GerarNivel(horda);
+        -:  730:
+        -:  731:
+       48:  732:	switch(OpcaoUnidade){
+        -:  733:  		case 1:
+       15:  734:   			if(OpcaoNivel==1){
+       15:  735:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,300,60,0.15,1,1);
+        -:  736:   			}
+       15:  737:			if(OpcaoNivel == 2){
+    #####:  738:			    Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,400,60,0.15,2,1);    
+        -:  739:			}
+       15:  740:			if(OpcaoNivel == 3){
+    #####:  741:			    Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,500,60,0.15,3,1);    
+        -:  742:			}
+       15:  743:   			break;
+        -:  744:
+        -:  745:  		case 2:
+       17:  746:   			if(OpcaoNivel == 1){
+       17:  747:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,70,0.15,1,2);    
+        -:  748:   			}
+       17:  749:   			if(OpcaoNivel == 2){
+    #####:  750:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,90,0.15,2,2);    
+        -:  751:   			}
+       17:  752:   			if(OpcaoNivel == 3){
+    #####:  753:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,120,0.15,3,2);    
+        -:  754:    			}
+       17:  755:   			break;
+        -:  756:
+        -:  757:  		case 3:
+       16:  758:   			if(OpcaoNivel == 1){
+       16:  759:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,60,0.2,1,3);    
+        -:  760:   			}
+       16:  761:   			if(OpcaoNivel == 2){
+    #####:  762:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,60,0.3,2,3);    
+        -:  763:   			}
+       16:  764:   			if(OpcaoNivel == 3){
+    #####:  765:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,60,0.4,3,3);    
+        -:  766:   			}
+       16:  767:   			break;
+        -:  768:
+        -:  769:  		default:
+    #####:  770:  			MenuEscolhaUnidade(Interface);
+        -:  771:	}
+       48:  772: }
+        -:  773: 
+        1:  774: void InsereUnidadeBoss(CabecaGeral* Interface)
+        -:  775: {
+        1:  776:	 Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu, 1000,80,0.3,3,4);
+        1:  777: }
+        -:  778:
+        -:  779:/*
+        -:  780:Função que que gera valores aleatórios entre 1 e 3.
+        -:  781:REQUISITO: Receber o valor de horda entre 1 e 10.
+        -:  782:HIPÓTESE: A função deve gerar valores aleatórios para nível das unidades inimigas.
+        -:  783:*/
+        -:  784:
+       48:  785:int GerarNivel(int horda)
+        -:  786:{
+       48:  787:	if (horda>=1 && horda<10)
+        -:  788:	{
+    #####:  789:		switch(horda){
+        -:  790:			case 1:
+    #####:  791:				return 1;
+        -:  792:			case 2:
+    #####:  793:				return 1;
+        -:  794:			case 3:
+    #####:  795:				return rand()%2+1;
+        -:  796:			case 4:
+    #####:  797:				return 2;
+        -:  798:			case 5:
+    #####:  799:				return rand()%2+2;
+        -:  800:			case 6:
+    #####:  801:				return rand()%2+2;
+        -:  802:			case 7:
+    #####:  803:				return 3;
+        -:  804:			case 8:
+    #####:  805:				return 3;
+        -:  806:			case 9:
+    #####:  807:				return 3;
+        -:  808:		}
+        -:  809:	}
+       48:  810:	return 1;
+        -:  811:}

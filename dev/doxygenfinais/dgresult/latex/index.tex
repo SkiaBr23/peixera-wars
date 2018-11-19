@@ -1,0 +1,74 @@
+1 \-Informações \-Gerais\par
+ 2 \-Grupo\par
+ 3 \-Descrição \-Geral\par
+ 3.\-1 \-Unidades\par
+ 3.\-2 \-Edifícios\par
+ 3.\-3 \-Recursos\par
+ 3.\-4 \-Mecânica\par
+\par
+\par
+ \hypertarget{index_geral}{}\section{1. I\-N\-F\-O\-R\-M\-AÇÕ\-E\-S G\-E\-R\-A\-I\-S}\label{index_geral}
+\-Nome do projeto\-: \-Peixera \-Wars\par
+ \-Projeto de \-Disciplina\-: \-Jogo de \-Estratégia\par
+ \-Semestre \-Cursado\-: 1/2014\par
+ \-Curso\-: \-Engenharia de \-Computação\par
+ \-Disciplina\-: \-Métodos de \-Programação\par
+ \-Professor\-: \-Jan \-Mendonça\par
+ \-Turma\-: \-A\par
+\par
+\par
+ \hypertarget{index_grupo}{}\section{2. G\-R\-U\-P\-O}\label{index_grupo}
+\-No de \-Integrantes\-: 4\par
+ \-Nome\-: \-Maximillian \-Fan \-Xavier\par
+ \-Matrícula\-: 12/0153271\par
+ \-Função\-: \-Estrutura de \-Dados\par
+ \-Nome\-: \-Otávio \-Alves \-Dias\par
+ \-Matrícula\-: 12/0131480\par
+ \-Função\-: \-Estrutura de \-Dados\par
+ \-Nome\-: \-Rafael \-Dias da \-Costa\par
+ \-Matrícula\-: 12/0133253\par
+ \-Função\-: \-Interface \-Gráfica\par
+ \-Nome\-: \-Túlio \-Abner de \-Lima\par
+ \-Matrícula\-: 12/0137194\par
+ \-Função\-: \-Interface \-Gráfica\par
+\par
+\par
+ \hypertarget{index_descricao}{}\section{3. D\-E\-S\-C\-R\-IÇÃ\-O G\-E\-R\-A\-L}\label{index_descricao}
+\hypertarget{index_unidades}{}\subsection{3.\-1. Unidades}\label{index_unidades}
+\-Existirão ao todo três(3) unidades de combate, onde cada qual pode ser evoluída em até dois níveis, ou seja, as unidades mais básicas iniciam no nível um(1) e podem chegar até o nível mais alto, sendo este três(3).\par
+ \-As unidades dependem da evolução dos edifícios para assim poderem passar para o próximo nível, ou seja, ao evoluir uma construção, a unidade específica relacionada àquele edifício também evoluirá. \-Dependem de ouro para serem criadas. \-Possuem os atributos \-Vida, \-Esquiva, \-Dano, e \-Nível.\par
+\par
+ \-Soldado\-: \-Tem vantagem contra lanceiro e desvantagem contra arqueiro. É a unidade com maior vida do jogo;\par
+ \-Arqueiro\-: \-Tem vantagem contra soldado e desvantagem contra lanceiro. É a unidade de maior esquiva do jogo;\par
+ \-Lanceiro\-: \-Tem vantagem contra arqueiro e desvantagem contra soldado. É a unidade com maior ataque do jogo.\par
+ \hypertarget{index_edificios}{}\subsection{3.\-2. Edifícios}\label{index_edificios}
+\-Existirão ao todo quatro(4) edifícios, onde cada qual pode ser evoluído em até dois níveis, ou seja, as construções mais básicas iniciam no nível um(1) e podem chegar até o nível mais alto, sendo este três(3).\par
+ \-As construções dependem de pontos de evolução para serem evoluídas.\par
+\par
+ \-Possuem os atributos\-:\par
+ \-Quartel\-: \-Responsável pela criação de soldados;\par
+ \-Campo de \-Tiro\-: \-Responsável pela criação de arqueiros;\par
+ \-Casa das \-Lanças\-: \-Responsável pela criação de lanceiros;\par
+ \-Comércio\-: \-Responsável por gerar o recurso \char`\"{}\-Ouro\char`\"{}.\par
+ \-Todos os edifícios juntos representam seu castelo.\par
+ \hypertarget{index_recursos}{}\subsection{3.\-3. Recursos}\label{index_recursos}
+\-Ponto de \-Evolução\-: \-Recurso utilizado na evolução de edifícios. É adquirido ao fim de cada horda como recompensa por ter sobrevivido.\par
+ \-Ouro\-: \-Recurso utilizado na evolução de soldados. É gerado pelo edifício comércio.\par
+ \hypertarget{index_mecanica}{}\subsection{3.\-4. Mecânica}\label{index_mecanica}
+\-O jogo é de tema medieval baseado em hordas, totalizando oito(10) ataques que o jogador deverá sobreviver, mantendo suas unidades vivas até o fim da rodada.\par
+ \-O mapa será composto por um menu superior que mostra as informações gerais, um menu esquerdo que mostra os edifícios e a janela central onde as unidades realizam o combate. \-O objetivo do jogador é criar batalhões de defesa que irão resistir aos ataques da \-C\-P\-U.\par
+  \-Imagem ilustrativa do jogo \-Final \-Fantasy para \-Super \-Nintendo.\par
+\par
+ \-O jogador já inicia a partida com todas as construções disponíveis, apenas necessitando evoluí-\/las conforme sua necessidade. \-Ao fim de cada horda, todas as unidades em campo são removidas e um ponto de evolução é gerado, possibilitando a evolução dos edifícios. \-O ouro gerado pelo comércio também é creditado neste instante.\par
+ \-Os edifícios só podem ser evoluídos na transição entre uma horda e outra, sendo representada por um tempo de pausa entre os ataques da \-C\-P\-U.\par
+ \-As unidades são criadas da seguinte forma\-: o jogador deverá selecionar, no inicio de cada horda, quais unidades deseja comprar. \-Em seguida, o combate se inicia e o usuário deve escolher que unidades inimigas atacar.\par
+\par
+ \-No turno do jogador, todas as unidades atacam, cabendo a ele escolher qual dos inimigos receberá o dano. \-No fim da rodada, a \-C\-P\-U faz sua investida. \-O dano é gerado aleatoriamente dentro de uma margem de diferença de até 10 pontos, ou seja, se um guerreiro ataca com 60 pontos, o valor absoluto de seu ataque pode flutuar dentre um intervalo de 50 e 70 pontos. \-No caso da esquiva, um valor aleatório é gerado entre 0 e 1 e caso este número caia fora do intervalo do inimigo, o ataque é realizado com sucesso, caso contrário, resulta em uma falha e não causa dano.\par
+  \-Imagem ilustrativa do menu de castelo do jogo \-Castle\-Storm.\par
+\par
+ \-Os comandos evolutivos do jogo serão feitos através de um menu; as informações úteis aparecerão na parte superior da tela, farão parte da \-H\-U\-D(heads-\/ up display); as interações serão efetuadas através das teclas do teclado.\par
+ \-Critério de vitória\-: \-Sobreviver as dez(10) hordas inimigas, eliminando todas as unidades da \-C\-P\-U.\par
+ \-Critério de derrota\-: \-Ter todas as suas unidades mortas.\par
+\par
+\par
+ 

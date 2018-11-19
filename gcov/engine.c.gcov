@@ -1,0 +1,1294 @@
+        -:    0:Source:engine.c
+        -:    0:Programs:4
+        -:    0:Source is newer than graph
+        -:    1:/*! \file engine.c
+        -:    2:	\brief Módulo de implementação do módulo engine.h */
+        -:    3:
+        -:    4:/*
+        -:    5:PROJETO
+        -:    6:Nome: MAXIMILLIAN FAN XAVIER, OTÁVIO ALVES DIAS, RAFAEL DIAS DA COSTA, TÚLIO ABNER DE LIMA
+        -:    7:Matrícula: 12/0153271, 12/0131480, 12/0133253, 12/0137194
+        -:    8:Curso: Engenharia de Computação
+        -:    9:Disciplina: Métodos de Programação
+        -:   10:Turma: A
+        -:   11:Prof: Jan Mendonça
+        -:   12:*/
+        -:   13:
+        -:   14:/*INCLUSÃO DE BIBLIOTECAS*/
+        -:   15:#include <stdio.h>
+        -:   16:#include <stdlib.h>
+        -:   17:#include <string.h>
+        -:   18:#include <strings.h>
+        -:   19:#include <time.h>
+        -:   20:#include <unistd.h>
+        -:   21:#include "estruturas.h"
+        -:   22:#include "engine.h"
+        -:   23:#include "grafico.h"
+        -:   24:
+        -:   25:/*DEFINIÇÃO DE CONSTANTES*/
+        -:   26:#define HUDH 7
+        -:   27:#define CASTLEW 40
+        -:   28:#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+        -:   29:#define CTRLD 	4
+        -:   30:
+        -:   31:/*	--------------------FUNÇÕES DA ENGINE--------------------	*/
+        -:   32:
+        -:   33:/****************************************************************************/
+        -:   34:/**
+        -:   35:* \fn CriaEstruturas(CabecaGeral* Interface,int novawave,int valor)
+        -:   36:*
+        -:   37:* \brief Realiza a alocação das estruturas Castelo e CabecaPFilas e inicializa com valor NULL todas as estruturas internas de cada uma das
+        -:   38:* estruturas alocadas anteriormente.
+        -:   39:*
+        -:   40:* @param Interface - ponteiro para a controladora (CabecaGeral*) do game.
+        -:   41:* @param novawave - determina o valor inicial.
+        -:   42:* @param valor - informa a quantidade de ouro
+        -:   43:* 
+        -:   44:* \return Retorna a cabeça da estrutura com todas as estruturas Castelo e CabecaPFilas alocadas com seus ponteiros internos apontando para NULL.
+        -:   45:* 
+        -:   46:* Assertiva de entrada
+        -:   47:*
+        -:   48:* A estrutura controladora precisa ter sido alocada.
+        -:   49:***************************************************************************/
+        -:   50:
+        -:   51:/*
+        -:   52:Função de criação das estruturas.
+        -:   53:REQUISITO: Ter ponteiro de interface devidamente alocado e memória livre.
+        -:   54:HIPÓTESE: A função deve criar todas as estruturas básicas e seus apontamentos.
+        -:   55:ASSERTIVAS DE ENTRADA: A estrutura controladora precisa ter sido alocada, um valor de inteiro "novawave" que assume valores de 1 ou 0 onde verifica se o jogo é novo ou carregado e um valor int do ouro carregado.
+        -:   56:ASSERTIVAS DE SAÍDA: Não há.
+        -:   57:INTERFACE EXPLÍCITA: O tipo de retorno void e o parâmetro de entrada CabecaGeral* Interface.
+        -:   58:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:   59:*/
+        3:   60:void CriaEstruturas(CabecaGeral* Interface,int novawave,int valor){
+        3:   61:	if(Interface!=NULL){
+        -:   62:		/*CRIAÇÃO DAS CABEÇAS*/
+        3:   63:		Interface->character = CriaCabecaPFilas();
+        3:   64:		Interface->castle = CriaCastelo(novawave,valor);
+        -:   65:	
+        -:   66:		/*CRIAÇÃO DAS LISTAS DE UNIDADES*/
+        3:   67:		Interface->character->player = CriaUnidade();
+        3:   68:		Interface->character->cpu = CriaUnidade();
+        -:   69:		
+        -:   70:		/*CRIAÇÃO DOS EDIFÍCIOS*/
+        3:   71:		Interface->castle->quartel = CriaEdificio();
+        3:   72:		Interface->castle->campodetiro = CriaEdificio();	
+        3:   73:		Interface->castle->casadaslancas = CriaEdificio();
+        3:   74:		Interface->castle->comercio = CriaComercio();	
+        -:   75:	}
+        3:   76:}
+        -:   77:
+        -:   78:/****************************************************************************/
+        -:   79:/**
+        -:   80:* \fn void InicializaEstruturas(CabecaGeral* Interface,int status,int cuQ,int nQ,int cuCDT,int nCDT,int cuCDL,int nCDL,int tC,int nC)
+        -:   81:* 
+        -:   82:* \brief Aloca as estruturas internas de Castelo e CabecaPFilas.
+        -:   83:*
+        -:   84:* @param Interface - ponteiro para a controladora do game (CabecaGeral*)
+        -:   85:* @param status - valor inteiro que indica se as estruturas serão alocadas com os valores iniciais do game ou a partir de um valor específico
+        -:   86:* @param cuQ - valor inteiro que representa o custo para a criação de um personagem do edifício Quartel
+        -:   87:* @param nQ - valor inteiro que representa o nível do edifício quartel
+        -:   88:* @param cuCDT - valor inteiro que representa o custo para a criação de um personagem do edifício Campo de Tiro
+        -:   89:* @param nCDT - valor inteiro que representa o nível do edifício Campo de Tiro
+        -:   90:* @param cuCDL - valor inteiro que representa o custo para a criação de um personagem do edifício Cada das Lanças
+        -:   91:* @param nCDL - valor inteiro que representa o nível do edifício Casa das Lanças
+        -:   92:* @param tC - valor inteiro que representa a quantidade de recursos gerados pelo edifício Comercio
+        -:   93:* @param nC - valor inteiro que representa o nível do edifício Comercio
+        -:   94:* 
+        -:   95:* \return void - não possui retorno.
+        -:   96:* 
+        -:   97:* Assertiva de entrada
+        -:   98:*
+        -:   99:* A estrutura controladora enviada para a função precisa ter sido alocada
+        -:  100:* A variavel status precisa obedecer os padrões, ser o valor inteiro 0 ou o valor inteiro 1
+        -:  101:* Os valores das variáveis de inicialização precisam de acordo com o game.
+        -:  102:***************************************************************************/
+        -:  103:
+        -:  104:/*
+        -:  105:Função de inicialização das estruturas.
+        -:  106:REQUISITO: Ter ponteiros de interface,castelo e filas devidamente alocados.
+        -:  107:HIPÓTESE: A função deve atribuir valores iniciais para um jogo prestes a ser inicializado caso o status seja 0, se status é 1, atribui os valores enviados como parâmetro.
+        -:  108:ASSERTIVAS DE ENTRADA: A estrutura controladora enviada para a função precisa ter sido alocada. A variavel status precisa obedecer os padrões, ser o valor inteiro 0 ou o valor inteiro 1. Os valores das variáveis de inicialização precisam estar de acordo com o game.
+        -:  109:ASSERTIVAS DE SAÍDA: Não há.
+        -:  110:INTERFACE EXPLÍCITA: O tipo de retorno void e os  de entrada.
+        -:  111:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  112:*/
+        3:  113:void InicializaEstruturas(CabecaGeral* Interface,int status,int cuQ,int nQ,int cuCDT,int nCDT,int cuCDL,int nCDL,int tC,int nC){
+        3:  114:	if(Interface!=NULL){	/*verifica se a interface é nula*/
+        3:  115:		if(status == 0){	/*se o jogo for inicializado, atribui os valores iniciais*/
+        1:  116:			Interface->castle->quartel = InicializarEdificio(Interface->castle->quartel,25,1);
+        1:  117:			Interface->castle->campodetiro = InicializarEdificio(Interface->castle->campodetiro,25,1);
+        1:  118:			Interface->castle->casadaslancas = InicializarEdificio(Interface->castle->casadaslancas,25,1);
+        1:  119:			Interface->castle->comercio = InicializarComercio(Interface->castle->comercio,100,1);
+        -:  120:		}
+        3:  121:		if(status == 1){/*se o jogo foi carregado, atribui os valores lidos do arquivo binário*/
+        2:  122:			if((nQ>0 && nQ<=3) && (nCDT>0 && nCDT<=3) && (nCDL>0 && nCDL<=3) && (nC>0 && nC<=3)){
+        1:  123:				Interface->castle->quartel = InicializarEdificio(Interface->castle->quartel,cuQ,nQ);
+        1:  124:				Interface->castle->campodetiro = InicializarEdificio(Interface->castle->campodetiro,cuCDT,nCDT);
+        1:  125:				Interface->castle->casadaslancas = InicializarEdificio(Interface->castle->casadaslancas,cuCDL,nCDL);
+        1:  126:				Interface->castle->comercio = InicializarComercio(Interface->castle->comercio,tC,nC);
+        -:  127:			}
+        -:  128:		}
+        -:  129:	}
+        3:  130:}
+        -:  131:
+        -:  132:/****************************************************************************/
+        -:  133:/**
+        -:  134:* \fn VerificaInterface(CabecaGeral* Interface)
+        -:  135:* 
+        -:  136:* \brief Verifica se a estrutura controladora está alocada ou não.
+        -:  137:*
+        -:  138:* @param Interface - ponteiro para a controladora (CabecaGeral*) do game.
+        -:  139:* 
+        -:  140:* \return Retorna o valor inteiro 1 caso a estrutura esteja alocada, caso contrário retorna 0.
+        -:  141:* 
+        -:  142:* Assertiva de entrada
+        -:  143:*
+        -:  144:* A estrutura controladora enviada para a função precisa ter sido declarada.
+        -:  145:***************************************************************************/
+        -:  146:
+        -:  147:/*
+        -:  148:Função verificação das estruturas.
+        -:  149:REQUISITO: Ter ponteiro de interface devidamente alocado.
+        -:  150:HIPÓTESE: A função deve verificar se a interface foi inicializada corretamente. Caso esteja tudo bem, retorna 1, caso contrário, retorna 0.
+        -:  151:ASSERTIVAS DE ENTRADA: A estrutura controladora enviada para a função precisa ter sido declarada.
+        -:  152:ASSERTIVAS DE SAÍDA: Se nenhuma das estruturas for nula, retorna 1, caso contrário, retorna 0.
+        -:  153:INTERFACE EXPLÍCITA: O retorno int e o parâmetro de entrada CabecaGeral* Interface.
+        -:  154:INTERFACE IMPLÍCITA: A verificação de retorno 1 ou 0.
+        -:  155:*/
+        3:  156:int VerificaInterface(CabecaGeral* Interface){
+        3:  157:	if((VerificarCabecaGeral(Interface)) && (VerificarCastelo(Interface->castle))){
+        2:  158:		return 1;
+        -:  159:	}else{
+        1:  160:		return 0;
+        -:  161:	}
+        -:  162:}
+        -:  163:
+        -:  164:/****************************************************************************/
+        -:  165:/**
+        -:  166:* \fn Inicia()
+        -:  167:*
+        -:  168:* \brief Executa a exibição do menu principal para o jogador iniciar, carregar, visualizar os créditos ou sair do jogo.
+        -:  169:*
+        -:  170:* \return void - não possui retorno.
+        -:  171:* 
+        -:  172:* Assertiva de entrada
+        -:  173:*
+        -:  174:* Não possui assertivas de entrada.
+        -:  175:***************************************************************************/
+        -:  176:
+        -:  177:/*
+        -:  178:Função de interface com o usuário.
+        -:  179:REQUISITO: Não há.
+        -:  180:HIPÓTESE: A função deve mostrar um menu de seleção inicial para o jogador.
+        -:  181:ASSERTIVAS DE ENTRADA: Não possui.
+        -:  182:ASSERTIVAS DE SAÍDA: Dependendo da escola do usuário, uma ação diferente é executada dentro do menu.
+        -:  183:INTERFACE EXPLÍCITA: O tipo de retorno void.
+        -:  184:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  185:*/
+        4:  186:void Inicia(){
+        4:  187:	WINDOW *menuwin = newwin(5, 15, 11, 40);
+        4:  188:	int opcao = menu(menuwin);
+        -:  189:
+        4:  190:	switch(opcao){
+        -:  191:		case 0:
+        1:  192:			StartGame(NULL, 1);
+    #####:  193:			break;
+        -:  194:			
+        -:  195:		case 1:
+        2:  196:			LoadGame();
+        1:  197:			Inicia();
+    #####:  198:			break;
+        -:  199:			
+        -:  200:		case 2:
+        1:  201:			creditos(15, 1);
+        1:  202:			Inicia();
+    #####:  203:			break;
+        -:  204:		case 3:
+    #####:  205:			tela_final();
+    #####:  206:			break;
+        -:  207:		
+        -:  208:		default:
+    #####:  209:			Inicia();
+        -:  210:	}
+    #####:  211:}
+        -:  212:
+        -:  213:/****************************************************************************/
+        -:  214:/**
+        -:  215:* \fn StartGame(CabecaGeral* Cabeca, int horda)
+        -:  216:* 
+        -:  217:* \brief Realiza a chamada para o começo do jogo, verificando se o jogo está sendo iniciado do começo ou a partir de algum save.
+        -:  218:*
+        -:  219:* @param Cabeca - ponteiro para a controladora (CabecaGeral*) do game.
+        -:  220:* @param horda - valor inteiro que representa a horda de inimigos da cpu, caso seja utilizada a função de Load Game.
+        -:  221:* 
+        -:  222:* \return void - não possui retorno.
+        -:  223:* 
+        -:  224:* Assertiva de entrada
+        -:  225:*
+        -:  226:* A estrutura controladora enviada para a função precisa ter sido declarada
+        -:  227:* A variavel horda precisa estar de acordo com os valores do jogo, ou seja, estar entre 1 e 10.
+        -:  228:***************************************************************************/
+        -:  229:
+        -:  230:/*
+        -:  231:Função de inicio do jogo.
+        -:  232:REQUISITO: Ter espaço na memória.
+        -:  233:HIPÓTESE: A função deve chamar todas as funções de criação e inicialização, verificar suas alocações e apontamentos e certificar-se que o jogo está pronto para começar.
+        -:  234:ASSERTIVAS DE ENTRADA: A estrutura controladora enviada para a função precisa ter sido declarada. A variavel horda precisa estar de acordo com os valores do jogo, ou seja, estar entre 1 e 10.
+        -:  235:ASSERTIVAS DE SAÍDA: Se todas as estruturas forem corretamente verificadas, o jogo é iniciado, caso contrário, nada acontece.
+        -:  236:INTERFACE EXPLÍCITA: O tipo de retorno void e os  de entrada CabecaGeral* Cabeca, int horda.
+        -:  237:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  238:*/
+        3:  239:void StartGame(CabecaGeral* Cabeca, int horda){
+        3:  240:	int new = 1;
+        3:  241:	CabecaGeral* Interface = CriaCabecaGeral();
+        -:  242:
+        3:  243:	if(Cabeca == NULL){
+        1:  244:		CriaEstruturas(Interface,1,100);
+        1:  245:		InicializaEstruturas(Interface,0,25,1,25,1,25,1,100,1);
+        1:  246:		new = 1;
+        -:  247:	}else{
+        2:  248:		Interface = Cabeca;
+        2:  249:		new = 0;
+        -:  250:	}
+        -:  251:	
+        -:  252:	/*VERIFICAÇÃO DA INTERFACE*/
+        3:  253:	if(VerificaInterface(Interface)){
+        2:  254:		Run(Interface,new,horda);
+        -:  255:	}
+        1:  256:}
+        -:  257:
+        -:  258:/****************************************************************************/
+        -:  259:/**
+        -:  260:* \fn SaveGame(CabecaGeral* Interface, int horda)
+        -:  261:*
+        -:  262:* \brief Realiza a gravação dos  do game em um arquivo  binário para posterior leitura e continuação do jogo.
+        -:  263:*
+        -:  264:* @param Interface - ponteiro para a controladora (CabecaGeral*) do game.
+        -:  265:* @param horda - valor inteiro que representa a horda atual de inimigos do jogo.
+        -:  266:* 
+        -:  267:* \return void - não possui retorno.
+        -:  268:* 
+        -:  269:* Assertiva de entrada
+        -:  270:*
+        -:  271:* A estrutura controladora enviada para a função precisa ter sido declarada e alocada.
+        -:  272:* A variavel horda precisa estar de acordo com os padrões do jogo, ou seja, estar entre 1 e 10.
+        -:  273:***************************************************************************/
+        -:  274:
+        -:  275:/*
+        -:  276:Função de salvar o jogo.
+        -:  277:REQUISITO: Ter ponteiro de interface devidamente alocado e o jogo inicializado.
+        -:  278:HIPÓTESE: A função deve gravar as informações de atributos dos edifícios e em que horda o jogador se encontra num arquivo binário.
+        -:  279:ASSERTIVAS DE ENTRADA: A estrutura controladora enviada para a função precisa ter sido declarada e alocada. A variavel horda precisa estar de acordo com os padrões do jogo, ou seja, estar entre 1 e 10.
+        -:  280:ASSERTIVAS DE SAÍDA: Não há.
+        -:  281:INTERFACE EXPLÍCITA: O tipo de retorno void, os  de entrada CabecaGeral* Cabeca, int horda e mensagem exibida ao usuário.
+        -:  282:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  283:*/
+       10:  284:void SaveGame(CabecaGeral* Interface, int horda){
+        -:  285:	FILE* fp1;
+       10:  286:	char saida[9] = "save.bin";
+        -:  287:	
+       10:  288:	fp1 = fopen(saida,"w+b");
+        -:  289:	
+       10:  290:	if((horda>0 && horda<=10) && (!CabecaGeralVazia(Interface))){
+        9:  291:		fwrite(&Interface->castle->ouro,sizeof(int),1,fp1);
+        9:  292:		fwrite(&Interface->castle->quartel->custounidade,sizeof(int),1,fp1);
+        9:  293:		fwrite(&Interface->castle->quartel->nivel,sizeof(int),1,fp1);
+        9:  294:		fwrite(&Interface->castle->campodetiro->custounidade,sizeof(int),1,fp1);
+        9:  295:		fwrite(&Interface->castle->campodetiro->nivel,sizeof(int),1,fp1);
+        9:  296:		fwrite(&Interface->castle->casadaslancas->custounidade,sizeof(int),1,fp1);
+        9:  297:		fwrite(&Interface->castle->casadaslancas->nivel,sizeof(int),1,fp1);
+        9:  298:		fwrite(&Interface->castle->comercio->taxaouro,sizeof(int),1,fp1);
+        9:  299:		fwrite(&Interface->castle->comercio->nivel,sizeof(int),1,fp1);
+        9:  300:		fwrite(&horda,sizeof(int),1,fp1);
+        9:  301:		mensagem(17, 40, "Jogo salvo com sucesso");
+        -:  302:	}
+       10:  303:	fclose(fp1);
+       10:  304:}
+        -:  305:
+        -:  306:/****************************************************************************/
+        -:  307:/**
+        -:  308:* \fn void LoadGame()
+        -:  309:* 
+        -:  310:* \brief Realiza a leitura do arquivo binário gerado pela função Save Game e continua com o jogo.
+        -:  311:*
+        -:  312:* Não possui .
+        -:  313:* 
+        -:  314:* \return void - não possui retorno.
+        -:  315:* 
+        -:  316:* Assertiva de entrada
+        -:  317:*
+        -:  318:* O arquivo binário a ser lido precisa ser válido, ou seja, ter sido gerado pelo game.
+        -:  319:***************************************************************************/
+        -:  320:
+        -:  321:/*
+        -:  322:Função de carregar um jogo salvo.
+        -:  323:REQUISITO: Ter um arquivo binário a ser lido e memória livre para alocação.
+        -:  324:HIPÓTESE: A função deve ler as informações de um arquivo bináro e atribuir os valores nos devidos ponteiros de edificios e informações no geral.
+        -:  325:ASSERTIVAS DE ENTRADA: O arquivo binário a ser lido precisa ser válido, ou seja, ter sido gerado pelo game.
+        -:  326:ASSERTIVAS DE SAÍDA: Não há.
+        -:  327:INTERFACE EXPLÍCITA: O tipo de retorno void.
+        -:  328:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  329:*/
+        2:  330:void LoadGame(){
+        -:  331:	FILE* fp1;
+        2:  332:	char entrada[9] = "save.bin";
+        -:  333:	int ouro,cuQ,nQ,cuCDT,nCDT,cuCDL,nCDL,tC,nC,horda;
+        2:  334:	CabecaGeral* Interface = CriaCabecaGeral();
+        -:  335:
+        2:  336:	fp1 = fopen(entrada,"r+b");
+        2:  337:	if(fp1 != NULL){
+        2:  338:		fread(&ouro,sizeof(int),1,fp1);
+        2:  339:		fread(&cuQ,sizeof(int),1,fp1);
+        2:  340:		fread(&nQ,sizeof(int),1,fp1);
+        2:  341:		fread(&cuCDT,sizeof(int),1,fp1);
+        2:  342:		fread(&nCDT,sizeof(int),1,fp1);
+        2:  343:		fread(&cuCDL,sizeof(int),1,fp1);
+        2:  344:		fread(&nCDL,sizeof(int),1,fp1);
+        2:  345:		fread(&tC,sizeof(int),1,fp1);
+        2:  346:		fread(&nC,sizeof(int),1,fp1);
+        2:  347:		fread(&horda,sizeof(int),1,fp1);
+        -:  348:	
+        2:  349:	fclose(fp1);
+        -:  350:	
+        2:  351:	CriaEstruturas(Interface,0,ouro);
+        2:  352:	InicializaEstruturas(Interface,1,cuQ,nQ,cuCDT,nCDT,cuCDL,nCDL,tC,nC);
+        2:  353:	StartGame(Interface,horda);
+        -:  354:	}
+        1:  355:}
+        -:  356:
+        -:  357:/****************************************************************************/
+        -:  358:/**
+        -:  359:* \fn int MenuEvolucaoEdificio(CabecaGeral* Interface)
+        -:  360:* 
+        -:  361:* \brief Realiza a evolução de um dos edifícios do jogo.
+        -:  362:*
+        -:  363:* @param Interface - ponteiro para a controladora (CabecaGeral*) do game.
+        -:  364:* 
+        -:  365:* \return EvoluiuEdificio - valor inteiro que indica se foi realizada a evolução de um dos edifícios.
+        -:  366:* 
+        -:  367:* Assertiva de entrada
+        -:  368:*
+        -:  369:* A estrutura controladora enviada para a função precisa ter sido declarada e alocada.
+        -:  370:***************************************************************************/
+        -:  371:
+        -:  372:/*
+        -:  373:Função que evolui um edifício do jogo.
+        -:  374:REQUISITO: Ponteiro de CabecaGeral alocado e inicializado.
+        -:  375:HIPÓTESE: A função deve evoluir um determinado edificio e enviar um inteiro, indicando que a evolução foi efetuada.
+        -:  376:ASSERTIVAS DE ENTRADA: A estrutura controladora enviada para a função precisa ter sido declarada e alocada.
+        -:  377:ASSERTIVAS DE SAÍDA: Dependendo do case que entre, efetua uma evolução diferente e retorna uma flag indicando que evoluiu um edificio.
+        -:  378:INTERFACE EXPLÍCITA: O tipo de retorno int, o parâmetro de entrada CabecaGeral* Interface e as mensagens exibidas ao usuário.
+        -:  379:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  380:*/
+       11:  381:int MenuEvolucaoEdificio(CabecaGeral* Interface){
+       11:  382:	int OpcaoEdificio = menu_edificio();
+       11:  383:	int EvoluiuEdificio = 0;
+       11:  384:	switch(OpcaoEdificio){
+        -:  385:		case 1:
+        2:  386:			if(Interface->castle->quartel->nivel < 3){
+        2:  387:				Interface->castle->quartel->nivel++;
+        2:  388:				Interface->castle->quartel->custounidade +=35;
+        2:  389:				EvoluiuEdificio=1;
+        -:  390:			}
+        -:  391:			else
+        -:  392:			{
+    #####:  393:				mensagem(21, 62, "Edificio no nivel maximo.");
+        -:  394:			}
+        2:  395:			break;
+        -:  396:				
+        -:  397:		case 2:
+        3:  398:			if(Interface->castle->campodetiro->nivel < 3){
+        2:  399:				Interface->castle->campodetiro->nivel++;
+        2:  400:				Interface->castle->campodetiro->custounidade +=35;
+        2:  401:				EvoluiuEdificio=1;
+        -:  402:			}
+        -:  403:			else
+        -:  404:			{
+        1:  405:				mensagem(21, 62, "Edificio no nivel maximo.");
+        -:  406:			}
+        3:  407:			break;
+        -:  408:
+        -:  409:			case 3:
+        2:  410:			if(Interface->castle->casadaslancas->nivel < 3){
+        2:  411:				Interface->castle->casadaslancas->nivel++;
+        2:  412:				Interface->castle->casadaslancas->custounidade +=35;
+        2:  413:				EvoluiuEdificio=1;
+        -:  414:			}
+        -:  415:			else
+        -:  416:			{
+    #####:  417:				mensagem(21, 62, "Edificio no nivel maximo.");
+        -:  418:			}
+        2:  419:			break;
+        -:  420:						
+        -:  421:		case 4:
+        4:  422:			if(Interface->castle->comercio->nivel < 3){
+        2:  423:				Interface->castle->comercio->nivel++;
+        2:  424:				Interface->castle->comercio->taxaouro +=100;
+        2:  425:				EvoluiuEdificio=1;
+        -:  426:			}
+        -:  427:			else
+        -:  428:			{
+        2:  429:				mensagem(21, 62, "Edificio no nivel maximo.");
+        -:  430:			}
+        4:  431:			break;
+        -:  432:						
+        -:  433:		default:
+    #####:  434:			MenuEvolucaoEdificio(Interface);
+        -:  435:	}
+        -:  436:	
+       11:  437:	return EvoluiuEdificio;
+        -:  438:}
+        -:  439:
+        -:  440:/****************************************************************************/
+        -:  441:/**
+        -:  442:* \fn MenuEscolhaUnidade(CabecaGeral* Interface)
+        -:  443:* 
+        -:  444:* \brief Realiza a escolha do personagem a ser criado no jogo.
+        -:  445:*
+        -:  446:* @param Interface - ponteiro para a controladora (CabecaGeral*) do game.
+        -:  447:* 
+        -:  448:* \return Retorna o valor inteiro 1 caso um dos personagens tenha sido criado, ou 0 caso nenhum tenha sido criado.
+        -:  449:* 
+        -:  450:* Assertiva de entrada
+        -:  451:*
+        -:  452:* A estrutura controladora enviada para a função precisa ter sido declarada e alocada.
+        -:  453:***************************************************************************/
+        -:  454:
+        -:  455:/*
+        -:  456:Função que insere unidades no jogo.
+        -:  457:REQUISITO: Ponteiro de CabecaGeral alocado e inicializado.
+        -:  458:HIPÓTESE: A função deve inserir até quatro unidades e enviar um inteiro, indicando que a inserção foi efetuada.
+        -:  459:ASSERTIVAS DE ENTRADA: A estrutura controladora enviada para a função precisa ter sido declarada e alocada.
+        -:  460:ASSERTIVAS DE SAÍDA: Dependendo do case que entre, efetua uma criação diferente e retorna uma flag indicando que comprou uma unidade.
+        -:  461:INTERFACE EXPLÍCITA: O tipo de retorno int, o parâmetro de entrada CabecaGeral* Interface e as mensagens exibidas ao usuário.
+        -:  462:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  463:*/
+       44:  464:int MenuEscolhaUnidade(CabecaGeral* Interface){			
+       44:  465:	int OpcaoUnidade = menu_unidade(Interface->castle);
+        -:  466:	
+       44:  467:	switch(OpcaoUnidade){
+        -:  468:		case 1:
+        5:  469:			if(Interface->castle->quartel->nivel == 1){
+        2:  470:				if(Interface->castle->ouro >= Interface->castle->quartel->custounidade){
+        2:  471:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,300,60,0.15,1,1);
+        2:  472:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->quartel->custounidade));
+        2:  473:					mvprintw(2, 80, "            ");
+        2:  474:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        2:  475:					refresh(); 
+        -:  476:				}else{
+    #####:  477:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  478:					return 1;
+        -:  479:				}
+        -:  480:			}
+        5:  481:			if(Interface->castle->quartel->nivel == 2){
+        1:  482:				if(Interface->castle->ouro >= Interface->castle->quartel->custounidade){
+        1:  483:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,400,60,0.15,2,1);				
+        1:  484:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->quartel->custounidade));
+        1:  485:					mvprintw(2, 80, "            ");
+        1:  486:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        1:  487:					refresh();
+        -:  488:				}else{
+    #####:  489:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  490:					return 1;
+        -:  491:				}
+        -:  492:			}
+        5:  493:			if(Interface->castle->quartel->nivel == 3){
+        2:  494:				if(Interface->castle->ouro >= Interface->castle->quartel->custounidade){
+        2:  495:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,500,60,0.15,3,1);				
+        2:  496:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->quartel->custounidade));
+        2:  497:					mvprintw(2, 80, "            ");
+        2:  498:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        2:  499:					refresh();
+        -:  500:				}else{
+    #####:  501:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  502:					return 1;
+        -:  503:				}
+        -:  504:			}
+        -:  505:
+        5:  506:			break;
+        -:  507:
+        -:  508:		case 2:
+        7:  509:			if(Interface->castle->campodetiro->nivel == 1){
+        3:  510:				if(Interface->castle->ouro >= Interface->castle->campodetiro->custounidade){
+        3:  511:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,60,0.2,1,2);				
+        3:  512:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->campodetiro->custounidade));
+        3:  513:					mvprintw(2, 80, "            ");
+        3:  514:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        3:  515:					refresh();
+        -:  516:				}else{
+    #####:  517:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  518:					return 1;
+        -:  519:				}
+        -:  520:			}
+        7:  521:			if(Interface->castle->campodetiro->nivel == 2){
+        1:  522:				if(Interface->castle->ouro >= Interface->castle->campodetiro->custounidade){
+        1:  523:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,60,0.3,2,2);				
+        1:  524:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->campodetiro->custounidade));
+        1:  525:					mvprintw(2, 80, "            ");
+        1:  526:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        1:  527:					refresh();
+        -:  528:				}else{
+    #####:  529:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  530:					return 1;
+        -:  531:				}
+        -:  532:			}
+        7:  533:			if(Interface->castle->campodetiro->nivel == 3){
+        3:  534:				if(Interface->castle->ouro >= Interface->castle->campodetiro->custounidade){
+        3:  535:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,60,0.4,3,2);				
+        3:  536:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->campodetiro->custounidade));
+        3:  537:					mvprintw(2, 80, "            ");
+        3:  538:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        3:  539:					refresh();
+        -:  540:				}else{
+    #####:  541:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  542:					return 1;
+        -:  543:				}
+        -:  544:			}
+        7:  545:			break;
+        -:  546:
+        -:  547:		case 3:
+       32:  548:			if(Interface->castle->casadaslancas->nivel == 1){
+       19:  549:				if(Interface->castle->ouro >= Interface->castle->casadaslancas->custounidade){
+       19:  550:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,70,0.15,1,3);				
+       19:  551:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->casadaslancas->custounidade));
+       19:  552:					mvprintw(2, 80, "            ");
+       19:  553:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+       19:  554:					refresh();
+        -:  555:				}else{
+    #####:  556:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  557:					return 1;
+        -:  558:				}
+        -:  559:			}
+       32:  560:			if(Interface->castle->casadaslancas->nivel == 2){
+        6:  561:				if(Interface->castle->ouro >= Interface->castle->casadaslancas->custounidade){
+        6:  562:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,90,0.15,2,3);				
+        6:  563:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->casadaslancas->custounidade));
+        6:  564:					mvprintw(2, 80, "            ");
+        6:  565:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        6:  566:					refresh();
+        -:  567:				}else{
+    #####:  568:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  569:					return 1;
+        -:  570:				}
+        -:  571:			}
+       32:  572:			if(Interface->castle->casadaslancas->nivel == 3){
+        7:  573:				if(Interface->castle->ouro >= Interface->castle->casadaslancas->custounidade){
+        7:  574:					Interface->character->player = InserirUnidadeFinal(Interface->character->player,280,120,0.15,3,3);				
+        7:  575:					Interface->castle = AtualizarCasteloOuro(Interface->castle,(-Interface->castle->casadaslancas->custounidade));
+        7:  576:					mvprintw(2, 80, "            ");
+        7:  577:					mvprintw(2, 80, "Gold$ %d", Interface->castle->ouro);
+        7:  578:					refresh();
+        -:  579:				}else{
+    #####:  580:					mensagem(22, 62, "Nao ha ouro suficiente");
+    #####:  581:					return 1;
+        -:  582:				}
+        -:  583:			}
+       32:  584:			break;
+        -:  585:
+        -:  586:		default:
+    #####:  587:		MenuEscolhaUnidade(Interface);
+        -:  588:	}
+       44:  589:	return 0;
+        -:  590:}
+        -:  591:
+        -:  592:/****************************************************************************/
+        -:  593:/**
+        -:  594:* \fn void Run (CabecaGeral* Interface, int new, int wave)
+        -:  595:* 
+        -:  596:* \brief Realiza a execução do loop principal do game, avançando as hordas de inimigos e executando as funções de criação e evolução de edifícios * e personagens.
+        -:  597:*
+        -:  598:* @param Interface - ponteiro para a controladora (CabecaGeral*) do game.
+        -:  599:* @param new - valor inteiro que indica se o jogo está sendo iniciado do começo ou a partir de um save.
+        -:  600:* @param wave - valor inteiro que representa a horda de inimigos caso seja executado o jogo a partir de um load.
+        -:  601:* 
+        -:  602:* \return void - não possui retorno.
+        -:  603:* 
+        -:  604:* Assertiva de entrada
+        -:  605:*
+        -:  606:* A estrutura controladora enviada para a função precisa ter sido declarada e alocada.
+        -:  607:* As variáveis new e wave precisam estar de acordo com o jogo, ou seja, new precisa ser 0 ou 1 e wave precisa estar entre 1 e 10.
+        -:  608:***************************************************************************/
+        -:  609:
+        -:  610:/*
+        -:  611:Função que integra as demais funções do jogo.
+        -:  612:REQUISITO: Memória livre para alocação, ponteiro de CabecaGeral alocado e inicializado.
+        -:  613:HIPÓTESE: A função deve inicializar a interface gráfica e gerenciar os turnos de cada jogador.
+        -:  614:ASSERTIVAS DE ENTRADA: A estrutura controladora enviada para a função precisa ter sido declarada e alocada. As variáveis new e wave precisam estar de acordo com o jogo, ou seja, new precisa ser 0 ou 1 e wave precisa estar entre 1 e 10.
+        -:  615:ASSERTIVAS DE SAÍDA: Não há.
+        -:  616:INTERFACE EXPLÍCITA: O tipo de retorno void e os  de entrada CabecaGeral* Interface, int new, int wave.
+        -:  617:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  618:*/
+        2:  619:void Run (CabecaGeral* Interface, int new, int wave){
+        2:  620:	int horda = 0;	/*diz em qual horda o jogador se encontra*/
+        2:  621:	int fim = 0;	/*indica fim de jogo*/
+        2:  622:	int newhorda = 1;	/*indica se é o início de uma nova horda*/
+        2:  623:	int EvoluiuEdificio = 0;	/*indica se o jogador já evoluiu um de seus edifícios*/
+        2:  624:	int TemDinheiro = 1;	/*indica se o jogador possui dinheiro suficiente para comprar unidades*/
+        2:  625:	int mensagem = 0;
+        -:  626:	int i;
+        -:  627:
+        2:  628:	WINDOW *winhud = newwin(HUDH,COLS, 0, 0);
+        2:  629:	WINDOW *wincastle = newwin(LINES-HUDH, CASTLEW, HUDH,0);
+        2:  630:	WINDOW *winfield = newwin(LINES-HUDH, COLS-CASTLEW, HUDH, CASTLEW);
+        -:  631:	                        /* (height,width,starty,startx) */
+        -:  632:	
+        2:  633:	if(!CabecaGeralVazia(Interface)){
+        2:  634:		if(new==1){	/*atribui o valor da horda. Caso seja um novo jogo, horda =1, caso seja um Load, horda = wave.*/
+        1:  635:			horda = 1;
+        -:  636:		}else{
+        1:  637:			horda = wave;
+        -:  638:		}
+        2:  639:		print_hud(winhud,Interface->castle->ouro,horda);
+        2:  640:		wrefresh(winhud);
+        -:  641:
+        2:  642:		print_field(winfield, Interface->character);
+        2:  643:		wrefresh(winfield);
+        -:  644:
+        2:  645:		print_castle(wincastle, Interface->castle);
+        2:  646:		wrefresh(wincastle);
+        -:  647:
+       14:  648:		while(fim==0 && (horda>0 && horda<=10)){	/*contagem de hordas*/
+        -:  649:
+       11:  650:			srand(time(NULL));
+        -:  651:
+       11:  652:			print_hud(winhud,Interface->castle->ouro,horda);
+       11:  653:			wrefresh(winhud);
+        -:  654:
+       11:  655:			print_field(winfield, Interface->character);
+       11:  656:			wrefresh(winfield);
+        -:  657:
+       11:  658:			print_castle(wincastle, Interface->castle);
+       11:  659:			wrefresh(wincastle);
+        -:  660:
+       11:  661:			if(newhorda==1){	/*momento de pausa para o jogador fazer as evoluções e compras de unidades*/
+       66:  662:				while((!TemQuatro(Interface->character->player)) && TemDinheiro==1){	/*limita a quantidade de unidades em jogo para até 4 e habilita a compra das mesmas*/
+       44:  663:					mensagem = MenuEscolhaUnidade(Interface);
+       44:  664:					if((Interface->castle->ouro < Interface->castle->quartel->custounidade) && (Interface->castle->ouro < Interface->castle->campodetiro->custounidade) && (Interface->castle->ouro < Interface->castle->casadaslancas->custounidade)) 
+        -:  665:					{
+        1:  666:						TemDinheiro = 0;
+        -:  667:					}
+       44:  668:					if (mensagem == 0)
+        -:  669:					{
+       44:  670:						print_field(winfield, Interface->character);
+       44:  671:						wrefresh(winfield);
+        -:  672:					}
+        -:  673:				}
+       52:  674:				for (i = 0; i < 4; i++)
+        -:  675:				{
+       41:  676:					if(horda == 10)
+        -:  677:					{
+        1:  678:						InsereUnidadeBoss(Interface);
+        1:  679:						i = 4;
+        -:  680:					}
+        -:  681:					else
+       40:  682:						InsereUnidadeInimiga(Interface,horda);
+        -:  683:						
+       41:  684:					usleep(400000);
+       41:  685:					print_field(winfield, Interface->character);
+       41:  686:					wrefresh(winfield);
+        -:  687:				}
+       11:  688:				newhorda = 0;
+        -:  689:			}
+        -:  690:
+       11:  691:			fim = GameLoop (Interface, winfield);
+        -:  692:			
+       58:  693:			while(!UnidadeVazia(Interface->character->player)){				/*remove todas as unidades da lista de jogador */
+       38:  694:				Interface->character->player = RemoverUnidadeFinal(Interface->character->player);
+        -:  695:			} 
+        -:  696:			
+        -:  697:	
+       10:  698:			if (fim == 0) {
+       31:  699:				while(EvoluiuEdificio==0 && horda<9){	/*a partir da segunda horda já é possível fazer evoluções dos edifícios*/
+       11:  700:					EvoluiuEdificio = MenuEvolucaoEdificio(Interface);
+        -:  701:				}
+       10:  702:				horda++;	/*avança para a próxima horda*/
+       10:  703:				EvoluiuEdificio = 0;	/*dá um ponto de evolução para o jogador*/
+       10:  704:				Interface->castle->ouro += Interface->castle->comercio->taxaouro;	/*credita o ouro*/
+       10:  705:				newhorda = 1;
+       10:  706:				TemDinheiro = 1;
+       10:  707:				SaveGame(Interface, horda);
+        -:  708:			} else {
+    #####:  709:				TelaGameOver();
+        -:  710:			}
+        -:  711:		}
+        1:  712:		tela_final();
+        -:  713:	}
+    #####:  714:}
+        -:  715:
+        -:  716:/****************************************************************************/
+        -:  717:/**
+        -:  718:* \fn int GameLoop (CabecaGeral * Interface, WINDOW * winfield)
+        -:  719:* 
+        -:  720:* \brief Realiza o loop de batalhas entre o player e o cpu no game.
+        -:  721:*
+        -:  722:*
+        -:  723:* @param Interface - ponteiro para a controladora do game (CabecaGeral*)
+        -:  724:* @param winfield - ponteiro para a estrutura WINDOW (estrutura da biblioteca ncurses) para realizar a visualização dos combates.
+        -:  725:* 
+        -:  726:* \return Retorna o valor inteiro 0 caso o player tenha vencido a batalha ou 1 caso o cpu tenha vencido a batalha.
+        -:  727:* 
+        -:  728:* Assertiva de entrada
+        -:  729:*
+        -:  730:* A estrutura controladora do game precisa ter sido declarada e alocada.
+        -:  731:* A estrutura WINDOW precisa ter sido declarada e alocada para realizar a visualização.
+        -:  732:***************************************************************************/
+        -:  733:
+        -:  734:/*
+        -:  735:Função que realiza o combate por turnos entre player e cpu.
+        -:  736:REQUISITO: Interface estar alocada com personagens de player e cpu devidamente alocados, juntamente com a estrutura WINDOW para visualização.
+        -:  737:HIPÓTESE: Será indicado o vencedor ao final da função.
+        -:  738:ASSERTIVAS DE ENTRADA:  A estrutura controladora do game precisa ter sido declarada e alocada. A estrutura WINDOW precisa ter sido declarada e alocada para realizar a visualização.
+        -:  739:ASSERTIVAS DE SAÍDA: A vitória pode ser adquirida pelo player ou cpu, indicando continuação do game ou perda. 
+        -:  740:INTERFACE EXPLÍCITA: Tipo de retorno int e os  de entrada CabecaGeral * Interface, WINDOW * winfield.
+        -:  741:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  742:*/
+       11:  743:int GameLoop (CabecaGeral * Interface, WINDOW * winfield) {
+       11:  744:	int fluxo = 0;	
+        -:  745:	int vencedor;
+        -:  746:	
+       46:  747:	while (fluxo == 0) {	
+        -:  748:		/*Indica o período em que o player realiza o seu ataque*/
+       25:  749:		fluxo = Batalha(Interface, winfield);
+       24:  750:		if (fluxo == 0) {
+        -:  751:			/*Indica o período em que a cpu realiza o seu ataque*/
+       14:  752:			fluxo = Batalha2 (Interface, winfield);
+       14:  753:			print_field(winfield, Interface->character);
+       14:  754:			wrefresh(winfield);
+        -:  755:		}
+        -:  756:	}
+       10:  757:	if (fluxo == 1) {
+       10:  758:		vencedor = 0;
+    #####:  759:	} else if (fluxo == 2) {
+    #####:  760:		vencedor = 1;
+        -:  761:	}
+        -:  762:	
+       10:  763:	return vencedor;
+        -:  764:}
+        -:  765:
+        -:  766:/****************************************************************************/
+        -:  767:/**
+        -:  768:* \fn int Batalha(CabecaGeral *Interface, WINDOW *winfield)
+        -:  769:* 
+        -:  770:* \brief Realiza a seleção do inimigo a ser atacado pelo player, um ataque para cada um de seus personagens.
+        -:  771:*
+        -:  772:* @param Interface - ponteiro para a controladora do game (CabecaGeral*)
+        -:  773:* @param winfield - ponteiro para a estrutura WINDOW (estrutura da biblioteca ncurses) para realizar a visualização do game.
+        -:  774:* 
+        -:  775:* \return Retorna o valor inteiro 1 caso o player tenha vencido a batalha ou 0 caso todos os ataques tenham sido realizados e ainda existem
+        -:  776:* inimigos na cpu.
+        -:  777:* 
+        -:  778:* Assertiva de entrada
+        -:  779:*
+        -:  780:* A estrutura controladora do game precisa ter sido declarada e alocada.
+        -:  781:* A estrutura WINDOW precisa ter sido declarada e alocada para correta visualização do game.
+        -:  782:***************************************************************************/
+        -:  783:
+        -:  784:/*
+        -:  785:Função responsável pela batalha entre o jogador e a cpu.
+        -:  786:REQUISITO: É necessário que a controladora do game esteja alocada juntamente com a estrutura de visualização WINDOW e existam personagens da cpu.
+        -:  787:HIPÓTESE: Será realizado o ataque nas unidades do computador, atualizando os personagens a cada ataque e indicando ao final do turno se ainda existem personagens vivos pela parte da cpu.ASSERTIVAS DE ENTRADA: A estrutura controladora do game precisa ter sido declarada e alocada. A estrutura WINDOW precisa ter sido declarada e alocada para correta visualização do game.
+        -:  788:ASSERTIVAS DE SAÍDA: Se o jogador ganhar, deve ser retornado 1, caso contrário, o retorno é igual a 0.
+        -:  789:INTERFACE EXPLÍCITA: O tipo de retorno int e os  de entrada CabecaGeral *Interface, WINDOW *winfield.
+        -:  790:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  791:*/
+       25:  792:int Batalha(CabecaGeral *Interface, WINDOW *winfield)
+        -:  793:{
+       25:  794:	int i = 1;
+       25:  795:	int j = 1;
+       25:  796:	char c = '\0';
+        -:  797:	Unidade *player;
+       25:  798:	Unidade *cpu= Interface->character->cpu;
+        -:  799:
+       91:  800:	for (player = Interface->character->player; player!=NULL; player = player->prox, cpu= Interface->character->cpu, i++)
+        -:  801:	{
+        -:  802:		
+       77:  803:		seta_batalha(winfield, 2, i);
+       77:  804:		seta_batalha(winfield, 1, 1);
+        -:  805:
+      222:  806:		while(c != 10)
+        -:  807:		{       
+       79:  808:			c = getch();
+       79:  809:			switch(c)
+        -:  810:	        {	
+        -:  811:	        	case 'm':
+        1:  812:	        		tela_inicial();
+        -:  813:	        	case 's':
+    #####:  814:	        		if (cpu->prox!=NULL)
+        -:  815:	        		{
+    #####:  816:	        			cpu = cpu->prox;
+    #####:  817:	        			j++;
+    #####:  818:	        			seta_batalha(winfield, 1, j);
+    #####:  819:						wrefresh(winfield);
+        -:  820:	        		}
+    #####:  821:					break;
+        -:  822:				case 'w':
+    #####:  823:					if (cpu->ant!=NULL)
+        -:  824:	        		{
+    #####:  825:	        			cpu = cpu->ant;
+    #####:  826:	        			j--;
+    #####:  827:	        			seta_batalha(winfield, 1, j);
+    #####:  828:						wrefresh(winfield);
+        -:  829:	        		}
+    #####:  830:					break;
+        -:  831:				case 10:	/* Enter */
+       76:  832:					Interface->character->cpu = Atacar(player, cpu);
+       76:  833:					print_field(winfield, Interface->character);
+       76:  834:					wrefresh(winfield);
+       76:  835:					if (UnidadeVazia(Interface->character->cpu)) {
+       10:  836:						return 1;
+        -:  837:					}
+       66:  838:					break;	
+        -:  839:			}
+        -:  840:		}
+       66:  841:		c = '\0';
+       66:  842:		seta_batalha(winfield, 0, 0);
+       66:  843:		wrefresh(winfield);
+       66:  844:		j = 1;
+        -:  845:	}
+        -:  846:
+       14:  847:	return 0;
+        -:  848:}
+        -:  849:
+        -:  850:/****************************************************************************/
+        -:  851:/**
+        -:  852:* \fn Unidade *Atacar(Unidade *atacante, Unidade *vitima)
+        -:  853:* 
+        -:  854:* \brief Realiza o ataque de um personagem do player sobre um dos personagens do cpu.
+        -:  855:*
+        -:  856:* @param atacante - ponteiro para o personagem do player (Unidade*) que vai realizar o ataque
+        -:  857:* @param vitima - ponteiro para o personagem do cpu (Unidade*) que vai receber o ataque
+        -:  858:* 
+        -:  859:* \return Retorna a lista de personagen da cpu atualizada.
+        -:  860:* 
+        -:  861:* Assertiva de entrada
+        -:  862:*
+        -:  863:* As estruturas de personagens enviadas para a função precisam ter sido declaradas e alocadas.
+        -:  864:***************************************************************************/
+        -:  865:
+        -:  866:/*
+        -:  867:Função responsável pela realização do ataque 
+        -:  868:REQUISITO: Ter ponteiros de atacante e vitima alocados.
+        -:  869:HIPÓTESE: A função deve realizar o ataque à uma unidade e caso a vitima seja igual a zero, elimina seu nó da lista.
+        -:  870:ASSERTIVAS DE ENTRADA: As estruturas de personagens enviadas para a função precisam ter sido declaradas e alocadas.
+        -:  871:ASSERTIVAS DE SAÍDA: Não há.
+        -:  872:INTERFACE EXPLÍCITA: O tipo de retorno Unidade* e os  de entrada Unidade *atacante, Unidade *vitima. As mensagens para o usuário.
+        -:  873:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  874:*/
+       76:  875:Unidade *Atacar(Unidade *atacante, Unidade *vitima)
+        -:  876:{
+        -:  877:	float esquiva;
+        -:  878:	Unidade *aux;
+        -:  879:	int dano;
+       76:  880:	for (aux=vitima; aux->ant!=NULL; aux=aux->ant);
+        -:  881:
+       76:  882:	esquiva = (float)GerarValor(101, 0)/100;
+        -:  883:
+       76:  884:	if ((esquiva>vitima->esquiva))
+        -:  885:	{
+       54:  886:		dano = (atacante->dano + GerarValor(21, -10));
+       54:  887:		vitima->vida -= dano;
+       54:  888:		if(dano > atacante->dano + 10)
+    #####:  889:		mensagem(20, 75, "Foi super efetivo!");
+       54:  890:		else if(dano < atacante->dano - 5)
+       11:  891:		mensagem(20,75,"Nao foi efetivo!");
+        -:  892:		else
+       43:  893:		mensagem(20,75,"Acertou o golpe!");
+       54:  894:		sleep(1);
+       54:  895:		if (vitima->vida<=0)
+        -:  896:		{
+       37:  897:			aux = RemoverUnidade(aux, vitima);
+        -:  898:		}
+        -:  899:	}
+        -:  900:	else
+        -:  901:	{
+       22:  902:		mensagem(20, 75, "Errou o golpe!");
+       22:  903:		sleep(1);
+        -:  904:	}
+       76:  905:	return aux;
+        -:  906:}
+        -:  907:
+        -:  908:/****************************************************************************/
+        -:  909:/**
+        -:  910:* \fn int Batalha2(CabecaGeral *Interface, WINDOW *winfield)
+        -:  911:*
+        -:  912:* \brief Função que executa o loop de ataque da cpu contra os personagens do player.
+        -:  913:*
+        -:  914:* @param Interface - ponteiro para a controladora (CabecaGeral*) do game.
+        -:  915:* @param winfield - ponteiro para WINDOW (parâmetro da biblioteca ncurses) para atualizar a janela de exibição do game.
+        -:  916:* 
+        -:  917:* \return Retorna o valor inteiro 0 caso todos os ataques tenham sido feitos e ainda existam personagens do player, ou 2 caso todos os personagens * do player tenham sido eliminados.
+        -:  918:* 
+        -:  919:* Assertiva de entrada
+        -:  920:*
+        -:  921:* A estrutura controladora enviada para a função precisa ter sido declarada e alocada.
+        -:  922:* A estrutura WINDOW precisa ser válida para poder exibir corretamente o game na tela.
+        -:  923:***************************************************************************/
+        -:  924:
+        -:  925:/*
+        -:  926:Função que realiza o combate no turno da cpu.
+        -:  927:REQUISITO: É necessário que a controladora do game esteja alocada juntamente com a estrutura de visualização WINDOW e existam personagens da cpu.
+        -:  928:HIPÓTESE: Será realizado o ataque nas unidades do jogador, atualizando os personagens a cada ataque e indicando ao final do turno se ainda existem personagens vivos pela parte do player.
+        -:  929:ASSERTIVAS DE ENTRADA: A estrutura controladora enviada para a função precisa ter sido declarada e alocada. A estrutura WINDOW precisa ser válida para poder exibir corretamente o game na tela.
+        -:  930:ASSERTIVAS DE SAÍDA: Indicação sobre eliminação de todos os personagens ou não, atualização dos atributos dos personagens existentes.
+        -:  931:INTERFACE EXPLÍCITA: Tipo de retorno int e  de entrada CabecaGeral *Interface, WINDOW *winfield. As mensagens de erro impressas a cada situação.
+        -:  932:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -:  933:*/
+       14:  934:int Batalha2(CabecaGeral *Interface, WINDOW *winfield)
+        -:  935:{
+        -:  936:	int hit;
+        -:  937:	Unidade *cpu;
+       14:  938:	mensagem(20, 60, "Prepare-se!");
+       14:  939:	sleep(1);	
+       14:  940:	print_field(winfield, Interface->character);
+       14:  941:	wrefresh(winfield);
+       38:  942:	for (cpu = Interface->character->cpu; cpu != NULL; cpu = cpu->prox) {
+       24:  943:		Interface->character->player = AtaqueInimigo (&hit, cpu, Interface->character->player);
+       24:  944:		if (UnidadeVazia(Interface->character->player)) {
+    #####:  945:			return 2;
+        -:  946:		}
+       24:  947:		if (hit == 1) {
+       19:  948:			mensagem(20, 60, "O inimigo conseguiu realizar o ataque!");
+       19:  949:			sleep(1);
+       19:  950:			print_field(winfield, Interface->character);
+       19:  951:			wrefresh(winfield);
+       19:  952:			if (cpu->prox != NULL) {
+        9:  953:				mensagem(20,60, "Preparando ataque...");
+        9:  954:				sleep(1);
+        9:  955:				print_field(winfield, Interface->character);
+        9:  956:				wrefresh(winfield);
+        -:  957:			}
+        -:  958:		}
+       24:  959:		if (hit == 0) {
+        5:  960:			mensagem(20, 65, "O inimigo fracassou no ataque!");
+        5:  961:			sleep(1);
+        5:  962:			print_field(winfield, Interface->character);
+        5:  963:			wrefresh(winfield);
+        5:  964:			if (cpu->prox != NULL) {
+        1:  965:				mensagem(20,60, "Preparando ataque...");
+        1:  966:				sleep(1);
+        1:  967:				print_field(winfield, Interface->character);
+        1:  968:				wrefresh(winfield);
+        -:  969:			}
+        -:  970:		}
+        -:  971:	}
+        -:  972:
+        -:  973:
+       14:  974:	return 0;
+        -:  975:}
+        -:  976:
+        -:  977:/****************************************************************************/
+        -:  978:/**
+        -:  979:* \fn Unidade * buscaAlvo (Unidade * vitima)
+        -:  980:* 
+        -:  981:* \brief Realiza a busca pelo personagem mais fraco do player para que a cpu possa realizar o ataque.
+        -:  982:*
+        -:  983:* @param vitima - ponteiro para a lista de personagens do player (Unidade*).
+        -:  984:*
+        -:  985:* \return Retorna o ponteiro para o personagem (Unidade*) a ser atacado.
+        -:  986:* 
+        -:  987:* Assertiva de entrada
+        -:  988:*
+        -:  989:* A lista de personagens do player enviada para a função precisa ter sido declarada e alocada.
+        -:  990:***************************************************************************/
+        -:  991:
+        -:  992:/*
+        -:  993:Função que deve realizar a busca de um alvo a ser atacado.
+        -:  994:REQUISITO: Ter um ponteiro de Unidade alocado.
+        -:  995:HIPÓTESE: Será selecionado o alvo(nó) mais fraco(que contiver a menor vida) e o mesmo será retornado.
+        -:  996:ASSERTIVAS DE ENTRADA: A lista de personagens do player enviada para a função precisa ter sido declarada e alocada.
+        -:  997:ASSSERTIVAS DE SAÍDA: Nó a ser atacado deve ser diferente de nulo.
+        -:  998:INTERFACE EXPLÍCITA: Tipo do retorno Unidade* e parâmetro de entrada Unidade* vitima.
+        -:  999:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -: 1000:*/
+       24: 1001:Unidade * buscaAlvo (Unidade * vitima) {
+        -: 1002:	Unidade * p;
+       24: 1003:	Unidade * alvo = NULL;
+       24: 1004:	int vida = vitima->vida;
+      116: 1005:	for (p = vitima; p != NULL; p = p->prox) {	/*percorre a lista em busca de um elemento com a menor vida*/
+       92: 1006:		if (p->vida <= vida) {
+       79: 1007:			alvo = p;
+       79: 1008:			vida = p->vida;
+        -: 1009:		}
+        -: 1010:	}
+       24: 1011:	return alvo;
+        -: 1012:}
+        -: 1013:
+        -: 1014:/****************************************************************************/
+        -: 1015:/**
+        -: 1016:* \fn Unidade *AtaqueInimigo(int * hit, Unidade *atacante, Unidade *vitima)
+        -: 1017:*
+        -: 1018:* \brief Realiza o ataque de um personagem do cpu sobre um personagem do player.
+        -: 1019:*
+        -: 1020:* @param hit - ponteiro para um valor inteiro que vai indicar se foi realizado o ataque com eficiencia ou não
+        -: 1021:* @param atacante - ponteiro para o personagem da cpu (Unidade*) que vai realizar o ataque
+        -: 1022:* @param vitima - ponteiro para o personagem do player (Unidade*) que vai ser atacado
+        -: 1023:* 
+        -: 1024:* \return Retorna a lista de personagens do player atualizada após o ataque.
+        -: 1025:* 
+        -: 1026:* Assertiva de entrada
+        -: 1027:*
+        -: 1028:* A lista de personagens do player precisa ter sido declarada e alocada.
+        -: 1029:* O personagem da cpu que vai realizar o ataque precisa estar alocado
+        -: 1030:* O ponteiro para a variavel inteira precisa ter sido declarado.
+        -: 1031:***************************************************************************/
+        -: 1032:			
+        -: 1033:/*
+        -: 1034:Função que realiza o ataque da cpu.
+        -: 1035:REQUISITO: É necessário que o atacante e a vítima sejam ponteiros alocados em memória.
+        -: 1036:HIPÓTESE: O alvo selecionado(nó) terá seus atributos atualizados ao final da execução da função de ataque.
+        -: 1037:ASSERTIVAS DE ENTRADA: A lista de personagens do player precisa ter sido declarada e alocada. O personagem da cpu que vai realizar o ataque precisa estar alocado. O ponteiro para a variavel inteira precisa ter sido declarado.
+        -: 1038:ASSERTIVAS DE SAÍDA: Nó selecionado com atributos atualizados e valor inteiro que indica se ocorreu ou não o ataque.
+        -: 1039:INTERFACE EXPLÍCITA: O tipo do retorno Unidade* e os  de entrada int * hit, Unidade *atacante, Unidade *vitima.
+        -: 1040:INTERFACE IMPLÍTICITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -: 1041:*/
+       24: 1042:Unidade *AtaqueInimigo(int * hit, Unidade *atacante, Unidade *vitima)
+        -: 1043:{	/*declaração de variáveis*/
+        -: 1044:	float esquiva;
+        -: 1045:	int dano;
+       24: 1046:	Unidade * vit = vitima;
+       24: 1047:	Unidade * atac = atacante;
+        -: 1048:	Unidade * alvo;
+        -: 1049:
+       24: 1050:	alvo = buscaAlvo (vit);	/*busca pelo alvo com menor vida*/
+       24: 1051:	esquiva = (float)GerarValor(101, 0)/100;	/*gera um valor aleatório para as chances de acerto da unidade*/
+       24: 1052:	if ((esquiva > alvo->esquiva)) {	/*se o valor estiver fora da margem de esquiva da unidade do jogador, então realiza o ataque*/
+       19: 1053:		dano = (atac->dano + GerarValor(21, -10));
+       19: 1054:		alvo->vida -= dano;
+       19: 1055:		*hit = 1;
+       19: 1056:		if (alvo->vida<=0) {
+        2: 1057:			vit = RemoverUnidade(vit, alvo);	/*se a vida da unidade do jogador for menor ou igual a zero, ela é removida da lista*/
+        -: 1058:		}
+        -: 1059:	} else {
+        5: 1060:		*hit = 0;	/*caso contrário, atribui 0 ao ataque*/
+        -: 1061:	}	
+       24: 1062:	return vit;	/*retorna a vida atualizada*/
+        -: 1063:}
+        -: 1064:
+        -: 1065:/****************************************************************************/
+        -: 1066:/**
+        -: 1067:* \fn TemQuatro(Unidade* lista)
+        -: 1068:*
+        -: 1069:* \brief Função para verificar se já existem 4 personagens na lista do player, para que ele possa escolher seus personagens.
+        -: 1070:*
+        -: 1071:* @param lista - ponteiro para a lista de personagens (Unidade*)
+        -: 1072:*
+        -: 1073:* \return Retorna o valor inteiro 1 caso já existam 4 personagens, ou 0 caso caso existam menos de 4.
+        -: 1074:* 
+        -: 1075:* Assertiva de entrada
+        -: 1076:*
+        -: 1077:* A lista de personagens do player precisa ter sido declarada e alocada.
+        -: 1078:***************************************************************************/
+        -: 1079:
+        -: 1080:/*
+        -: 1081:Função que que verifica se há quatro elementos em uma lista.
+        -: 1082:REQUISITO: Ponteiro de Unidade alocado.
+        -: 1083:HIPÓTESE: A função conta quantos elementos existem em uma lista de unidades e retorna 1 caso o somatório atinja o valor 4.
+        -: 1084:ASSERTIVAS DE ENTRADA: A lista de personagens do player precisa ter sido declarada e alocada.
+        -: 1085:ASSERTIVAS DE SAÍDA: Caso a lista não seja vazia, analise a quantidade de unidades alocadas e retorna 1 quando o valor chega a quatro, caso contrário, retorna 0.
+        -: 1086:INTERFACE EXPLÍCITA: O tipo de retorno int e os parâmetro de entrada Unidade* lista.
+        -: 1087:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -: 1088:*/
+       55: 1089:int TemQuatro(Unidade* lista){
+        -: 1090:	Unidade* p;	/*declaração de um ponteiro auxiliar*/
+       55: 1091:	int i = 0;
+        -: 1092:
+       55: 1093:	if(!UnidadeVazia(lista)){	/*verifica se a lista é vazia*/
+      143: 1094:		for(p=lista;p!=NULL;p=p->prox){	/*percorre a lista e soma a quantidade de elementos inseridos*/
+      110: 1095:			i++;
+      110: 1096:			if(i==4){
+       11: 1097:				return 1; 	/*caso o número de unidades seja igual a 4, retorna 1*/
+        -: 1098:			}
+        -: 1099:		}
+        -: 1100:	}
+       44: 1101:	return 0;	/*caso o número de unidades não seja igual a 4, retorna 0*/
+        -: 1102:}
+        -: 1103:
+        -: 1104:/****************************************************************************/
+        -: 1105:/**
+        -: 1106:* \fn int GerarValor(int a, int b)
+        -: 1107:*
+        -: 1108:* \brief Função que gera um valor aleatório entre 1 e 3 que vai indicar o tipo de personagem a ser criado pelo cpu.
+        -: 1109:*
+        -: 1110:* @param a - valor inteiro que indica o valor máximo entre os dois.
+        -: 1111:* @param b - valor inteiro que indica o valor mínimo entre os dois.
+        -: 1112:*
+        -: 1113:* \return Retorna o valor inteiro, entre gerado pelo função rand.
+        -: 1114:* 
+        -: 1115:* Assertiva de entrada
+        -: 1116:*
+        -: 1117:* Os valores de a e b precisam ser valores inteiros.
+        -: 1118:***************************************************************************/
+        -: 1119:
+        -: 1120:/*
+        -: 1121:Função que que gera valores aleatórios entre 1 e 3.
+        -: 1122:REQUISITO: Não há.
+        -: 1123:HIPÓTESE: A função deve gerar valores aleatórios para classe das unidades inimigas.
+        -: 1124:ASSERTIVAS DE ENTRADA: Os valores de a e b precisam ser valores inteiros.
+        -: 1125:ASSERTIVAS DE SAÍDA: Não há.
+        -: 1126:INTERFACE EXPLÍCITA: O tipo de retorno int e os  de entrada int a, int b.
+        -: 1127:INTERFACE IMPLÍCITA: A geração do número aleatório atribuido para a variável valor.
+        -: 1128:*/
+        -: 1129:
+      213: 1130:int GerarValor(int a, int b){
+      213: 1131:	int valor = 0;	/*declaração de um valor inteiro*/
+        -: 1132:
+      213: 1133: 	valor = rand() % a+b; /*geração do valor aleatório a ser retornado*/
+        -: 1134:
+      213: 1135:return valor;
+        -: 1136:}
+        -: 1137:
+        -: 1138:/****************************************************************************/
+        -: 1139:/**
+        -: 1140:* \fn void InsereUnidadeInimiga(CabecaGeral* Interface, int horda)
+        -: 1141:* 
+        -: 1142:* \brief Realiza a inserção de um personagem na lista de personagens do cpu, de acordo com os valores gerados para a classe e nível.
+        -: 1143:*
+        -: 1144:* @param Interface - ponteiro para a controladora do game (CabecaGeral*)
+        -: 1145:* @param horda - valor inteiro que indica a horda de inimigos no jogo.
+        -: 1146:* 
+        -: 1147:* \return Retorna o valor inteiro 0 caso o player tenha vencido a batalha ou 1 caso o cpu tenha vencido a batalha.
+        -: 1148:* 
+        -: 1149:* Assertiva de entrada
+        -: 1150:*
+        -: 1151:* A estrutura controladora do game precisa ter sido declarada e alocada.
+        -: 1152:* A variável horda precisa estar de acordo com os padroões do jogo, ou seja, ser um valor entre 1 e 10.
+        -: 1153:***************************************************************************/
+        -: 1154:
+        -: 1155:/*
+        -: 1156:Função que insere unidades inimigas no jogo.
+        -: 1157:REQUISITO: Ponteiro de CabecaGeral alocado e inicializado.
+        -: 1158:HIPÓTESE: A função deve inserir até quatro unidades inimigas com nível e classe de acordo com valores gerados aleatoriamente.
+        -: 1159:ASSERTIVAS DE ENTRADA: A estrutura controladora do game precisa ter sido declarada e alocada. A variável horda precisa estar de acordo com os padroões do jogo, ou seja, ser um valor entre 1 e 10.
+        -: 1160:ASSERTIVAS DE SAÍDA: Dependendo do case que entre, cria um tipo de unidade diferente.
+        -: 1161:INTERFACE EXPLÍCITA: O tipo de retorno void e os  de entrada CabecaGeral* Interface, int horda.
+        -: 1162:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -: 1163:*/
+        -: 1164:
+       40: 1165:void InsereUnidadeInimiga(CabecaGeral* Interface, int horda){   
+       40: 1166: int OpcaoUnidade = GerarValor(3, 1);	/*Gera um valor aleatório para a classe das unidades*/
+       40: 1167: int OpcaoNivel = GerarNivel(horda);	/*Gera um valor aleatório para o nível das unidades*/
+        -: 1168:
+        -: 1169:
+       40: 1170:	switch(OpcaoUnidade){	/*Dependendo do case que entre, cria um tipo de unidade diferente.*/
+        -: 1171:  		case 1:
+       19: 1172:   			if(OpcaoNivel==1){
+        7: 1173:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,300,60,0.15,1,1);
+        -: 1174:   			}
+       19: 1175:			if(OpcaoNivel == 2){
+        4: 1176:			    Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,400,60,0.15,2,1);    
+        -: 1177:			}
+       19: 1178:			if(OpcaoNivel == 3){
+        8: 1179:			    Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,500,60,0.15,3,1);    
+        -: 1180:			}
+       19: 1181:   			break;
+        -: 1182:
+        -: 1183:  		case 2:
+        4: 1184:   			if(OpcaoNivel == 1){
+        1: 1185:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,70,0.15,1,2);    
+        -: 1186:   			}
+        4: 1187:   			if(OpcaoNivel == 2){
+        2: 1188:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,90,0.15,2,2);    
+        -: 1189:   			}
+        4: 1190:   			if(OpcaoNivel == 3){
+        1: 1191:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,120,0.15,3,2);    
+        -: 1192:    			}
+        4: 1193:   			break;
+        -: 1194:
+        -: 1195:  		case 3:
+       17: 1196:   			if(OpcaoNivel == 1){
+        6: 1197:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,60,0.2,1,3);    
+        -: 1198:   			}
+       17: 1199:   			if(OpcaoNivel == 2){
+        5: 1200:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,60,0.3,2,3);    
+        -: 1201:   			}
+       17: 1202:   			if(OpcaoNivel == 3){
+        6: 1203:     			Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu,280,60,0.4,3,3);    
+        -: 1204:   			}
+       17: 1205:   			break;
+        -: 1206:
+        -: 1207:  		default:
+    #####: 1208:  			MenuEscolhaUnidade(Interface);	/*Volta ao menu de escola*/
+        -: 1209:	}
+       40: 1210: }
+        -: 1211:
+        -: 1212:/****************************************************************************/
+        -: 1213:/**
+        -: 1214:* \fn InsereUnidadeBoss(CabecaGeral* Interface)
+        -: 1215:*
+        -: 1216:* \brief Realiza a inserção do personagem Boss na lista de personagens do cpu quando o player vencer as 10 hordas de inimigos.
+        -: 1217:*
+        -: 1218:* @param Interface - ponteiro para a controladora do game (CabecaGeral*)
+        -: 1219:*
+        -: 1220:* \return void - não possui retorno.
+        -: 1221:* 
+        -: 1222:* Assertiva de entrada
+        -: 1223:*
+        -: 1224:* A estrutura controladora do game precisa ter sido declarada e alocada.
+        -: 1225:***************************************************************************/
+        -: 1226:
+        -: 1227:/*
+        -: 1228:REQUISITO: Ponteiro de interface CabecaGeral deve estar alocado e inicializado.
+        -: 1229:HIPÓTESE: A função deve inserir o chefão final na décima horda do jogo.
+        -: 1230:ASSERTIVAS DE ENTRADA: Ponteiro de interface CabecaGeral deve estar alocado e inicializado.
+        -: 1231:ASSERTIVAS DE SAÍDA: Não há.
+        -: 1232:INTERFACE EXPLÍCITA: O tipo de retorno void e o parâmetro de entrada CabecaGeral* Interface.
+        -: 1233:INTERFACE IMPLÍCITA: Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu, 1000,80,0.3,3,4);
+        -: 1234:*/
+        1: 1235: void InsereUnidadeBoss(CabecaGeral* Interface)
+        -: 1236: {
+        1: 1237:	 Interface->character->cpu = InserirUnidadeFinal(Interface->character->cpu, 1000,80,0.3,3,4);	/*Insere o chefe final*/
+        1: 1238: }
+        -: 1239:
+        -: 1240:/*
+        -: 1241:Função que que gera valores aleatórios entre 1 e 3.
+        -: 1242:REQUISITO: Receber o valor de horda entre 1 e 10.
+        -: 1243:HIPÓTESE: A função deve gerar valores aleatórios para nível das unidades inimigas.
+        -: 1244:ASSERTIVAS DE ENTRADA: A variável horda precisa estar de acordo com o jogo, ou seja, estar entre 1 e 10.
+        -: 1245:ASSERTIVAS DE SAÍDA: Dependendo do case que entre, retorna um valor diferente para o nivel.
+        -: 1246:INTERFACE EXPLÍCITA: O tipo de retorno int e o parâmetro de entrada int horda.
+        -: 1247:INTERFACE IMPLÍCITA: As estruturas e variáveis auxiliares, as assertivas de entrada e saída e as operações realizadas com os valores enviados como parâmetro.
+        -: 1248:*/
+        -: 1249:
+        -: 1250:/****************************************************************************/
+        -: 1251:/**
+        -: 1252:* \fn int GerarNivel(int horda)
+        -: 1253:*
+        -: 1254:* \brief Função que verifica o nível do personagem a ser criado pela cpu, de acordo com a horda de inimigos do game.
+        -: 1255:*
+        -: 1256:* @param horda - valor inteiro que representa a horda de inimigos do jogo.
+        -: 1257:*
+        -: 1258:* \return Retorna um valor inteiro entre 1 e 3, indicando o nível do personagem a ser criado.
+        -: 1259:* 
+        -: 1260:* Assertiva de entrada
+        -: 1261:*
+        -: 1262:* A variável horda precisa estar de acordo com o jogo, ou seja, estar entre 1 e 10.
+        -: 1263:***************************************************************************/
+        -: 1264:
+       40: 1265:int GerarNivel(int horda)
+        -: 1266:{
+       40: 1267:	if (horda>=1 && horda<10)	/*verifica a validade da informação*/
+        -: 1268:	{
+       40: 1269:		switch(horda){	/*Dependendo do case que entre, retorna um valor diferente para o nivel.*/
+        -: 1270:			case 1:
+        4: 1271:				return 1;
+        -: 1272:			case 2:
+        8: 1273:				return 1;
+        -: 1274:			case 3:
+        4: 1275:				return rand()%2+1;	/*gera valores aleatórios entre 1 e 2*/
+        -: 1276:			case 4:
+        4: 1277:				return 2;
+        -: 1278:			case 5:
+        4: 1279:				return rand()%2+2;	/*gera valores aleatórios entre 2 e 3*/
+        -: 1280:			case 6:
+        4: 1281:				return rand()%2+2;	/*gera valores aleatórios entre 2 e 3*/
+        -: 1282:			case 7:
+        4: 1283:				return 3;
+        -: 1284:			case 8:
+        4: 1285:				return 3;
+        -: 1286:			case 9:
+        4: 1287:				return 3;
+        -: 1288:		}
+        -: 1289:	}
+    #####: 1290:	return 1;	/*Caso dê algum erro, retorna sempre 1.*/
+        -: 1291:}

@@ -1,0 +1,81 @@
+        -:    0:Source:peixera.c
+        -:    0:Programs:4
+        -:    1:/*
+        -:    2:PROJETO
+        -:    3:Nome: MAXIMILLIAN FAN XAVIER, OTÁVIO ALVES DIAS, RAFAEL DIAS DA COSTA, TÚLIO ABNER DE LIMA
+        -:    4:Matrícula: 12/0153271, 12/0131480, 12/0133253, 12/0137194
+        -:    5:Curso: Engenharia de Computação
+        -:    6:Disciplina: Métodos de Programação
+        -:    7:Turma: A
+        -:    8:Prof: Jan Mendonça
+        -:    9:*/
+        -:   10:
+        -:   11:#include <ncurses.h>
+        -:   12:#include <menu.h>
+        -:   13:#include <unistd.h>
+        -:   14:#include <stdio.h>
+        -:   15:#include <stdlib.h>
+        -:   16:#include <string.h>
+        -:   17:#include <time.h>
+        -:   18:#include "grafico.h"
+        -:   19:#include "estruturas.h"
+        -:   20:#include "engine.h"
+        -:   21:
+        -:   22:#define HUBH 7
+        -:   23:#define CASTLEW 40
+        -:   24:#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+        -:   25:#define CTRLD 	4
+        -:   26:
+        -:   27:/* Funções utilizadas, futuramente .h */
+        -:   28:
+        -:   29:
+        -:   30:
+        2:   31:int main()
+        -:   32:{
+        -:   33:
+        2:   34:	keypad(stdscr, TRUE);		/* Capturar teclas como F1, F2, etc */
+        2:   35:	initscr();			        /* Começa o modo curses */
+        2:   36:	noecho();
+        2:   37:	cbreak();			
+        2:   38:	curs_set(FALSE);			/* Não mostra o cursor na tela */
+        2:   39:	srand(time(NULL));
+        -:   40:
+        -:   41:
+        -:   42:	
+        -:   43:	
+        -:   44:	char c;
+        -:   45:	int i;
+        -:   46:
+        2:   47:	tela_inicial();
+        -:   48:	
+        -:   49:
+        -:   50:	
+        -:   51:
+        -:   52:
+    #####:   53:	while (i<9)
+        -:   54:	{
+        -:   55:
+        -:   56:		
+        -:   57:
+    #####:   58:		c = getch();
+        -:   59:
+    #####:   60:		switch(c)
+        -:   61:		{
+        -:   62:			case 'm':
+    #####:   63:				tela_inicial();
+    #####:   64:				break;
+        -:   65:			case 'f':
+    #####:   66:				mensagem(LINES/2, COLS/2, "Nao ha ouro suficiente!");
+    #####:   67:				sleep(5);
+    #####:   68:				break;
+        -:   69:			case 'e':
+    #####:   70:				menu_edificio();
+    #####:   71:				break;
+        -:   72:		}
+        -:   73:
+    #####:   74:		i++;
+        -:   75:	}
+        -:   76:
+    #####:   77:	endwin();
+    #####:   78:	return 0;
+        -:   79:}

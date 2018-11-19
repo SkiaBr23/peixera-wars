@@ -1,0 +1,22 @@
+/*
+TRABALHO 1
+Nome: MAXIMILLIAN FAN XAVIER
+Matrícula: 12/0153271
+Curso: Engenharia de Computação
+Disciplina: Métodos de Programação
+Turma: A
+Prof: Jan Mendonça
+*/
+
+Data	|	Horas Trabalhadas	|	    Tipo Tarefa				|	Descrição da Tarefa Realizada
+10/06/14|		2H		|Especificação das estruturas de dados do jogo	|Elaboração e implementação das estruturas de dados que compõem o game em torno dos personagens e edifícios
+11/06/14|		2H		|Especificação das estruturas de dados do jogo  |Elaboração e implementação das estruturas de dados que compõem o game em torno dos personagens e edifícios
+13/06/14|		4H		|Implementação de funções			|Implementação das funções padrões das estruturas
+14/06/14|		2H		|Testes das funções				|Testes das funções utilizando CUnit
+15/06/14|		2H		|Testes das funções				|Testes das funções utilizando CUnit
+18/06/14|		2H		|Implementação de funções			|Análise e implementação de funções referentes às estruturas do game
+19/06/14|		8H		|Implementação de funções			|Análise e implementação de funções referentes ao Save e Load Game
+24/06/14|		3H		|Estudos sobre as ferramentas de teste		|Estudo e análise das ferramentas Splint, GCov e CUnit
+26/06/14|		5H		|Implementação de funções e debug		|Análise e implementação de funções referentes ao loop principal do game e funções de Save e Load, debugando o código com a ferramenta Splint
+28/06/14|		3H		|Implementação de testes e relatórios		|Análise e implementação de testes com o CUnit e elaboração do relatório de testes, instrumentação do código com GCov
+30/06/14|		4H		|Conclusão do projeto				|Organização dos arquivos, ajustes de testes e implementação da documentação Doxygen

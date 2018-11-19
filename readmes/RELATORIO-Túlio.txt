@@ -1,0 +1,20 @@
+/*
+TRABALHO 1
+Nome: TÚLIO ABNER DE LIMA
+Matrícula: 12/0137194
+Curso: Engenharia de Computação
+Disciplina: Métodos de Programação
+Turma: A
+Prof: Jan Mendonça
+*/
+
+Data	|	Horas Trabalhadas	|	Tipo Tarefa									|	Descrição da Tarefa Realizada
+11/06  	|  		2 horas  		|  	Estudar aulas e laboratórios relacionados	|   Aprendendo a usar ncurses
+16/06   |  		2 horas     	|  	Estudar aulas e laboratórios relacionados	|   Aprendendo a usar ncurses
+18/06   |  		2 horas     	|  	Estudar aulas e laboratórios relacionados	|   Aprendendo a usar ncurses
+19/06   |  		1 hora	     	|  	Estudar aulas e laboratórios relacionados	|   Aprendendo a usar ncurses
+20/06   |  		3 horas     	|  	Estudar aulas e laboratórios relacionados	|   Aprendendo a usar ncurses
+22/06	|		10 horas		|	Revisar código do módulo					|	Junção das funções de interface gráfica com as estruturas de dados.
+23/06	|		7 horas			|	Codificar módulo							|	Correção de erros apresentados na junção.
+29/06	|		8 horas			|	Realizar os testes							|	Realização dos testes finais e elaboração dos comentários gerais do código.
+30/06	|		11 horas 		|	Documentar com Doxygen						|	Criando arquivos de documentação
